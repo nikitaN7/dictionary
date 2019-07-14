@@ -1,0 +1,19 @@
+# static
+
+*.log
+
+/node_modules/
+/backend/node_modules/
+/client/node_modules/
+
+# seo
+public/robots.txt
+
+# file system
+.DS_Store
+
+# devs files
+.idea/
+.babelrc
+*.sublime-project
+*.sublime-workspace
