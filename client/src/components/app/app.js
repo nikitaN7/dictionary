@@ -1,17 +1,27 @@
 import React, { Component } from 'react';
 import Nav from '../nav';
+import Main from '../main';
 import '../../scss/app.scss';
 
 class App extends Component {
 
   state = {
-    navIsActive: true
+    navIsActive: false
+  }
+
+  navToggle = () => {
+    this.setState({
+      navIsActive: !this.state.navIsActive
+    })
   }
 
   render() {
+    const { navIsActive } = this.state;
+
     return (
       <div className="container">
-        <Nav isActive={this.state.navIsActive} />
+        <Nav isActive={navIsActive} />
+        <Main navToggle={this.navToggle} navIsActive={navIsActive} />
       </div>
     )
   }
