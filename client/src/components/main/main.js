@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import Dictionary from '../dictionary/';
 
 class Main extends Component {
 
@@ -13,6 +14,8 @@ class Main extends Component {
             <span></span>
           </button>
         </div>
+
+        <Dictionary />
       </main>
     )
   }

@@ -44,6 +44,7 @@ button {
   display: flex;
   flex-direction: column;
   width: 100%;
+  background-color: #FAFAFA;
 }
 
 .nav {
@@ -113,6 +114,32 @@ button {
       background-color: white;
       display: block;
       margin: 3px 0;
+    }
+  }
+}
+
+.dictionary {
+  padding: 30px;
+
+  &__title {
+    color: #656565;
+    font-size: 22px;
+  }
+
+  &__table {
+    margin-top: 20px;
+
+    td {
+      padding: 15px 20px;
+      border-top: 2px solid darkgray;
+      min-width: 150px;
+      max-width: 320px;
+    }
+
+    th {
+      padding: 15px 20px;
+      text-align: left;
+      color: #656565;
     }
   }
 }
