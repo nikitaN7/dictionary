@@ -10,7 +10,6 @@ const app = express();
 app.use(cors());
 const router = express.Router();
 
-// this is our MongoDB database
 const dbRoute =
   'mongodb+srv://Admin:12345wera@englishdictionary-a8zjg.mongodb.net/dictionary?retryWrites=true&w=majority';
 
@@ -30,7 +29,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(logger('dev'));
 
-// this is our get method
 // this method fetches all available data in our database
 router.get('/getData', (req, res) => {
   Data.find((err, data) => {
@@ -39,7 +37,6 @@ router.get('/getData', (req, res) => {
   });
 });
 
-// this is our update method
 // this method overwrites existing data in our database
 router.post('/updateData', (req, res) => {
   const { id, update } = req.body;
@@ -49,7 +46,6 @@ router.post('/updateData', (req, res) => {
   });
 });
 
-// this is our delete method
 // this method removes existing data in our database
 router.delete('/deleteData', (req, res) => {
   const { id } = req.body;
@@ -59,21 +55,31 @@ router.delete('/deleteData', (req, res) => {
   });
 });
 
-// this is our create methid
 // this method adds new data in our database
 router.post('/putData', (req, res) => {
   let data = new Data();
 
-  const { id, message } = req.body;
+  const { id, en, ru, bookmarks } = req.body;
 
-  if ((!id && id !== 0) || !message) {
+  if (!id && id !== 0) {
     return res.json({
       success: false,
-      error: 'INVALID INPUTS',
+      error: 'Data must contain id',
     });
   }
-  data.message = message;
+
+  if (!en || !ru) {
+    return res.json({
+      success: false,
+      error: 'Data must contain at least 1 word',
+    });
+  }
+
   data.id = id;
+  data.en = en;
+  data.ru = ru;
+  data.bookmarks = bookmarks;
+
   data.save((err) => {
     if (err) return res.json({ success: false, error: err });
     return res.json({ success: true });
