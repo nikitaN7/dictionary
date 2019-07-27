@@ -1,0 +1,40 @@
+.btn {
+  font-size: 1rem;
+  line-height: 1.2;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  outline: none;
+  transition: all .3s ease;
+
+  &--md {
+    padding: 0.6em 1.5em;
+  }
+
+  &--update {
+    background-color: $dark-blue;
+    color: white;
+
+    &:hover {
+      background-color: darken($dark-blue, 10%);
+    }
+  }
+
+  &--add {
+    background-color: $green;
+    color: white;
+
+    &:hover {
+      background-color: darken($green, 10%);
+    }
+  }
+
+  &--remove {
+    background-color: $red;
+    color: white;
+
+    &:hover {
+      background-color: darken($red, 10%);
+    }
+  }
+}
