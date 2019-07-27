@@ -1,8 +1,30 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import { fetchWords } from '../../actions/';
 
 class Dictionary extends Component {
 
+  componentDidMount() {
+    this.props.fetchWords();
+  }
+
+  renderWords() {
+    const { words } = this.props;
+
+    return (
+      words.map((data, idx) => (
+        <tr key={data.id}>
+          <td>{data.id}</td>
+          <td>{data.en}</td>
+          <td>{data.ru}</td>
+        </tr>
+      ))
+    )
+  }
+
   render() {
+    const { words } = this.props;
+
     return (
       <div className="dictionary">
         <div className="dictionary__title">Words dictionary</div>
@@ -17,18 +39,8 @@ class Dictionary extends Component {
             </thead>
 
             <tbody>
-              <tr>
-              <td>1</td>
-              <td>such as</td>
-              <td>например</td>
-            </tr>
-
-            <tr>
-              <td>2</td>
-              <td>each other</td>
-              <td>друг друга</td>
-            </tr>
-          </tbody>
+              { words.length > 0 ? this.renderWords() : null }
+            </tbody>
 
           </table>
         </div>
@@ -37,4 +49,14 @@ class Dictionary extends Component {
   }
 }
 
-export default Dictionary;
+const mapStateToProps = ({wordList}) => {
+  return {
+    words: wordList.words,
+    error: wordList.error
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  { fetchWords }
+)(Dictionary);

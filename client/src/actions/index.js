@@ -12,7 +12,7 @@ const wordsError = (error) => {
   };
 };
 
-const fetchWords = (dispatch) => () => {
+const fetchWords = () => (dispatch) => {
   fetch('/api/getData')
     .then((data) => data.json())
     .then((res)  => dispatch(wordsLoaded(res.data)))
