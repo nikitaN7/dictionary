@@ -1,11 +1,17 @@
 import React from 'react';
 
 const ModalInner = (props) => {
+
+  const { word, wordAction } = props;
+
   return (
     <div className="modal">
       <div className="modal__inner">
         <div className="modal__header">
-          <span className="modal__header__title">Edit Word : <strong>Curse || Проклятие</strong></span>
+          <span className="modal__header__title">
+            {`${wordAction} Word : `}
+            <strong>{`${word.en} = ${word.ru}`}</strong>
+          </span>
           <button className="modal__header__close" onClick={props.modalClose}>X</button>
         </div>
 
@@ -34,7 +40,10 @@ const ModalInner = (props) => {
         </div>
 
         <div className="modal__footer">
-          <button className="btn btn--md btn--update">Update</button>
+          <button
+            className={`btn btn--md btn--${props.wordAction}`}
+            onClick={props.onSubmit}>{props.wordAction}
+          </button>
         </div>
       </div>
     </div>

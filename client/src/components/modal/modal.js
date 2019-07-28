@@ -5,11 +5,16 @@ import { getWordById } from '../../function/getWordById';
 import { connect } from 'react-redux'
 
 class Modal extends Component {
+
+  onSubmit = () => {
+    console.log('')
+  }
+
   render() {
     return ReactDOM
       .createPortal(
         this.props.isOpen
-          ? <ModalInner { ...this.props } />
+          ? <ModalInner { ...this.props } onSubmit={this.onSubmit} />
           : null,
         document.querySelector("#modal-root")
       );
