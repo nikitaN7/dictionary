@@ -17,8 +17,13 @@ class Dictionary extends Component {
           <td>{data.en}</td>
           <td>{data.ru}</td>
           <td>
-            <span><img src="../../img/notepad-update.svg" alt=""/></span>
-            <span><img src="../../img/notepad-minus.svg" alt=""/></span>
+            <span onClick={(e) => this.props.onTableClick(data.id, 'update')}>
+              <img src="../../img/notepad-update.svg" alt=""/>
+            </span>
+
+            <span onClick={(e) => this.props.onTableClick(data.id, 'delete')}>
+              <img src="../../img/notepad-minus.svg" alt=""/>
+            </span>
           </td>
           <td>
             {data.bookmarks

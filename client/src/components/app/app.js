@@ -8,7 +8,9 @@ class App extends Component {
 
   state = {
     navIsActive: false,
-    modalIsOpen: false
+    modalIsOpen: false,
+    wordId: null,
+    wordAction: ''
   }
 
   navToggle = () => {
@@ -17,17 +19,33 @@ class App extends Component {
     })
   }
 
-  modalOpen = () => this.setState({modalIsOpen: true})
   modalClose = () => this.setState({modalIsOpen: false})
 
+  onTableClick = (id, action) => {
+    this.setState({
+      modalIsOpen: true,
+      wordId: id,
+      wordAction: action
+    })
+  }
+
   render() {
-    const { navIsActive, modalIsOpen } = this.state;
+    const { navIsActive, modalIsOpen, wordId, wordAction } = this.state;
 
     return (
       <div className="container">
         <Nav isActive={navIsActive} />
-        <Main navToggle={this.navToggle} navIsActive={navIsActive} />
-        <Modal modalClose={this.modalClose} isOpen={modalIsOpen} />
+
+        <Main
+          navToggle={this.navToggle}
+          navIsActive={navIsActive}
+          onTableClick={this.onTableClick} />
+
+        <Modal
+          modalClose={this.modalClose}
+          isOpen={modalIsOpen}
+          wordId={wordId}
+          wordAction={wordAction} />
       </div>
     )
   }
