@@ -8,6 +8,8 @@
   overflow: auto;
   overflow-y: scroll;
   background-color: rgba(0, 0, 0, .4);
+  opacity: 0;
+  animation: fadeIn .3s ease forwards;
 
   &__inner {
     background-color: #EEEEEE;
@@ -21,6 +23,7 @@
     outline: 0;
     box-shadow: 0 3px 9px rgba(0,0,0,0.5);
     background-clip: padding-box;
+    animation: slideDown .3s ease forwards;
   }
 
   &__header {
