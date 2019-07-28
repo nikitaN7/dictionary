@@ -22,8 +22,8 @@ class Dictionary extends Component {
           </td>
           <td>
             {data.bookmarks
-              ? <span><img src="../../img/notepad-star.svg" alt=""/></span>
-              : <span><img src="../../img/notepad-cross.svg" alt=""/></span>}
+              ? <img src="../../img/lace-star.svg" alt=""/>
+              : null}
           </td>
         </tr>
       ))
