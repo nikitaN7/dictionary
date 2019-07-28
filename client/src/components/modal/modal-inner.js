@@ -25,7 +25,7 @@ const ModalInner = (props) => {
               <span className="form__group__label">Bookmark</span>
               <input id="bookmarks" type="checkbox" />
 
-              <label for="bookmarks">
+              <label htmlFor="bookmarks">
                 <div></div>
               </label>
             </div>

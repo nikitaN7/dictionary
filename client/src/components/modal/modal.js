@@ -1,15 +1,28 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from "react-dom";
 import ModalInner from './modal-inner';
+import { getWordById } from '../../function/getWordById';
+import { connect } from 'react-redux'
 
-const Modal = (props) => {
-  return ReactDOM
-  .createPortal(
-    props.isOpen
-      ? <ModalInner { ...props } />
-      : null,
-    document.querySelector("#modal-root")
-  );
+class Modal extends Component {
+  render() {
+    return ReactDOM
+      .createPortal(
+        this.props.isOpen
+          ? <ModalInner { ...this.props } />
+          : null,
+        document.querySelector("#modal-root")
+      );
+  }
 }
 
-export default Modal;
+const mapStateToProps = ({wordList}, ownProps) => {
+  return {
+    word: getWordById(wordList.words, ownProps.wordId)
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  null
+)(Modal);
