@@ -9,11 +9,21 @@
   &__table {
     margin-top: 20px;
 
+    table {
+      width: 100%;
+    }
+
     td {
       padding: 15px 20px;
       border-top: 2px solid darkgray;
       min-width: 150px;
       max-width: 320px;
+
+      img {
+        max-width: 34px;
+        margin-right: 15px;
+        cursor: pointer;
+      }
     }
 
     th {

@@ -14,9 +14,17 @@ class Dictionary extends Component {
     return (
       words.map((data, idx) => (
         <tr key={data.id}>
-          <td>{data.id}</td>
           <td>{data.en}</td>
           <td>{data.ru}</td>
+          <td>
+            <span><img src="../../img/notepad-update.svg" alt=""/></span>
+            <span><img src="../../img/notepad-minus.svg" alt=""/></span>
+          </td>
+          <td>
+            {data.bookmarks
+              ? <span><img src="../../img/notepad-star.svg" alt=""/></span>
+              : <span><img src="../../img/notepad-cross.svg" alt=""/></span>}
+          </td>
         </tr>
       ))
     )
@@ -32,9 +40,10 @@ class Dictionary extends Component {
           <table style={{borderCollapse: 'collapse'}}>
             <thead>
               <tr>
-                <th>Id</th>
                 <th>EN</th>
                 <th>RU</th>
+                <th>Action</th>
+                <th>Bookmarks</th>
               </tr>
             </thead>
 
