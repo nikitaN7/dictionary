@@ -29,7 +29,7 @@ const ModalInner = (props) => {
 
             <div className="form__group form__group--checkbox">
               <span className="form__group__label">Bookmark</span>
-              <input id="bookmarks" name="bookmarks" type="checkbox" onChange={handleChange} value={newWord.bookmarks}/>
+              <input id="bookmarks" name="bookmarks" type="checkbox" onChange={handleChange} checked={newWord.bookmarks}/>
               <label htmlFor="bookmarks">
                 <div></div>
               </label>

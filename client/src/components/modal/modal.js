@@ -10,7 +10,7 @@ class Modal extends Component {
     newWord: {
       en: '',
       ru: '',
-      bookmarks: ''
+      bookmarks: false
     }
   }
 
@@ -23,6 +23,22 @@ class Modal extends Component {
        [target.name]: value
       }
     })
+  }
+
+  componentDidUpdate(previousProps, previousState) {
+    const word = this.props.word;
+    const newWord = this.state.newWord;
+
+    if (previousProps.word !== word) {
+      if (Object.keys(word).length > 0) {
+
+        Object.keys(newWord).forEach((key) => {
+          newWord[key] = word[key];
+        })
+
+        this.setState({newWord})
+      }
+    }
   }
 
   onSubmit = () => {
