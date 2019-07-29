@@ -2,7 +2,7 @@ import React from 'react';
 
 const ModalInner = (props) => {
 
-  const { word, wordAction } = props;
+  const { word, wordAction, newWord, handleChange, modalClose } = props;
 
   return (
     <div className="modal">
@@ -12,25 +12,24 @@ const ModalInner = (props) => {
             {`${wordAction} Word : `}
             <strong>{`${word.en} = ${word.ru}`}</strong>
           </span>
-          <button className="modal__header__close" onClick={props.modalClose}>X</button>
+          <button className="modal__header__close" onClick={modalClose}>X</button>
         </div>
 
         <div className="modal__body">
           <form action="" className="modal__form">
             <div className="form__group form__group--field">
               <label className="form__group__label">En word</label>
-              <input type="text" placeholder="Enter en word"/>
+              <input type="text" name="en" placeholder="Enter en word" onChange={handleChange} value={newWord.en}/>
             </div>
 
             <div className="form__group form__group--field">
               <label className="form__group__label">Ru word</label>
-              <input type="text" placeholder="Enter ru word"/>
+              <input type="text" name="ru" placeholder="Enter ru word" onChange={handleChange} value={newWord.ru}/>
             </div>
 
             <div className="form__group form__group--checkbox">
               <span className="form__group__label">Bookmark</span>
-              <input id="bookmarks" type="checkbox" />
-
+              <input id="bookmarks" name="bookmarks" type="checkbox" onChange={handleChange} value={newWord.bookmarks}/>
               <label htmlFor="bookmarks">
                 <div></div>
               </label>
