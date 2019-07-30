@@ -19,6 +19,32 @@ const fetchWords = () => (dispatch) => {
     .catch((err) => dispatch(wordsError(err)));
 };
 
+const wordAdd = (wordId, wordData) => {
+  return {
+    type: 'BOOK_ADD_TO_LIST',
+    wordId: wordId,
+    wordData: wordData
+  };
+};
+
+const wordUpdate = (wordId, wordData) => {
+  return {
+    type: 'BOOK_UPDATE_IN_LIST',
+    wordId: wordId,
+    wordData: wordData
+  };
+};
+
+const wordDelete = (wordId) => {
+  return {
+    type: 'BOOK_DELETE_FROM_LIST',
+    wordId: wordId
+  };
+};
+
 export {
-  fetchWords
+  fetchWords,
+  wordAdd,
+  wordUpdate,
+  wordDelete
 };

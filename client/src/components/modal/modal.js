@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from "react-dom";
 import ModalInner from './modal-inner';
 import { getWordById } from '../../function/getWordById';
+import { wordUpdate, wordDelete, wordAdd } from '../../actions';
 import { connect } from 'react-redux'
 
 class Modal extends Component {
@@ -64,5 +65,5 @@ const mapStateToProps = ({wordList}, ownProps) => {
 
 export default connect(
   mapStateToProps,
-  null
+  { wordAdd, wordDelete, wordUpdate }
 )(Modal);
