@@ -37,6 +37,27 @@ router.get('/getData', (req, res) => {
   });
 });
 
+const getWordById = (list, id) => {
+  let word = {};
+
+  list.forEach((item) => {
+    if (parseInt(item.id) === id) {
+      word = item;
+    }
+  })
+
+  return word;
+}
+
+// this method fetches data by id in our database
+router.get('/getData/:id', (req, res) => {
+
+  Data.find((err, data) => {
+    if (err) return res.json({ success: false, error: err });
+    return res.json({ success: true, data: getWordById(data, parseInt(req.params.id)) });
+  });
+});
+
 // this method overwrites existing data in our database
 router.post('/updateData', (req, res) => {
   const { id, update } = req.body;
