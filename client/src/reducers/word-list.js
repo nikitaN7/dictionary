@@ -21,14 +21,10 @@ const removeWordItem = (words, wordId) => {
   ]
 }
 
-const addWordItem = (words, wordId, {wordData}) => {
-
-  const idList = words.map(item => item.id);
-  const maxId = Math.max(...idList, 0);
-
+const addWordItem = (words, newId, {wordData}) => {
   return [
     ...words,
-    {...wordData, id: maxId + 1 }
+    {...wordData, id: newId }
   ]
 }
 

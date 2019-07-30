@@ -31,7 +31,7 @@ const wordAddAction = (wordId, wordData) => {
   }
 }
 
-const wordAdd = (word, wordData) => (dispatch) => {
+const wordAdd = (wordData) => (dispatch) => {
 
   const { words } = store.getState().wordList;
   const newId = getMaxId(words) + 1;
@@ -43,7 +43,7 @@ const wordAdd = (word, wordData) => (dispatch) => {
   .then((res) => {
     if (res.statusText === 'OK') {
       dispatch(fetchWords())
-      dispatch(wordAddAction(word.id, wordData))
+      dispatch(wordAddAction(newId, wordData))
     }
   })
   .catch((err) => {
