@@ -103,7 +103,7 @@ router.post('/putData', (req, res) => {
 
   data.save((err) => {
     if (err) return res.json({ success: false, error: err });
-    return res.json({ success: true });
+    return res.json({ success: true, data: data });
   });
 });
 
