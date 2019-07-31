@@ -42,8 +42,8 @@ const wordAdd = (wordData) => (dispatch) => {
   })
   .then((res) => {
     if (res.statusText === 'OK') {
-      dispatch(fetchWords())
-      dispatch(wordAddAction(newId, wordData))
+      const newWord = res.data.data;
+      dispatch(wordAddAction(newId, newWord))
     }
   })
   .catch((err) => {
