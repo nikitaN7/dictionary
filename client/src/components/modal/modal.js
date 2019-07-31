@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import ModalInner from './modal-inner';
 import { getWordById } from '../../function/getWordById';
 import { wordUpdate, wordDelete, wordAdd } from '../../actions';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 class Modal extends Component {
 
@@ -42,8 +42,17 @@ class Modal extends Component {
     }
   }
 
-  onSubmit = () => {
-    console.log('')
+  onSubmit = (action) => {
+
+    if (action == 'update') {
+      this.props.wordAdd(this.state.newWord);
+      this.props.modalClose();
+    }
+
+    if (action == 'delete') {
+      this.props.wordDelete(this.props.word);
+      this.props.modalClose();
+    }
   }
 
   render() {

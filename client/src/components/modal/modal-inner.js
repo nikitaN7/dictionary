@@ -1,4 +1,5 @@
 import React from 'react';
+import ModalForm from './modal-form';
 
 const ModalInner = (props) => {
 
@@ -16,32 +17,16 @@ const ModalInner = (props) => {
         </div>
 
         <div className="modal__body">
-          <form action="" className="modal__form">
-            <div className="form__group form__group--field">
-              <label className="form__group__label">En word</label>
-              <input type="text" name="en" placeholder="Enter en word" onChange={handleChange} value={newWord.en}/>
-            </div>
-
-            <div className="form__group form__group--field">
-              <label className="form__group__label">Ru word</label>
-              <input type="text" name="ru" placeholder="Enter ru word" onChange={handleChange} value={newWord.ru}/>
-            </div>
-
-            <div className="form__group form__group--checkbox">
-              <span className="form__group__label">Bookmark</span>
-              <input id="bookmarks" name="bookmarks" type="checkbox" onChange={handleChange} checked={newWord.bookmarks}/>
-              <label htmlFor="bookmarks">
-                <div></div>
-              </label>
-            </div>
-
-          </form>
+          { wordAction === 'delete'
+            ? 'Click on this button below to remove this word.'
+            : <ModalForm handleChange={handleChange} newWord={newWord}/>
+          }
         </div>
 
         <div className="modal__footer">
           <button
             className={`btn btn--md btn--${props.wordAction}`}
-            onClick={props.onSubmit}>{props.wordAction}
+            onClick={(e) => props.onSubmit(props.wordAction)}>{props.wordAction}
           </button>
         </div>
       </div>
