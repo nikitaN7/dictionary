@@ -1,6 +1,6 @@
-const updateWordItem = (words, wordId, {wordData}) => {
+const updateWordItem = (words, wordIdx, {wordData}) => {
 
-  const oldWord = words[wordId];
+  const oldWord = words[wordIdx];
 
   const newWord = {
     ...oldWord,
@@ -8,23 +8,23 @@ const updateWordItem = (words, wordId, {wordData}) => {
   }
 
   return [
-    ...words.slice(0, wordId),
+    ...words.slice(0, wordIdx),
     newWord,
-    ...words.slice(wordId + 1)
+    ...words.slice(wordIdx + 1)
   ]
 }
 
-const removeWordItem = (words, wordId) => {
+const removeWordItem = (words, wordIdx) => {
   return [
-    ...words.slice(0, wordId),
-    ...words.slice(wordId + 1)
+    ...words.slice(0, wordIdx),
+    ...words.slice(wordIdx + 1)
   ]
 }
 
-const addWordItem = (words, newId, {wordData}) => {
+const addWordItem = (words, wordIdx, {wordData, wordId}) => {
   return [
     ...words,
-    {...wordData, id: newId }
+    {...wordData, id: wordId}
   ]
 }
 
