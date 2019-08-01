@@ -1,6 +1,25 @@
 .dictionary {
   padding: 30px;
 
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    img {
+      max-width: 40px;
+      margin-right: 20px;
+    }
+
+    h1 {
+      font-size: 2.3rem;
+      line-height: 1.2;
+      display: inline;
+      vertical-align: bottom;
+      text-shadow: 2px 2px 4px $dark-blue;
+    }
+  }
+
   &__title {
     color: #656565;
     font-size: 22px;
