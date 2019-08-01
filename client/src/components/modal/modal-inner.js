@@ -1,9 +1,10 @@
 import React from 'react';
 import ModalForm from './modal-form';
+import ModalError from './modal-error';
 
 const ModalInner = (props) => {
 
-  const { word, wordAction, newWord, handleChange, modalClose } = props;
+  const { word, wordAction, newWord, handleChange, modalClose, error } = props;
 
   return (
     <div className="modal">
@@ -24,6 +25,7 @@ const ModalInner = (props) => {
         </div>
 
         <div className="modal__footer">
+          {error ? <ModalError errorMsg={error} /> : null}
           <button
             className={`btn btn--md btn--${props.wordAction}`}
             onClick={(e) => props.onSubmit(props.wordAction)}>{props.wordAction}

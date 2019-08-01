@@ -41,10 +41,8 @@ const wordAdd = (wordData) => (dispatch) => {
     id: newId
   })
   .then((res) => {
-    if (res.statusText === 'OK') {
-      const newWord = res.data.data;
-      dispatch(wordAddAction(newId, newWord))
-    }
+    const newWord = res.data.data;
+    dispatch(wordAddAction(newId, newWord));
   })
   .catch((err) => {
     console.log(err);
@@ -65,9 +63,7 @@ const wordUpdate = (word, wordData) => (dispatch) => {
     update: { ...wordData },
   })
   .then((res) => {
-    if (res.statusText === 'OK') {
-      dispatch(wordUpdateAction(word.id, wordData))
-    }
+    dispatch(wordUpdateAction(word.id, wordData))
   })
   .catch((err) => {
     console.log(err);
@@ -89,9 +85,7 @@ const wordDelete = (word) => (dispatch) => {
     }
   })
   .then((res) => {
-    if (res.statusText === 'OK') {
-      dispatch(wordDeleteAction(word.id))
-    }
+    dispatch(wordDeleteAction(word.id))
   })
   .catch((err) => {
     console.log(err);

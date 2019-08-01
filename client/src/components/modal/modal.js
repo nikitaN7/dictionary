@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import ReactDOM from "react-dom";
+import ReactDOM from 'react-dom';
 import ModalInner from './modal-inner';
 import { getWordById } from '../../function/getWordById';
+import { validateFields } from '../../function/validateFields';
 import { wordUpdate, wordDelete, wordAdd } from '../../actions';
 import { connect } from 'react-redux';
 
@@ -14,11 +15,15 @@ const initialNewWord = {
 class Modal extends Component {
 
   state = {
-    newWord: initialNewWord
+    newWord: initialNewWord,
+    error: ''
   }
 
-  resetNewWordState() {
-    this.setState({newWord: {...initialNewWord}});
+  resetState() {
+    this.setState({
+      newWord: {...initialNewWord},
+      error: ''
+    });
   }
 
   handleChange = ({target}) => {
@@ -37,7 +42,7 @@ class Modal extends Component {
     const newWord = this.state.newWord;
 
     if (previousProps.word !== word) {
-      this.resetNewWordState();
+      this.resetState();
 
       if (Object.keys(word).length > 0) {
 
@@ -52,18 +57,36 @@ class Modal extends Component {
 
   onSubmit = (action) => {
 
-    if (action == 'update') {
-      this.props.wordUpdate(this.props.word, this.state.newWord);
-      this.props.modalClose();
+    let error = '';
+    const word = this.state.newWord;
+    const fields = {
+      en: word.en,
+      ru: word.ru
     }
 
-    if (action == 'add') {
-      this.props.wordAdd(this.state.newWord);
-      this.props.modalClose();
+    if (action === 'update') {
+      if (validateFields(fields)) {
+        this.props.wordUpdate(this.props.word, this.state.newWord);
+      } else {
+        error = 'Field cannot be empty';
+      }
     }
 
-    if (action == 'delete') {
+    if (action === 'add') {
+      if (validateFields(fields)) {
+        this.props.wordAdd(this.state.newWord);
+      } else {
+        error = 'Field cannot be empty';
+      }
+    }
+
+    if (action === 'delete') {
       this.props.wordDelete(this.props.word);
+    }
+
+    this.setState({error: error});
+
+    if (!error) {
       this.props.modalClose();
     }
   }
@@ -72,7 +95,12 @@ class Modal extends Component {
     return ReactDOM
       .createPortal(
         this.props.isOpen
-          ? <ModalInner { ...this.props } onSubmit={this.onSubmit} newWord={this.state.newWord} handleChange={this.handleChange} />
+          ? <ModalInner
+              { ...this.props }
+              onSubmit={this.onSubmit}
+              newWord={this.state.newWord}
+              error={this.state.error}
+              handleChange={this.handleChange} />
           : null,
         document.querySelector("#modal-root")
       );
