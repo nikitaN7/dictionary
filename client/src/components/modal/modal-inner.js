@@ -11,7 +11,7 @@ const ModalInner = (props) => {
         <div className="modal__header">
           <span className="modal__header__title">
             {`${wordAction} Word : `}
-            <strong>{`${word.en} = ${word.ru}`}</strong>
+            <strong>{`${newWord.en} = ${newWord.ru}`}</strong>
           </span>
           <button className="modal__header__close" onClick={modalClose}>X</button>
         </div>

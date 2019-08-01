@@ -5,14 +5,20 @@ import { getWordById } from '../../function/getWordById';
 import { wordUpdate, wordDelete, wordAdd } from '../../actions';
 import { connect } from 'react-redux';
 
+const initialNewWord = {
+  en: '',
+  ru: '',
+  bookmarks: false
+}
+
 class Modal extends Component {
 
   state = {
-    newWord: {
-      en: '',
-      ru: '',
-      bookmarks: false
-    }
+    newWord: initialNewWord
+  }
+
+  resetNewWordState() {
+    this.setState({newWord: {...initialNewWord}});
   }
 
   handleChange = ({target}) => {
@@ -31,6 +37,8 @@ class Modal extends Component {
     const newWord = this.state.newWord;
 
     if (previousProps.word !== word) {
+      this.resetNewWordState();
+
       if (Object.keys(word).length > 0) {
 
         Object.keys(newWord).forEach((key) => {
@@ -45,6 +53,11 @@ class Modal extends Component {
   onSubmit = (action) => {
 
     if (action == 'update') {
+      this.props.wordUpdate(this.props.word, this.state.newWord);
+      this.props.modalClose();
+    }
+
+    if (action == 'add') {
       this.props.wordAdd(this.state.newWord);
       this.props.modalClose();
     }

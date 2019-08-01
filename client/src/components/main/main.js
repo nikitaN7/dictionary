@@ -4,7 +4,7 @@ import Dictionary from '../dictionary/';
 class Main extends Component {
 
   render() {
-    const { navIsActive, navToggle, onTableClick } = this.props;
+    const { navIsActive, navToggle, onActionClick } = this.props;
     return (
       <main className="main">
         <div className="header">
@@ -15,7 +15,7 @@ class Main extends Component {
           </button>
         </div>
 
-        <Dictionary onTableClick={onTableClick} />
+        <Dictionary onActionClick={onActionClick} />
       </main>
     )
   }

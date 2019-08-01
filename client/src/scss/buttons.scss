@@ -31,6 +31,10 @@
     position: relative;
     padding-left: 3.0em;
 
+    &:first-letter {
+       text-transform: capitalize;
+    }
+
     &:after, &:before {
       content: '';
       width: 1.2em;

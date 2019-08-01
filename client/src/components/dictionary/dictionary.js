@@ -17,11 +17,11 @@ class Dictionary extends Component {
           <td>{data.en}</td>
           <td>{data.ru}</td>
           <td>
-            <span onClick={(e) => this.props.onTableClick(data.id, 'update')}>
+            <span onClick={(e) => this.props.onActionClick(data.id, 'update')}>
               <img src="../../img/notepad-update.svg" alt=""/>
             </span>
 
-            <span onClick={(e) => this.props.onTableClick(data.id, 'delete')}>
+            <span onClick={(e) => this.props.onActionClick(data.id, 'delete')}>
               <img src="../../img/notepad-minus.svg" alt=""/>
             </span>
           </td>
@@ -46,7 +46,7 @@ class Dictionary extends Component {
             <h1>Words dictionary</h1>
           </div>
 
-          <button className="btn btn--lg btn--add">Add new word</button>
+          <button className="btn btn--lg btn--add" onClick={(e) => this.props.onActionClick(null, 'add')}>Add new word</button>
         </div>
 
         <div className="dictionary__table">

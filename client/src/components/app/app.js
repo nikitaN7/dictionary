@@ -14,14 +14,14 @@ class App extends Component {
   }
 
   navToggle = () => {
-    this.setState({
-      navIsActive: !this.state.navIsActive
-    })
+    this.setState({navIsActive: !this.state.navIsActive})
   }
 
-  modalClose = () => this.setState({modalIsOpen: false})
+  modalClose = () => {
+    this.setState({modalIsOpen: false})
+  }
 
-  onTableClick = (id, action) => {
+  onActionClick = (id, action) => {
     this.setState({
       modalIsOpen: true,
       wordId: id,
@@ -39,7 +39,7 @@ class App extends Component {
         <Main
           navToggle={this.navToggle}
           navIsActive={navIsActive}
-          onTableClick={this.onTableClick} />
+          onActionClick={this.onActionClick} />
 
         <Modal
           modalClose={this.modalClose}
