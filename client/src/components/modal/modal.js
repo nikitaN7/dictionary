@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import ModalInner from './modal-inner';
 import { getWordById } from '../../function/getWordById';
 import { validateFields } from '../../function/validateFields';
-import { wordUpdate, wordDelete, wordAdd } from '../../actions';
+import { wordUpdate, wordDelete, wordAdd } from '../../actions/word-list-update';
 import { connect } from 'react-redux';
 
 const initialNewWord = {

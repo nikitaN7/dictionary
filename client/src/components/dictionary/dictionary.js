@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { fetchWords } from '../../actions/';
+import { fetchWords } from '../../actions/word-list-fetch';
 
 class Dictionary extends Component {
 
