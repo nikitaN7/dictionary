@@ -41,7 +41,7 @@ class Modal extends Component {
     const word = this.props.word;
     const newWord = this.state.newWord;
 
-    if (previousProps.word !== word) {
+    if (previousProps.word.id !== word.id) {
       this.resetState();
 
       if (Object.keys(word).length > 0) {
@@ -66,7 +66,7 @@ class Modal extends Component {
 
     if (action === 'update') {
       if (validateFields(fields)) {
-        this.props.wordUpdate(this.props.word, this.state.newWord);
+        this.props.wordUpdate(this.props.word, this.state.newWord, this.props.modalClose);
       } else {
         error = 'Field cannot be empty';
       }
@@ -74,21 +74,17 @@ class Modal extends Component {
 
     if (action === 'add') {
       if (validateFields(fields)) {
-        this.props.wordAdd(this.state.newWord);
+        this.props.wordAdd(this.state.newWord, this.props.modalClose);
       } else {
         error = 'Field cannot be empty';
       }
     }
 
     if (action === 'delete') {
-      this.props.wordDelete(this.props.word);
+      this.props.wordDelete(this.props.word, this.props.modalClose);
     }
 
     this.setState({error: error});
-
-    if (!error) {
-      this.props.modalClose();
-    }
   }
 
   render() {

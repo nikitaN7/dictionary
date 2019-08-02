@@ -1,3 +1,5 @@
+import * as actions from '../actions/actions';
+
 const updateWordItem = (words, wordIdx, {wordData}) => {
 
   const oldWord = words[wordIdx];
@@ -39,35 +41,44 @@ const updateList = (state, action, getWordsList) => {
   };
 }
 
-const updateWordList = (state, action) => {
+const initialState = {
+  pending: false,
+  error: null,
+  words: []
+}
 
-  if (state === undefined) {
-    return {
-      words: [],
-      error: null
-    }
-  }
+const updateWordList = (state = initialState, action) => {
 
   switch (action.type) {
-    case 'FETCH_WORDS_SUCCESS':
+    case actions.FETCH_WORDS_PENDING:
+    case actions.UPDATE_LIST_PENDING:
       return {
-        words: action.payload,
-        error: null
+        ...state,
+        pending: true
+      }
+
+    case actions.FETCH_WORDS_SUCCESS:
+      return {
+        ...state,
+        pending: false,
+        words: action.payload
       };
 
-    case 'FETCH_WORDS_FAILURE':
+    case actions.FETCH_WORDS_FAILURE:
+    case actions.UPDATE_LIST_FAILURE:
       return {
-        words: [],
+        ...state,
+        pending: false,
         error: action.payload
       };
 
-    case 'BOOK_UPDATE_IN_LIST':
+    case actions.WORDS_UPDATE_SUCCESS:
       return updateList(state, action, updateWordItem)
 
-    case 'BOOK_DELETE_FROM_LIST':
+    case actions.WORDS_DELETE_SUCCESS:
       return updateList(state, action, removeWordItem)
 
-    case 'BOOK_ADD_TO_LIST':
+    case actions.WORDS_ADD_SUCCESS:
       return updateList(state, action, addWordItem)
 
     default:
