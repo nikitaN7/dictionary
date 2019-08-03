@@ -15,14 +15,12 @@ const initialNewWord = {
 class Modal extends Component {
 
   state = {
-    newWord: initialNewWord,
-    error: ''
+    newWord: initialNewWord
   }
 
   resetState() {
     this.setState({
-      newWord: {...initialNewWord},
-      error: ''
+      newWord: {...initialNewWord}
     });
   }
 
@@ -57,7 +55,6 @@ class Modal extends Component {
 
   onSubmit = (action) => {
 
-    let error = '';
     const word = this.state.newWord;
     const fields = {
       en: word.en,
@@ -65,26 +62,16 @@ class Modal extends Component {
     }
 
     if (action === 'update') {
-      if (validateFields(fields)) {
-        this.props.wordUpdate(this.props.word, this.state.newWord, this.props.modalClose);
-      } else {
-        error = 'Field cannot be empty';
-      }
+      this.props.wordUpdate(this.props.word, this.state.newWord, this.props.modalClose);
     }
 
     if (action === 'add') {
-      if (validateFields(fields)) {
-        this.props.wordAdd(this.state.newWord, this.props.modalClose);
-      } else {
-        error = 'Field cannot be empty';
-      }
+      this.props.wordAdd(this.state.newWord, this.props.modalClose);
     }
 
     if (action === 'delete') {
       this.props.wordDelete(this.props.word, this.props.modalClose);
     }
-
-    this.setState({error: error});
   }
 
   render() {
@@ -95,7 +82,6 @@ class Modal extends Component {
               { ...this.props }
               onSubmit={this.onSubmit}
               newWord={this.state.newWord}
-              error={this.state.error}
               handleChange={this.handleChange} />
           : null,
         document.querySelector("#modal-root")
@@ -105,7 +91,9 @@ class Modal extends Component {
 
 const mapStateToProps = ({wordList}, ownProps) => {
   return {
-    word: getWordById(wordList.words, ownProps.wordId)
+    word: getWordById(wordList.words, ownProps.wordId),
+    error: wordList.error,
+    pending: wordList.pending
   }
 }
 

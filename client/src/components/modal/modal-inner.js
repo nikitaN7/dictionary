@@ -1,10 +1,12 @@
 import React from 'react';
 import ModalForm from './modal-form';
 import ModalError from './modal-error';
+import ModalBtn from './modal-btn';
 
 const ModalInner = (props) => {
 
-  const { word, wordAction, newWord, handleChange, modalClose, error } = props;
+  const { wordAction, newWord, handleChange, modalClose, onSubmit, error, pending} = props;
+  const hasData = !(pending || error);
 
   return (
     <div className="modal">
@@ -25,11 +27,9 @@ const ModalInner = (props) => {
         </div>
 
         <div className="modal__footer">
-          {error ? <ModalError errorMsg={error} /> : null}
-          <button
-            className={`btn btn--md btn--${props.wordAction}`}
-            onClick={(e) => props.onSubmit(props.wordAction)}>{props.wordAction}
-          </button>
+          {error ? <ModalError errorMsg={error} action={wordAction} onSubmit={onSubmit} /> : null}
+          {pending ? <img src="/img/sm-loader.svg" alt=""/> : null}
+          {hasData ? <ModalBtn  onSubmit={onSubmit} action={wordAction}  /> : null}
         </div>
       </div>
     </div>

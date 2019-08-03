@@ -37,6 +37,8 @@ const updateList = (state, action, getWordsList) => {
 
   return {
     ...state,
+    pending: false,
+    error: null,
     words: getWordsList(words, wordIdx, action)
   };
 }
@@ -61,6 +63,7 @@ const updateWordList = (state = initialState, action) => {
       return {
         ...state,
         pending: false,
+        error: null,
         words: action.payload
       };
 

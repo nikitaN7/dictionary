@@ -67,13 +67,28 @@
   }
 
   &__error {
-    position: absolute;
-    color: deeppink;
-    font-size: 14px;
-    top: 0;
-    bottom: 0;
-    margin: auto;
     display: flex;
     align-items: center;
+    background: lightpink;
+    padding: 0.5em;
+
+    &__text {
+      color: deeppink;
+      font-size: 14px;
+      padding-left: 10px;
+      line-height: 1.2;
+      color: crimson;
+
+      span {
+        cursor: pointer;
+        text-decoration: underline;
+        font-weight: 700;
+      }
+
+    }
+
+    &__icon {
+      max-width: 40px;
+    }
   }
 }

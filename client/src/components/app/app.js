@@ -4,6 +4,11 @@ import Main from '../main';
 import Modal from '../modal';
 import '../../scss/app.scss';
 
+const preloadImages = [
+  {fileName: '/img/warning.svg'},
+  {fileName: '/img/sm-loader.svg'}
+]
+
 class App extends Component {
 
   state = {
@@ -12,6 +17,12 @@ class App extends Component {
     wordId: null,
     wordAction: ''
   }
+
+  componentDidMount() {
+    preloadImages.forEach((picture) => {
+      new Image().src = picture.fileName;
+    });
+}
 
   navToggle = () => {
     this.setState({navIsActive: !this.state.navIsActive})

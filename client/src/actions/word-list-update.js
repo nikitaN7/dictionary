@@ -62,7 +62,7 @@ const wordAdd = (wordData, modalClose) => (dispatch) => {
     modalClose();
   })
   .catch((err) => {
-    dispatch(updateListError(err));
+    dispatch(updateListError(err.message));
   });
 };
 
@@ -79,7 +79,7 @@ const wordUpdate = (word, wordData, modalClose) => (dispatch) => {
     modalClose();
   })
   .catch((err) => {
-    dispatch(updateListError(err));
+    dispatch(updateListError(err.message));
   });
 
 };
@@ -98,7 +98,7 @@ const wordDelete = (word, modalClose) => (dispatch) => {
     modalClose();
   })
   .catch((err) => {
-    dispatch(updateListError(err));
+    dispatch(updateListError(err.message));
   });
 };
 
