@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: Roboto, sans-serif;
+  font-family: OpenSans, sans-serif;
   min-height: 100vh;
 }
 
@@ -17,8 +17,9 @@ button {
   }
 }
 
-h1 {
+h1, ul, li {
   margin: 0;
+  padding: 0;
 }
 
 .container {
