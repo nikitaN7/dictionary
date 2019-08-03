@@ -27,7 +27,7 @@
 
   &__table {
     margin-top: 20px;
-    max-height: calc(100vh - 172px);
+    max-height: calc(100vh - 235px);
     overflow: auto;
 
     table {
@@ -71,6 +71,7 @@
       cursor: pointer;
       border-left: 3px solid transparent;
       transition: all .3s ease;
+      position: relative;
 
       &:hover, &.active {
         border-color: #39A2FB;
@@ -90,6 +91,24 @@
         span {
           color: #B4BCCE;
         }
+      }
+
+      &.is-open, &.is-close {
+        &:before {
+          content: '';
+          border: solid white;
+          border-width: 0 3px 3px 0;
+          display: inline-block;
+          padding: 3px;
+          position: absolute;
+          right: 13px;
+          transform: rotate(45deg);
+        }
+      }
+
+      &.is-open:before {
+        border-width: 3px 0 0 3px;
+        top: 19px;
       }
 
       img {

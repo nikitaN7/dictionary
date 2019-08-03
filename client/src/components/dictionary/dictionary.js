@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { fetchWords } from '../../actions/word-list-fetch';
+import WordsDisplay from './words-display';
 
 class Dictionary extends Component {
 
@@ -49,30 +50,7 @@ class Dictionary extends Component {
           <button className="btn btn--lg btn--add" onClick={(e) => this.props.onActionClick(null, 'add')}>Add new word</button>
         </div>
 
-        <div className="dictionary__options">
-          <div className="dictionary__options__item blue">
-            <img src="/img/hide-eye.svg" alt=""/>
-            <span>Hide words</span>
-          </div>
-
-          <ul className="dictionary__dropdown">
-            <li className="dictionary__options__item white active">
-              <img src="/img/show-eye.svg" alt=""/>
-              <span>Show all words</span>
-            </li>
-
-            <li className="dictionary__options__item white">
-              <img src="/img/en-icon.svg" alt=""/>
-              <span>Hide en words</span>
-            </li>
-
-            <li className="dictionary__options__item white">
-              <img src="/img/ru-icon.svg" alt=""/>
-              <span>Hide ru words</span>
-            </li>
-          </ul>
-
-        </div>
+        <WordsDisplay />
 
         <div className="dictionary__table">
           <table style={{borderCollapse: 'collapse'}}>
