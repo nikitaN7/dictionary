@@ -27,6 +27,8 @@
 
   &__table {
     margin-top: 20px;
+    max-height: calc(100vh - 172px);
+    overflow: auto;
 
     table {
       width: 100%;
@@ -52,6 +54,64 @@
       padding: 15px 20px;
       text-align: left;
       color: #656565;
+    }
+  }
+
+  &__options {
+    position: relative;
+    display: flex;
+    padding-top: 20px;
+
+    &__item {
+      display: flex;
+      align-items: center;
+      padding: 9px 20px;
+      max-width: 190px;
+      width: 100%;
+      cursor: pointer;
+      border-left: 3px solid transparent;
+      transition: all .3s ease;
+
+      &:hover, &.active {
+        border-color: #39A2FB;
+      }
+
+      &.blue {
+        background-color: #39A2FB;
+
+        span {
+          color: white;
+        }
+      }
+
+      &.white {
+        background-color: white;
+
+        span {
+          color: #B4BCCE;
+        }
+      }
+
+      img {
+        max-width: 25px;
+      }
+
+      span {
+        font-size: 1rem;
+        line-height: 1.2;
+        padding-left: 15px;
+        font-weight: 500;
+      }
+    }
+  }
+
+  &__dropdown {
+    position: absolute;
+    width: 100%;
+    top: 76px;
+
+    li:not(:last-child) {
+      border-bottom: 1px solid #B4BCCE;
     }
   }
 }
