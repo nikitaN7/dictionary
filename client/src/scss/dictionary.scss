@@ -134,6 +134,8 @@
     position: absolute;
     width: 100%;
     top: 76px;
+    max-width: 190px;
+    z-index: 99;
 
     li:not(:last-child) {
       border-bottom: 1px solid #B4BCCE;
