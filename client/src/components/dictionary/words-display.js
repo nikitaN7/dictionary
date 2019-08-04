@@ -3,8 +3,8 @@ import { SHOW_ALL_WORDS, HIDE_EN_WORDS, HIDE_RU_WORDS } from '../../constants';
 
 const options = [
   {name: SHOW_ALL_WORDS, icon: 'show-eye', text: 'Show all words'},
-  {name: HIDE_EN_WORDS, icon: 'en-icon', text: 'Show en words'},
-  {name: HIDE_RU_WORDS, icon: 'ru-icon', text: 'Show ru words'}
+  {name: HIDE_EN_WORDS, icon: 'en-icon', text: 'Hide en words'},
+  {name: HIDE_RU_WORDS, icon: 'ru-icon', text: 'Hide ru words'}
 ]
 
 class WordsDisplay extends Component {
