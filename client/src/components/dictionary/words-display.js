@@ -1,4 +1,11 @@
 import React, { Component } from 'react';
+import { SHOW_ALL_WORDS, HIDE_EN_WORDS, HIDE_RU_WORDS } from '../../constants';
+
+const options = [
+  {name: SHOW_ALL_WORDS, icon: 'show-eye', text: 'Show all words'},
+  {name: HIDE_EN_WORDS, icon: 'en-icon', text: 'Show en words'},
+  {name: HIDE_RU_WORDS, icon: 'ru-icon', text: 'Show ru words'}
+]
 
 class WordsDisplay extends Component {
 
@@ -12,8 +19,15 @@ class WordsDisplay extends Component {
     }));
   }
 
+  componentDidUpdate(previousProps, previousState) {
+    if (previousProps.wordDisplay !== this.props.wordDisplay) {
+      this.handleClick();
+    }
+  }
+
   render() {
     const { isToggleOn } = this.state;
+    const { optionClick, wordDisplay } = this.props;
 
     return (
       <div className="dictionary__options">
@@ -23,20 +37,17 @@ class WordsDisplay extends Component {
         </div>
 
         {isToggleOn ? (<ul className="dictionary__dropdown">
-          <li className="dictionary__options__item white active">
-            <img src="/img/show-eye.svg" alt=""/>
-            <span>Show all words</span>
-          </li>
 
-          <li className="dictionary__options__item white">
-            <img src="/img/en-icon.svg" alt=""/>
-            <span>Hide en words</span>
-          </li>
+          {options.map((item, idx) => {
+            return (
+              <li key={idx} onClick={(e) => optionClick(item.name)}
+                  className={`dictionary__options__item white ${wordDisplay === item.name ? 'active': ''}`}>
+                <img src={`/img/${item.icon}.svg`} alt=""/>
+                <span>{item.text}</span>
+              </li>
+            )
+          })}
 
-          <li className="dictionary__options__item white">
-            <img src="/img/ru-icon.svg" alt=""/>
-            <span>Hide ru words</span>
-          </li>
         </ul>) : null }
       </div>
     )
