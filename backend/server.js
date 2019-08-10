@@ -115,6 +115,38 @@ router.post('/putData', (req, res) => {
   });
 });
 
+// this method adds new data in our database
+router.post('/putManyData', (req, res) => {
+
+  let reqData = req.body;
+  let newData = [];
+
+  reqData.forEach((item) => {
+    let data = new Data();
+    const { id, en, ru, bookmarks } = item;
+
+    if (!id && id !== 0) {
+      return res.json({
+        success: false,
+        error: 'Data must contain id',
+      });
+    }
+
+    data.id = id;
+    data.en = en;
+    data.ru = ru;
+    data.bookmarks = bookmarks;
+
+    newData.push(data);
+
+  })
+
+  Data.insertMany(reqData, (err) => {
+    if (err) return res.json({ success: false, error: err });
+    return res.json({ success: true });
+  });
+});
+
 // append /api for our http requests
 app.use('/api', router);
 

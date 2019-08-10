@@ -54,6 +54,7 @@ const updateWordList = (state = initialState, action) => {
   switch (action.type) {
     case actions.FETCH_WORDS_PENDING:
     case actions.UPDATE_LIST_PENDING:
+    case action.DELETE_WORDS_PENDING:
       return {
         ...state,
         pending: true
@@ -67,8 +68,14 @@ const updateWordList = (state = initialState, action) => {
         words: action.payload
       };
 
+    case actions.DELETE_WORDS_SUCCESS:
+      return {
+        ...initialState
+      }
+
     case actions.FETCH_WORDS_FAILURE:
     case actions.UPDATE_LIST_FAILURE:
+    case actions.DELETE_WORDS_FAILURE:
       return {
         ...state,
         pending: false,
