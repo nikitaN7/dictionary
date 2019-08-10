@@ -76,6 +76,14 @@ router.delete('/deleteData', (req, res) => {
   });
 });
 
+// this method removes all existing data in our database
+router.delete('/deleteAllData', (req, res) => {
+  Data.deleteMany({}, (err) => {
+    if (err) return res.send(err)
+    return res.json({ success: true });
+  });
+});
+
 // this method adds new data in our database
 router.post('/putData', (req, res) => {
   let data = new Data();
