@@ -45,7 +45,8 @@ class App extends Component {
 
     return (
       <div className="container">
-        <Nav isActive={navIsActive} />
+        <Nav
+          isActive={navIsActive} />
 
         <Main
           navToggle={this.navToggle}
