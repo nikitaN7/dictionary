@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { fetchWords } from '../../actions/word-list-fetch';
 import WordsDisplay from './words-display';
+import WordsUpload from './words-upload';
 import { SHOW_ALL_WORDS, HIDE_EN_WORDS, HIDE_RU_WORDS } from '../../constants';
 
 class Dictionary extends Component {
@@ -103,7 +104,11 @@ class Dictionary extends Component {
           <button className="btn btn--lg btn--add" onClick={(e) => this.props.onActionClick(null, 'add')}>Add new word</button>
         </div>
 
-        <WordsDisplay optionClick={this.optionClick} wordDisplay={this.state.wordDisplay}/>
+        <WordsDisplay
+          optionClick={this.optionClick}
+          wordDisplay={this.state.wordDisplay}/>
+
+        <WordsUpload />
 
         <div className="dictionary__table">
           <table style={{borderCollapse: 'collapse'}}>

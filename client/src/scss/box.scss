@@ -1,0 +1,77 @@
+.box__dragndrop,
+.box__uploading,
+.box__success,
+.box__error {
+  display: none;
+}
+
+.box {
+  font-size: 1.25rem;
+  background-color: #c8dadf;
+  position: relative;
+  padding: 70px 20px;
+  text-align: center;
+  margin-top: 2rem;
+  max-width: 500px;
+
+  &.has-advanced-upload {
+    outline: 2px dashed #92b0b3;
+    outline-offset: -10px;
+    transition: outline-offset .15s ease-in-out, background-color .15s linear;
+
+    .box__dragndrop {
+      display: inline;
+    }
+
+    .box__icon {
+      width: 100%;
+      height: 80px;
+      fill: #92b0b3;
+      display: block;
+      margin-bottom: 40px;
+    }
+  }
+
+  &.is-dragover {
+    outline-offset: -20px;
+    outline-color: #c8dadf;
+    background-color: #fff;
+  }
+
+  &__file {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+
+    + label {
+      cursor: pointer;
+      color: #0f3c4b;
+
+      strong {
+        font-weight: bolder;
+      }
+
+      &:hover strong {
+        color: #39bfd3;
+      }
+    }
+  }
+
+  &__success {
+    animation: appear-from-inside .25s ease-in-out;
+  }
+
+  &.is-uploading .box__uploading,
+  &.is-success .box__success,
+  &.is-error .box__error {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: 0;
+    transform: translateY( -50% );
+  }
+}
