@@ -1,7 +1,6 @@
 .box__dragndrop,
 .box__uploading,
-.box__success,
-.box__error {
+.box__success {
   display: none;
 }
 
@@ -45,18 +44,18 @@
     overflow: hidden;
     position: absolute;
     z-index: -1;
+  }
 
-    + label {
+  &__text {
+    color: #0f3c4b;
+
+    strong {
+      font-weight: bolder;
       cursor: pointer;
-      color: #0f3c4b;
+    }
 
-      strong {
-        font-weight: bolder;
-      }
-
-      &:hover strong {
-        color: #39bfd3;
-      }
+    &:hover strong {
+      color: #39bfd3;
     }
   }
 
