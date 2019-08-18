@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import TargetBox from './target-box';
+import XLSX from 'xlsx';
+import { getListFromFile } from '../../function/getListFromFile';
 
 class WordsUpload extends Component {
 
   fileInput = React.createRef();
 
   state = {
-    dropFile: [],
+    dropFile: null,
     fileError: ''
   }
 
@@ -42,9 +44,22 @@ class WordsUpload extends Component {
   }
 
   setFiles = (files) => {
-    if (this.fileValidation(files)) {
-      console.log(files[0])
+    if (!this.fileValidation(files)) {
+      return;
     }
+
+    const file = files[0];
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      const data = new Uint8Array(e.target.result);
+      const workbook = XLSX.read(data, {type: 'array'});
+
+      const wordsList = getListFromFile(workbook);
+      console.log(wordsList)
+    };
+
+    reader.readAsArrayBuffer(file);
   }
 
   handleFileDrop = (monitor) => {
