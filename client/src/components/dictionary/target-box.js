@@ -12,7 +12,7 @@ const TargetBox = (props) => {
       props.onDrop(monitor)
     },
     canDrop: () => {
-      if (!props.error) {
+      if (!props.error && !props.isLoading && !props.isSuccess) {
         return true;
       }
     },
@@ -29,22 +29,26 @@ const TargetBox = (props) => {
     <form method="post" action="" encType="multipart/form-data"
           ref={drop} className={`box ${dragOver} ${advUpload}`} >
 
-      {!props.error
+      { !props.error && !props.isLoading && !props.isSuccess
         ? <BoxInput
             advUpload={advUpload}
             fileInput={props.fileInput}
             handleFile={props.handleFile}/>
-        : null
-      }
+        : null }
 
-      <span className="box__uploading box__text">Uploading&hellip;</span>
-      <span className="box__success box__text">Done!</span>
+      { props.isLoading ? <span className="box__uploading box__text">Uploading&hellip;</span> : null }
 
-      {props.error
-        ? <span className="box__error box__text">Error! {props.error}.
-            <strong onClick={props.removeError}> Try again.</strong>
+      { props.isSuccess
+        ? <span className="box__success box__text">Done!
+            <strong onClick={props.onResetForm}> Load more.</strong>
           </span>
-        : null}
+        : null }
+
+      { props.error
+        ? <span className="box__error box__text">Error! {props.error}.
+            <strong onClick={props.onResetForm}> Try again.</strong>
+          </span>
+        : null }
     </form>
   )
 }

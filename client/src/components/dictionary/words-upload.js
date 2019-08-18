@@ -2,21 +2,23 @@ import React, { Component } from 'react';
 import TargetBox from './target-box';
 import XLSX from 'xlsx';
 import { getListFromFile } from '../../function/getListFromFile';
+import axios from 'axios';
+import { connect } from 'react-redux';
+import { fetchWords } from '../../actions/word-list-fetch';
 
 class WordsUpload extends Component {
 
   fileInput = React.createRef();
 
   state = {
-    dropFile: null,
-    fileError: ''
+    fileError: '',
+    isFileLoading: false,
+    isFileSuccess: false
   }
 
   fileValidation(files) {
     const allowedExtension = /(\.xlsx)$/i;
     const fileName = files[0].name;
-
-    this.removeError();
 
     if (files.length > 1) {
       this.setState({
@@ -37,9 +39,11 @@ class WordsUpload extends Component {
     return true;
   }
 
-  removeError = () => {
+  handleResetForm = () => {
     this.setState({
-      fileError: ''
+      fileError: '',
+      isFileLoading: false,
+      isFileSuccess: false
     })
   }
 
@@ -56,7 +60,25 @@ class WordsUpload extends Component {
       const workbook = XLSX.read(data, {type: 'array'});
 
       const wordsList = getListFromFile(workbook);
-      console.log(wordsList)
+
+      this.setState({
+        isFileLoading: true
+      })
+
+      axios.post('/api/putManyData', wordsList)
+        .then((res) => {
+          this.setState({
+            isFileLoading: false,
+            isFileSuccess: true
+          })
+          this.props.fetchWords();
+        })
+        .catch((err) => {
+          this.setState({
+            fileError: err.message,
+            isFileLoading: false
+          })
+        });
     };
 
     reader.readAsArrayBuffer(file);
@@ -75,17 +97,22 @@ class WordsUpload extends Component {
   }
 
   render() {
-    const { fileError } = this.state;
+    const { fileError, isFileSuccess, isFileLoading } = this.state;
 
     return (
       <TargetBox
         onDrop={this.handleFileDrop}
         error={fileError}
-        removeError={this.removeError}
+        isSuccess={isFileSuccess}
+        isLoading={isFileLoading}
+        onResetForm={this.handleResetForm}
         handleFile={this.handleFile}
         fileInput={this.fileInput} />
     )
   }
 }
 
-export default WordsUpload;
+export default connect(
+  null,
+  { fetchWords }
+)(WordsUpload);
