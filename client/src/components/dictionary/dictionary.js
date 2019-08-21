@@ -9,7 +9,8 @@ class Dictionary extends Component {
 
   state = {
     wordDisplay: SHOW_ALL_WORDS,
-    visibleWordsId: []
+    visibleWordsId: [],
+    isBoxActive: false
   }
 
   optionClick = (value) => {
@@ -18,6 +19,12 @@ class Dictionary extends Component {
 
   componentDidMount() {
     this.props.fetchWords();
+  }
+
+  boxActiveToggle = (e) => {
+    this.setState(prevState => {
+      return {isBoxActive: !prevState.isBoxActive}
+    })
   }
 
   onWordClick(id, className) {
@@ -104,11 +111,20 @@ class Dictionary extends Component {
           <button className="btn btn--lg btn--add" onClick={(e) => this.props.onActionClick(null, 'add')}>Add new word</button>
         </div>
 
-        <WordsDisplay
-          optionClick={this.optionClick}
-          wordDisplay={this.state.wordDisplay}/>
+        <div className="dictionary__row">
+          <WordsDisplay
+            optionClick={this.optionClick}
+            wordDisplay={this.state.wordDisplay}/>
 
-        <WordsUpload />
+          <div class="dictionary__options">
+            <div onClick={this.boxActiveToggle} class={`dictionary__options__item green ${this.state.isBoxActive ? 'is-open' : 'is-close'}`}>
+              <img src="/img/import-icon.svg" alt=""/>
+              <span>Import words</span>
+            </div>
+          </div>
+        </div>
+
+        { this.state.isBoxActive ? <WordsUpload /> : null }
 
         <div className="dictionary__table">
           <table style={{borderCollapse: 'collapse'}}>
