@@ -56,6 +56,12 @@
       }
     }
 
+    tr {
+      &.pink {
+        background-color: thistle;
+      }
+    }
+
     th {
       padding: 15px 20px;
       text-align: left;
