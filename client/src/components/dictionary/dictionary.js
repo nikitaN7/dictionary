@@ -4,6 +4,7 @@ import { fetchWords } from '../../actions/word-list-fetch';
 import WordsDisplay from './words-display';
 import WordsUpload from './words-upload';
 import WordRow from './word-row';
+import ScrollGroup from './scroll-group';
 import { SHOW_ALL_WORDS, HIDE_EN_WORDS, HIDE_RU_WORDS } from '../../constants';
 
 class Dictionary extends Component {
@@ -93,6 +94,8 @@ class Dictionary extends Component {
               <span>Import words</span>
             </div>
           </div>
+
+          <ScrollGroup />
         </div>
 
         { this.state.isBoxActive ? <WordsUpload /> : null }
