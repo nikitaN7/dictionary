@@ -1,11 +1,24 @@
 import React, { Component, Fragment } from 'react';
+import { Element } from 'react-scroll';
 
 const WordRow = (props) => {
   const { id, ru, en, bookmarks } = props.data;
-  const isTenCell = (props.idx + 1) % 10 === 0 && props.idx > 0;
+  const isTenCell = props.idx % 10 === 0 || props.idx === 0;
+  const cellId = (props.idx / 10) + 1;
 
   return (
     <Fragment>
+      {isTenCell
+        ? <tr className="pink">
+            <td colSpan="4" className="text-center">
+              <Element name={cellId + '-col'}>
+                {cellId} words column
+              </Element>
+            </td>
+          </tr>
+        : null
+      }
+
       <tr>
         <td
           onClick={(e) => props.onWordClick(id, props.enClass)}
@@ -33,11 +46,6 @@ const WordRow = (props) => {
             : null}
         </td>
       </tr>
-
-      {isTenCell
-        ? <tr className="pink"><td colSpan="4" className="text-center">{(props.idx + 1) / 10} column end</td></tr>
-        : null
-      }
 
     </Fragment>
   )

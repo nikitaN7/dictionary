@@ -187,12 +187,14 @@
       border: none;
     }
 
-    &__btn {
+    &__anchor {
       font-weight: 700;
       color: #0f3c4b;
       background-color: #c8dadf;
       padding: 0 15px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
     }
   }
 }

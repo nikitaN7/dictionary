@@ -6,6 +6,7 @@ import WordsUpload from './words-upload';
 import WordRow from './word-row';
 import ScrollGroup from './scroll-group';
 import { SHOW_ALL_WORDS, HIDE_EN_WORDS, HIDE_RU_WORDS } from '../../constants';
+import { Element } from 'react-scroll';
 
 class Dictionary extends Component {
 
@@ -100,23 +101,23 @@ class Dictionary extends Component {
 
         { this.state.isBoxActive ? <WordsUpload /> : null }
 
-        <div className="dictionary__table">
-          <table style={{borderCollapse: 'collapse'}}>
-            <thead>
-              <tr>
-                <th>EN</th>
-                <th>RU</th>
-                <th>Action</th>
-                <th>Bookmarks</th>
-              </tr>
-            </thead>
+          <Element className="dictionary__table" id="dictionaryTable">
+            <table style={{borderCollapse: 'collapse'}}>
+              <thead>
+                <tr>
+                  <th>EN</th>
+                  <th>RU</th>
+                  <th>Action</th>
+                  <th>Bookmarks</th>
+                </tr>
+              </thead>
 
-            <tbody>
-              { words.length > 0 ? this.renderRows() : null }
-            </tbody>
+              <tbody>
+                { words.length > 0 ? this.renderRows() : null }
+              </tbody>
+            </table>
+          </Element>
 
-          </table>
-        </div>
       </div>
     )
   }
