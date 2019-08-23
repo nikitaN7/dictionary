@@ -1,5 +1,6 @@
 import axios from 'axios';
 import store from '../store';
+import { scrollToBottom } from '../function/scrollToBottom';
 import { getMaxId } from '../function/getMaxId';
 import {
   UPDATE_LIST_PENDING,
@@ -58,8 +59,11 @@ const wordAdd = (wordData, modalClose) => (dispatch) => {
   })
   .then((res) => {
     const newWord = res.data.data;
+
     dispatch(wordAddSuccess(newId, newWord));
     modalClose();
+    scrollToBottom();
+
   })
   .catch((err) => {
     dispatch(updateListError(err.message));
