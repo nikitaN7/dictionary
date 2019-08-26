@@ -8,6 +8,7 @@ import ScrollGroup from './scroll-group';
 import { SHOW_ALL_WORDS, HIDE_EN_WORDS, HIDE_RU_WORDS } from '../../constants';
 import { Element } from 'react-scroll';
 import WordsFilter from './words-filter';
+import { filterWordsByType } from '../../function/filterWordsByType';
 
 class Dictionary extends Component {
 
@@ -60,7 +61,8 @@ class Dictionary extends Component {
   }
 
   renderRows() {
-    const { words } = this.props;
+    let { words } = this.props;
+    words = filterWordsByType(words, this.state.filterType);
 
     return (
       words.map((data, idx) => {
