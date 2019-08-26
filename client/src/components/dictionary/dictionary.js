@@ -7,6 +7,7 @@ import WordRow from './word-row';
 import ScrollGroup from './scroll-group';
 import { SHOW_ALL_WORDS, HIDE_EN_WORDS, HIDE_RU_WORDS } from '../../constants';
 import { Element } from 'react-scroll';
+import WordsFilter from './words-filter';
 
 class Dictionary extends Component {
 
@@ -97,6 +98,8 @@ class Dictionary extends Component {
           </div>
 
           <ScrollGroup />
+
+          <WordsFilter />
         </div>
 
         { this.state.isBoxActive ? <WordsUpload /> : null }
