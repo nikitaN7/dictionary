@@ -14,7 +14,8 @@ class Dictionary extends Component {
   state = {
     wordDisplay: SHOW_ALL_WORDS,
     visibleWordsId: [],
-    isBoxActive: false
+    isBoxActive: false,
+    filterType: 'all-words'
   }
 
   optionClick = (value) => {
@@ -28,6 +29,12 @@ class Dictionary extends Component {
   boxActiveToggle = (e) => {
     this.setState(prevState => {
       return {isBoxActive: !prevState.isBoxActive}
+    })
+  }
+
+  onFilterChange = (value) => {
+    this.setState({
+      filterType: value
     })
   }
 
@@ -99,7 +106,9 @@ class Dictionary extends Component {
 
           <ScrollGroup />
 
-          <WordsFilter />
+          <WordsFilter
+            onFilterChange={this.onFilterChange}
+            filterType={this.state.filterType} />
         </div>
 
         { this.state.isBoxActive ? <WordsUpload /> : null }

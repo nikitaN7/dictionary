@@ -1,30 +1,47 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const WordsFilter = (props) => {
-  return (
-    <div className="filter">
-      <button className="filter__btn">
-        <span>Filter</span>
-        <img src="/img/filter-icon.svg" alt=""/>
-      </button>
+class WordsFilter extends Component {
 
-      <div className="filter__dropdown">
-        <label className="filter__item">
-          <input type="radio" name="dictionary-filter"
-            onChange={() => this.onFilterChange('all-words')}
-            checked={props.filterType === 'all-words'} />
-          <div className="filter__item__text">All words</div>
-        </label>
+  state = {
+    isToggleOn: false
+  }
 
-        <label className="filter__item">
-          <input type="radio" name="dictionary-filter"
-            onChange={() => this.onFilterChange('hard-words')}
-            checked={props.filterType === 'hard-words'} />
-          <div className="filter__item__text">Hard words</div>
-        </label>
+  handleClick = () => {
+    this.setState(state => ({
+      isToggleOn: !state.isToggleOn
+    }));
+  }
+
+  render() {
+    const { isToggleOn } = this.state;
+
+    return (
+      <div className="filter">
+        <button className="filter__btn" onClick={this.handleClick}>
+          <span>Filter</span>
+          <img src="/img/filter-icon.svg" alt=""/>
+        </button>
+
+        {isToggleOn ? (
+          <div className="filter__dropdown">
+            <label className="filter__item">
+              <input type="radio" name="dictionary-filter"
+                onChange={() => this.props.onFilterChange('all-words')}
+                checked={this.props.filterType === 'all-words'} />
+              <div className="filter__item__text">All words</div>
+            </label>
+
+            <label className="filter__item">
+              <input type="radio" name="dictionary-filter"
+                onChange={() => this.props.onFilterChange('hard-words')}
+                checked={this.props.filterType === 'hard-words'} />
+              <div className="filter__item__text">Hard words</div>
+            </label>
+          </div>
+        ) : null}
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 export default WordsFilter;
