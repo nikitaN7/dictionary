@@ -1,8 +1,4 @@
 .filter {
-  flex-grow: 1;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
   position: relative;
 
   &__btn {
@@ -36,6 +32,7 @@
     padding: 20px;
     transform: translateY(100%);
     bottom: -12px;
+    right: 0;
   }
 
   &__item {

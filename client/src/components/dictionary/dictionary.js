@@ -8,7 +8,9 @@ import ScrollGroup from './scroll-group';
 import { SHOW_ALL_WORDS, HIDE_EN_WORDS, HIDE_RU_WORDS } from '../../constants';
 import { Element } from 'react-scroll';
 import WordsFilter from './words-filter';
+import WordsSearch from './words-search';
 import { filterWordsByType } from '../../function/filterWordsByType';
+import { searchWordsByStr } from '../../function/searchWordsByStr';
 
 class Dictionary extends Component {
 
@@ -16,7 +18,8 @@ class Dictionary extends Component {
     wordDisplay: SHOW_ALL_WORDS,
     visibleWordsId: [],
     isBoxActive: false,
-    filterType: 'all-words'
+    filterType: 'all-words',
+    searchValue: ''
   }
 
   optionClick = (value) => {
@@ -60,9 +63,19 @@ class Dictionary extends Component {
     return '';
   }
 
+  handleChange = ({target}) => {
+    const name = target.name;
+    const value = target.value;
+
+    this.setState({
+      [name]: value
+    })
+  }
+
   renderRows() {
     let { words } = this.props;
     words = filterWordsByType(words, this.state.filterType);
+    words = searchWordsByStr(words, this.state.searchValue);
 
     return (
       words.map((data, idx) => {
@@ -107,6 +120,10 @@ class Dictionary extends Component {
           </div>
 
           <ScrollGroup />
+
+          <WordsSearch
+            searchValue={this.state.searchValue}
+            handleChange={this.handleChange} />
 
           <WordsFilter
             onFilterChange={this.onFilterChange}

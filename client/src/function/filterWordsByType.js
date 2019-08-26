@@ -1,26 +1,8 @@
-const bookmarksFilter = (word) => word.bookmarks === true;
-
-const filterList = (list, filterFn) => {
-  let updateList = [];
-
-  const filtered = Object.keys(list)
-    .filter(key => filterFn(list[key]))
-    .reduce((obj, key) => {
-      return {
-        ...obj,
-        [key]: list[key]
-      };
-    }, {});
-
-  for (let item in filtered) {
-    updateList.push(filtered[item])
-  }
-
-  return updateList;
-}
+import { filterList } from './filterList';
 
 export const filterWordsByType = (words, type) => {
-  let updateWords = [];
+
+  const bookmarksFilter = (word) => word.bookmarks === true;
 
   if (type === 'hard-words') {
     return filterList(words, bookmarksFilter);
