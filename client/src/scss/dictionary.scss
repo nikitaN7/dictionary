@@ -32,14 +32,16 @@
 
     table {
       width: 100%;
+      border-spacing: 5px 5px;
     }
 
     td {
-      padding: 15px 20px;
-      border-top: 2px solid darkgray;
+      padding: 11px 20px;
       min-width: 150px;
       max-width: 320px;
       transition: all .3s ease;
+      font-weight: 500;
+      color: #0f3c4b;
 
       &.hide {
         opacity: 0;
@@ -56,16 +58,39 @@
       }
     }
 
+    td, th {
+      &:first-child {
+        border-top-left-radius: 50px;
+        border-bottom-left-radius: 50px;
+      }
+
+      &:last-child {
+        border-top-right-radius: 50px;
+        border-bottom-right-radius: 50px;
+      }
+    }
+
     tr {
+      background-color: lightgray;
+
       &.pink {
         background-color: thistle;
+      }
+
+      &.blue {
+        background: skyblue;
       }
     }
 
     th {
       padding: 15px 20px;
       text-align: left;
-      color: #656565;
+      color: white;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      text-align: center;
+      background: transparent;
     }
   }
 

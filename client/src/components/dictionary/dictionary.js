@@ -133,9 +133,9 @@ class Dictionary extends Component {
         { this.state.isBoxActive ? <WordsUpload /> : null }
 
           <Element className="dictionary__table" id="dictionaryTable">
-            <table style={{borderCollapse: 'collapse'}}>
+            <table>
               <thead>
-                <tr>
+                <tr className="blue">
                   <th>EN</th>
                   <th>RU</th>
                   <th>Action</th>
