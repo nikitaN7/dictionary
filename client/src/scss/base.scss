@@ -33,7 +33,7 @@ h1, ul, li {
 .container {
   display: flex;
   width: 100%;
-  min-height: 100vh;
+  max-height: 100vh;
 }
 
 .main {

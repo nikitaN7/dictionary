@@ -1,5 +1,9 @@
 .dictionary {
   padding: 30px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
 
   &__header {
     display: flex;
@@ -22,7 +26,6 @@
 
   &__table {
     margin-top: 20px;
-    max-height: calc(100vh - 235px);
     overflow: auto;
 
     table {
