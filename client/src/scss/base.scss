@@ -17,6 +17,14 @@ button {
   }
 }
 
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 h1, ul, li {
   margin: 0;
   padding: 0;

@@ -12,6 +12,11 @@ class Nav extends Component {
   render() {
     return (
       <nav className={`nav ${this.props.isActive ? '' : 'disabled'}`}>
+        <div className="nav__title">
+          <img className="nav__title__icon" src="/img/dictonary-icon.png" alt=""/>
+          <h1>Words dictionary</h1>
+        </div>
+
         <div className="nav--top">
           <a href="#" className="nav__link active">Words</a>
           <a href="#" className="nav__link">Bookmarks</a>

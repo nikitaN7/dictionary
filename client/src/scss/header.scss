@@ -1,5 +1,5 @@
 .header {
-  background-color: #1EB89F;
+  background-color: skyblue;
   height: 47px;
 
   &__burger {
@@ -27,7 +27,7 @@
     }
 
     &.is-open {
-      background-color: #06A289;
+      background-color: darken(skyblue, 20%);
 
       &:after {
         opacity: 1;

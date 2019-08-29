@@ -99,11 +99,6 @@ class Dictionary extends Component {
     return (
       <div className="dictionary">
         <div className="dictionary__header">
-          <div className="dictionary__title">
-            <img src="/img/dictonary-icon.png" alt=""/>
-            <h1>Words dictionary</h1>
-          </div>
-
           <button className="btn btn--lg btn--add" onClick={(e) => this.props.onActionClick(null, 'add')}>Add new word</button>
         </div>
 
