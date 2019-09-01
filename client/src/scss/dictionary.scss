@@ -5,6 +5,10 @@
   overflow: hidden;
   height: 100%;
 
+  @media screen and (max-width: 767px) {
+    padding: 10px;
+  }
+
   &__header {
     display: flex;
     justify-content: space-between;
@@ -41,6 +45,13 @@
       font-weight: 500;
       color: #0f3c4b;
 
+      @media screen and (max-width: 767px) {
+        max-width: 175px;
+        padding: 5px 14px;
+        font-size: 15px;
+        min-width: 112px;
+      }
+
       &.hide {
         opacity: 0;
         cursor: pointer;
@@ -49,6 +60,10 @@
       img {
         max-width: 34px;
         margin-right: 15px;
+
+        @media screen and (max-width: 767px) {
+          max-width: 27px;
+        }
       }
 
       span {
@@ -93,6 +108,12 @@
       letter-spacing: 1.5px;
       text-align: center;
       background: transparent;
+
+      @media screen and (max-width: 767px) {
+        padding: 10px 10px;
+        font-size: 14px;
+      }
+
     }
   }
 
