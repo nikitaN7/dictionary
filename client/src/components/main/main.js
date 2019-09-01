@@ -13,6 +13,10 @@ class Main extends Component {
             <span></span>
             <span></span>
           </button>
+
+          <button className="btn btn--lg btn--add" onClick={(e) => onActionClick(null, 'add')}>
+            Add word
+          </button>
         </div>
 
         <Dictionary onActionClick={onActionClick} />

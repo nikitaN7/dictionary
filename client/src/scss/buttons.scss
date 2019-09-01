@@ -30,6 +30,8 @@
     color: white;
     position: relative;
     padding-left: 3.0em;
+    font-size: 13px;
+    margin-right: 20px;
 
     &:first-letter {
        text-transform: capitalize;
@@ -37,7 +39,7 @@
 
     &:after, &:before {
       content: '';
-      width: 1.2em;
+      width: 1.0em;
       height: 0.2em;
       position: absolute;
       border-radius: 5px;

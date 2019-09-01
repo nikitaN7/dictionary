@@ -54,6 +54,10 @@
       span {
         cursor: pointer;
       }
+
+      &:last-child {
+        text-align: center;
+      }
     }
 
     td, th {
@@ -71,12 +75,12 @@
     tr {
       background-color: lightgray;
 
-      &.pink {
-        background-color: thistle;
+      &.transparent {
+        background-color: transparent;
       }
 
       &.blue {
-        background: skyblue;
+        background-color: skyblue;
       }
     }
 
@@ -105,8 +109,8 @@
     &__item {
       display: flex;
       align-items: center;
-      padding: 9px 20px;
-      width: 190px;
+      padding: 9px 17px;
+      width: 220px;
       cursor: pointer;
       border-left: 3px solid transparent;
       transition: all .3s ease;

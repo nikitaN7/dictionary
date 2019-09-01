@@ -1,6 +1,9 @@
 .header {
   background-color: skyblue;
-  height: 47px;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
   &__burger {
     cursor: pointer;

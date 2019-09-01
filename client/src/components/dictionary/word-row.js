@@ -9,7 +9,7 @@ const WordRow = (props) => {
   return (
     <Fragment>
       {isTenCell
-        ? <tr className="pink">
+        ? <tr className="transparent">
             <td colSpan="4" className="text-center">
               <Element name={cellId + '-col'}>
                 {cellId} words column
