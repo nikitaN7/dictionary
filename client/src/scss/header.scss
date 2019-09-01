@@ -16,6 +16,11 @@
     transition: all .3s ease;
     position: relative;
 
+    @media screen and (max-width: 767px) {
+      height: 48px;
+      z-index: 99;
+    }
+
     &:after {
       content: '';
       position: absolute;
@@ -34,6 +39,11 @@
 
       &:after {
         opacity: 1;
+      }
+
+      @media screen and (max-width: 767px) {
+        position: absolute;
+        right: 0;
       }
     }
 
