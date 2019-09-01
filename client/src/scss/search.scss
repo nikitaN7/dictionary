@@ -4,6 +4,10 @@
   justify-content: flex-end;
   margin-right: 20px;
 
+  @media screen and (max-width: 767px) {
+    flex-grow: 0;
+  }
+
   input {
     width: 130px;
     padding: 0 10px 0 40px;
@@ -15,6 +19,11 @@
     background-image: url('/img/search-icon.svg');
     background-repeat: no-repeat;
     background-position: 12px center;
+
+    @media screen and (max-width: 767px) {
+      width: 103px;
+      height: 38px;
+    }
   }
 
   ::-webkit-input-placeholder {color: #4b74ff;}
