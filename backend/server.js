@@ -1,3 +1,4 @@
+const path = require('path');
 const mongoose = require('mongoose');
 const express = require('express');
 var cors = require('cors');
@@ -8,6 +9,7 @@ const Data = require('./data');
 const API_PORT = 3001;
 const app = express();
 app.use(cors());
+app.use(express.static(path.join(__dirname, '../client/build')));
 const router = express.Router();
 
 const dbRoute =
