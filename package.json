@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"cd backend && node server.js\" \"cd client && npm start\""
+    "start": "cd backend && node server.js",
+    "heroku-postbuild": "cd client && npm i && npm run build"
   },
   "keywords": [],
   "author": "",
@@ -22,5 +23,8 @@
     "react-scroll": "^1.7.13",
     "redux": "^4.0.4",
     "xlsx": "^0.15.0"
+  },
+  "devDependencies": {
+    "redux-devtools-extension": "^2.13.8"
   }
 }
