@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, '../client/build')));
 const router = express.Router();
 
 const dbRoute =
-  'mongodb+srv://Admin:12345wera@englishdictionary-a8zjg.mongodb.net/dictionary?retryWrites=true&w=majority';
+  'mongodb+srv://Admin:12345wera@englishdictionary-a8zjg.mongodb.net/dictionary-prod?retryWrites=true&w=majority';
 
 // connects our back end code with the database
 mongoose.connect(dbRoute, { useNewUrlParser: true });
