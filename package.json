@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cd backend && node server.js",
+    "start": "cd backend && node server.js" ,
+    "dev": "concurrently \"cd backend && node server.js\" \"cd client && npm start\"" ,
     "heroku-postbuild": "cd client && npm i && npm run build"
   },
   "keywords": [],
