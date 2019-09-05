@@ -11,6 +11,7 @@ import WordsFilter from './words-filter';
 import WordsSearch from './words-search';
 import { filterWordsByType } from '../../function/filterWordsByType';
 import { searchWordsByStr } from '../../function/searchWordsByStr';
+import Preloader from '../preloader';
 
 class Dictionary extends Component {
 
@@ -94,7 +95,9 @@ class Dictionary extends Component {
   }
 
   render() {
-    const { words } = this.props;
+    const { words, pending } = this.props;
+
+    const isLoading = pending && words.length === 0;
 
     return (
       <div className="dictionary">
@@ -135,6 +138,7 @@ class Dictionary extends Component {
               </thead>
 
               <tbody>
+                { isLoading ? <Preloader size="lg" /> : null}
                 { words.length > 0 ? this.renderRows() : null }
               </tbody>
             </table>
@@ -148,7 +152,8 @@ class Dictionary extends Component {
 const mapStateToProps = ({wordList}) => {
   return {
     words: wordList.words,
-    error: wordList.error
+    error: wordList.error,
+    pending: wordList.pending
   }
 }
 

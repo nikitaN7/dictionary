@@ -2,6 +2,7 @@ import React from 'react';
 import ModalForm from './modal-form';
 import ModalError from './modal-error';
 import ModalBtn from './modal-btn';
+import Preloader from '../preloader';
 
 const ModalInner = (props) => {
 
@@ -28,7 +29,7 @@ const ModalInner = (props) => {
 
         <div className="modal__footer">
           {error ? <ModalError errorMsg={error} action={wordAction} onSubmit={onSubmit} /> : null}
-          {pending ? <img src="/img/sm-loader.svg" alt=""/> : null}
+          {pending ? <Preloader size="sm" /> : null}
           {hasData ? <ModalBtn  onSubmit={onSubmit} action={wordAction}  /> : null}
         </div>
       </div>
