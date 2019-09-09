@@ -15,10 +15,10 @@ const initialNewWord = {
 class Modal extends Component {
 
   state = {
-    newWord: initialNewWord
+    newWord: {...initialNewWord}
   }
 
-  resetState() {
+  resetState = () => {
     this.setState({
       newWord: {...initialNewWord}
     });
@@ -66,7 +66,7 @@ class Modal extends Component {
     }
 
     if (action === 'add') {
-      this.props.wordAdd(this.state.newWord, this.props.modalClose);
+      this.props.wordAdd(this.state.newWord, this.props.modalClose, this.resetState);
     }
 
     if (action === 'delete') {
