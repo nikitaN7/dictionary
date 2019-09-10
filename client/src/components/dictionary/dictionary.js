@@ -3,37 +3,32 @@ import { connect } from 'react-redux'
 import { fetchWords } from '../../actions/word-list-fetch';
 import WordsDisplay from './words-display';
 import WordsUpload from './words-upload';
-import WordRow from './word-row';
 import ScrollGroup from './scroll-group';
-import { SHOW_ALL_WORDS, HIDE_EN_WORDS, HIDE_RU_WORDS } from '../../constants';
-import { Element } from 'react-scroll';
+import { SHOW_ALL_WORDS } from '../../constants';
 import WordsFilter from './words-filter';
 import WordsSearch from './words-search';
-import { filterWordsByType } from '../../function/filterWordsByType';
-import { searchWordsByStr } from '../../function/searchWordsByStr';
-import Preloader from '../preloader';
+
+import WordsTable from './words-table';
 
 class Dictionary extends Component {
-
   state = {
     wordDisplay: SHOW_ALL_WORDS,
-    visibleWordsId: [],
     isBoxActive: false,
     filterType: 'all-words',
     searchValue: ''
   }
 
   optionClick = (value) => {
-    this.setState({wordDisplay: value, visibleWordsId: []})
+    this.setState({ wordDisplay: value, visibleWordsId: [] })
   }
 
   componentDidMount() {
     this.props.fetchWords();
   }
 
-  boxActiveToggle = (e) => {
+  boxActiveToggle = () => {
     this.setState(prevState => {
-      return {isBoxActive: !prevState.isBoxActive}
+      return { isBoxActive: !prevState.isBoxActive }
     })
   }
 
@@ -43,28 +38,7 @@ class Dictionary extends Component {
     })
   }
 
-  onWordClick = (id, className) => {
-    let list = this.state.visibleWordsId;
-
-    if (!list.includes(id) && className === 'hide') {
-      this.setState({
-        visibleWordsId: [...list, id]
-      })
-    }
-
-  }
-
-  setClassName(id, option) {
-    const { wordDisplay, visibleWordsId } = this.state;
-
-    if (!visibleWordsId.includes(id) && wordDisplay === option) {
-      return 'hide';
-    }
-
-    return '';
-  }
-
-  handleChange = ({target}) => {
+  handleChange = ({ target }) => {
     const name = target.name;
     const value = target.value;
 
@@ -73,31 +47,11 @@ class Dictionary extends Component {
     })
   }
 
-  renderRows() {
-    let { words } = this.props;
-    words = filterWordsByType(words, this.state.filterType);
-    words = searchWordsByStr(words, this.state.searchValue);
-
-    return (
-      words.map((data, idx) => {
-        return (
-          <WordRow
-            data={data}
-            key={data.idx}
-            onActionClick={this.props.onActionClick}
-            onWordClick={this.onWordClick}
-            idx={idx}
-            enClass={this.setClassName(data.id, HIDE_EN_WORDS)}
-            ruClass={this.setClassName(data.id, HIDE_RU_WORDS)} />
-        )
-      })
-    )
-  }
-
   render() {
     const { words, pending } = this.props;
 
     const isLoading = pending && words.length === 0;
+    const boxActiveClass = this.state.isBoxActive ? 'is-open' : 'is-close';
 
     return (
       <div className="dictionary">
@@ -106,8 +60,11 @@ class Dictionary extends Component {
             optionClick={this.optionClick}
             wordDisplay={this.state.wordDisplay}/>
 
-          <div class="dictionary__options">
-            <div onClick={this.boxActiveToggle} class={`dictionary__options__item green ${this.state.isBoxActive ? 'is-open' : 'is-close'}`}>
+          <div className="dictionary__options">
+            <div
+              onClick={this.boxActiveToggle}
+              className={`dictionary__options__item green ${boxActiveClass}`} >
+
               <img src="/img/import-icon.svg" alt=""/>
               <span>Import words</span>
             </div>
@@ -126,30 +83,20 @@ class Dictionary extends Component {
 
         { this.state.isBoxActive ? <WordsUpload /> : null }
 
-          <Element className="dictionary__table" id="dictionaryTable">
-            <table>
-              <thead>
-                <tr className="blue">
-                  <th>EN</th>
-                  <th>RU</th>
-                  <th>Action</th>
-                  <th>Bookmarks</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                { isLoading ? <Preloader size="lg" /> : null}
-                { words.length > 0 ? this.renderRows() : null }
-              </tbody>
-            </table>
-          </Element>
+        <WordsTable
+          words={words}
+          isLoading={isLoading}
+          filterType={this.state.filterType}
+          searchValue={this.state.searchValue}
+          onActionClick={this.props.onActionClick}
+          wordDisplay={this.state.wordDisplay} />
 
       </div>
     )
   }
 }
 
-const mapStateToProps = ({wordList}) => {
+const mapStateToProps = ({ wordList }) => {
   return {
     words: wordList.words,
     error: wordList.error,
