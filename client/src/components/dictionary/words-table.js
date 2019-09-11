@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Element } from 'react-scroll';
-import { filterWordsByType } from '../../function/filterWordsByType';
-import { searchWordsByStr } from '../../function/searchWordsByStr';
 import { HIDE_EN_WORDS, HIDE_RU_WORDS } from '../../constants';
 import WordRow from './word-row';
 import Preloader from '../preloader';
@@ -9,6 +7,12 @@ import Preloader from '../preloader';
 class WordsTable extends Component {
   state = {
     visibleWordsId: []
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.wordDisplay !== this.props.wordDisplay) {
+      this.setState({ visibleWordsId: [] })
+    }
   }
 
   onWordClick = (id, className) => {
@@ -34,18 +38,16 @@ class WordsTable extends Component {
 
   renderRows() {
     let { words } = this.props;
-    words = filterWordsByType(words, this.props.filterType);
-    words = searchWordsByStr(words, this.props.searchValue);
 
     return (
       words.map((data, idx) => {
         return (
           <WordRow
             data={data}
-            key={data.idx}
+            key={idx}
             onActionClick={this.props.onActionClick}
             onWordClick={this.onWordClick}
-            idx={idx}
+            index={idx}
             enClass={this.setClassName(data.id, HIDE_EN_WORDS)}
             ruClass={this.setClassName(data.id, HIDE_RU_WORDS)} />
         )
@@ -54,6 +56,9 @@ class WordsTable extends Component {
   }
 
   render() {
+    const hasData = this.props.words.length > 0;
+    const isLoading = this.props.pending && !hasData;
+
     return (
       <Element className="dictionary__table" id="dictionaryTable">
         <table>
@@ -67,12 +72,14 @@ class WordsTable extends Component {
           </thead>
 
           <tbody>
-            { this.props.isLoading
-              ? <tr><Preloader size="lg" /></tr>
+            { isLoading
+              ? <tr colSpan="4" className="transparent">
+                  <td><Preloader size="lg" /></td>
+                </tr>
               : null
             }
 
-            { this.props.words.length > 0 ? this.renderRows() : null }
+            { hasData ? this.renderRows() : null }
           </tbody>
         </table>
       </Element>

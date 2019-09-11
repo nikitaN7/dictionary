@@ -25,15 +25,15 @@ class WordsFilter extends Component {
         {isToggleOn ? (
           <div className="filter__dropdown">
             <label className="filter__item">
-              <input type="radio" name="dictionary-filter"
-                onChange={() => this.props.onFilterChange('all-words')}
+              <input type="radio" name="filterType"
+                onChange={({ target }) => this.props.handleChange(target.name, 'all-words')}
                 checked={this.props.filterType === 'all-words'} />
               <div className="filter__item__text">All words</div>
             </label>
 
             <label className="filter__item">
-              <input type="radio" name="dictionary-filter"
-                onChange={() => this.props.onFilterChange('hard-words')}
+              <input type="radio" name="filterType"
+                onChange={({ target }) => this.props.handleChange(target.name, 'hard-words')}
                 checked={this.props.filterType === 'hard-words'} />
               <div className="filter__item__text">Hard words</div>
             </label>

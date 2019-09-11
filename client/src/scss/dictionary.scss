@@ -64,6 +64,14 @@
         @media screen and (max-width: 767px) {
           max-width: 27px;
         }
+
+        &.preloader {
+          max-width: none;
+
+          @media screen and (max-width: 767px) {
+            max-width: 90px;
+          }
+        }
       }
 
       span {

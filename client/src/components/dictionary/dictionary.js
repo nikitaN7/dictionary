@@ -7,23 +7,42 @@ import ScrollGroup from './scroll-group';
 import { SHOW_ALL_WORDS } from '../../constants';
 import WordsFilter from './words-filter';
 import WordsSearch from './words-search';
-
 import WordsTable from './words-table';
+import { filterWordsByType } from '../../function/filterWordsByType';
+import { searchWordsByStr } from '../../function/searchWordsByStr';
 
 class Dictionary extends Component {
   state = {
     wordDisplay: SHOW_ALL_WORDS,
     isBoxActive: false,
     filterType: 'all-words',
-    searchValue: ''
-  }
-
-  optionClick = (value) => {
-    this.setState({ wordDisplay: value, visibleWordsId: [] })
+    searchValue: '',
+    words: {}
   }
 
   componentDidMount() {
     this.props.fetchWords();
+  }
+
+  componentDidUpdate(prevProps) {
+    const { words } = this.props;
+
+    if (prevProps.words !== words) {
+      this.wordsUpdate();
+    }
+  }
+
+  optionClick = (value) => {
+    this.setState({ wordDisplay: value })
+  }
+
+  wordsUpdate() {
+    let { words } = this.props;
+
+    words = filterWordsByType(words, this.state.filterType);
+    words = searchWordsByStr(words, this.state.searchValue);
+
+    this.setState({ words: words })
   }
 
   boxActiveToggle = () => {
@@ -32,33 +51,36 @@ class Dictionary extends Component {
     })
   }
 
-  onFilterChange = (value) => {
+  onFilterClick = (value) => {
     this.setState({
       filterType: value
-    })
+    }, () => this.wordsUpdate());
   }
 
-  handleChange = ({ target }) => {
-    const name = target.name;
-    const value = target.value;
+  handleChange = (name, value) => {
+    let wordsUpdateNames = ['searchValue', 'filterType'];
 
-    this.setState({
-      [name]: value
-    })
+    for (let prop of wordsUpdateNames) {
+      if (prop === name) {
+        this.setState({ [name]: value }, () => this.wordsUpdate());
+        return;
+      }
+    }
+
+    this.setState({ [name]: value });
   }
 
   render() {
-    const { words, pending } = this.props;
-
-    const isLoading = pending && words.length === 0;
-    const boxActiveClass = this.state.isBoxActive ? 'is-open' : 'is-close';
+    const { onActionClick, pending } = this.props;
+    const { searchValue, filterType, words, wordDisplay, isBoxActive } = this.state;
+    const boxActiveClass = isBoxActive ? 'is-open' : 'is-close';
 
     return (
       <div className="dictionary">
         <div className="dictionary__row">
           <WordsDisplay
             optionClick={this.optionClick}
-            wordDisplay={this.state.wordDisplay}/>
+            wordDisplay={wordDisplay}/>
 
           <div className="dictionary__options">
             <div
@@ -73,23 +95,23 @@ class Dictionary extends Component {
           <ScrollGroup />
 
           <WordsSearch
-            searchValue={this.state.searchValue}
+            searchValue={searchValue}
             handleChange={this.handleChange} />
 
           <WordsFilter
-            onFilterChange={this.onFilterChange}
-            filterType={this.state.filterType} />
+            filterType={this.state.filterType}
+            handleChange={this.handleChange} />
         </div>
 
         { this.state.isBoxActive ? <WordsUpload /> : null }
 
         <WordsTable
           words={words}
-          isLoading={isLoading}
-          filterType={this.state.filterType}
-          searchValue={this.state.searchValue}
-          onActionClick={this.props.onActionClick}
-          wordDisplay={this.state.wordDisplay} />
+          pending={pending}
+          filterType={filterType}
+          searchValue={searchValue}
+          onActionClick={onActionClick}
+          wordDisplay={wordDisplay} />
 
       </div>
     )
