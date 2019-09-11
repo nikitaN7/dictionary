@@ -1,18 +1,14 @@
 export const filterList = (list, filterFn) => {
-  let updateList = [];
+  const filteredKeys = Object
+    .keys(list)
+    .filter(key => filterFn(list[key]));
 
-  const filtered = Object.keys(list)
-    .filter(key => filterFn(list[key]))
-    .reduce((obj, key) => {
-      return {
-        ...obj,
-        [key]: list[key]
-      };
-    }, {});
+  return filteredKeys.reduce((arr, key) => {
+    let oldList = arr.map(item => ({ ...item }));
 
-  for (let item in filtered) {
-    updateList.push(filtered[item])
-  }
-
-  return updateList;
+    return [
+      ...oldList,
+      list[key]
+    ]
+  }, []);
 }
