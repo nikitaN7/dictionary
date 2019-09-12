@@ -4,7 +4,9 @@ const WordsSearch = (props) => {
   return (
     <div className="search">
       <div className="search__group">
-        <input onChange={({ target }) => props.handleChange(target.name, target.value)} value={props.searchValue} name="searchValue" type="text" placeholder="Search" />
+        <input name="searchValue" type="text" placeholder="Search"
+          onChange={({ target }) => props.handleChange(target.name, target.value)}
+          value={props.searchValue} />
       </div>
     </div>
   )

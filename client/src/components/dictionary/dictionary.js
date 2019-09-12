@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
-import { fetchWords } from '../../actions/word-list-fetch';
 import WordsDisplay from './words-display';
 import WordsUpload from './words-upload';
 import ScrollGroup from './scroll-group';
-import { SHOW_ALL_WORDS } from '../../constants';
 import WordsFilter from './words-filter';
 import WordsSearch from './words-search';
 import WordsTable from './words-table';
+import { SHOW_ALL_WORDS } from '../../constants';
+import { connect } from 'react-redux';
+import { fetchWords } from '../../actions/word-list-fetch';
 import { filterWordsByType } from '../../function/filterWordsByType';
 import { searchWordsByStr } from '../../function/searchWordsByStr';
 
@@ -39,8 +39,8 @@ class Dictionary extends Component {
   wordsUpdate() {
     let { words } = this.props;
 
-    words = filterWordsByType(words, this.state.filterType);
     words = searchWordsByStr(words, this.state.searchValue);
+    words = filterWordsByType(words, this.state.filterType);
 
     this.setState({ words: words })
   }
