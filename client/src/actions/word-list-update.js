@@ -46,7 +46,7 @@ const wordDeleteSuccess = (wordId) => {
   };
 };
 
-const wordAdd = (wordData, modalClose) => (dispatch) => {
+const wordAdd = (wordData, modalClose, modalReset) => (dispatch) => {
 
   const { words } = store.getState().wordList;
   const newId = getMaxId(words) + 1;
@@ -62,6 +62,7 @@ const wordAdd = (wordData, modalClose) => (dispatch) => {
 
     dispatch(wordAddSuccess(newId, newWord));
     modalClose();
+    modalReset();
     scrollToBottom();
 
   })

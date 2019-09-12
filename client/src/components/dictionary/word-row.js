@@ -3,8 +3,8 @@ import { Element } from 'react-scroll';
 
 const WordRow = (props) => {
   const { id, ru, en, bookmarks } = props.data;
-  const isTenCell = props.idx % 10 === 0 || props.idx === 0;
-  const cellId = (props.idx / 10) + 1;
+  const isTenCell = props.index % 10 === 0 || props.index === 0;
+  const cellId = (props.index / 10) + 1;
 
   return (
     <Fragment>
