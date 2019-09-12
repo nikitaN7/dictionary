@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 
-class WordsFilter extends Component {
+const filterTypes = [
+  { type: 'all-words', text: 'All words' },
+  { type: 'hard-words', text: 'Hard words' }
+]
 
+class WordsFilter extends Component {
   state = {
     isToggleOn: false
   }
@@ -14,6 +18,7 @@ class WordsFilter extends Component {
 
   render() {
     const { isToggleOn } = this.state;
+    const { filterType, handleChange } = this.props;
 
     return (
       <div className="filter">
@@ -24,19 +29,16 @@ class WordsFilter extends Component {
 
         {isToggleOn ? (
           <div className="filter__dropdown">
-            <label className="filter__item">
-              <input type="radio" name="filterType"
-                onChange={({ target }) => this.props.handleChange(target.name, 'all-words')}
-                checked={this.props.filterType === 'all-words'} />
-              <div className="filter__item__text">All words</div>
-            </label>
-
-            <label className="filter__item">
-              <input type="radio" name="filterType"
-                onChange={({ target }) => this.props.handleChange(target.name, 'hard-words')}
-                checked={this.props.filterType === 'hard-words'} />
-              <div className="filter__item__text">Hard words</div>
-            </label>
+            {filterTypes.map((item, idx) => {
+              return (
+                <label key={idx} className="filter__item">
+                  <input type="radio" name="filterType"
+                    onChange={({ target }) => handleChange(target.name, item.type)}
+                    checked={filterType === item.type} />
+                  <div className="filter__item__text">{item.text}</div>
+                </label>
+              )
+            })}
           </div>
         ) : null}
       </div>

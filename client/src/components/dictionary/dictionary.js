@@ -5,6 +5,7 @@ import ScrollGroup from './scroll-group';
 import WordsFilter from './words-filter';
 import WordsSearch from './words-search';
 import WordsTable from './words-table';
+import WordsImport from './words-import';
 import { SHOW_ALL_WORDS } from '../../constants';
 import { connect } from 'react-redux';
 import { fetchWords } from '../../actions/word-list-fetch';
@@ -73,24 +74,17 @@ class Dictionary extends Component {
   render() {
     const { onActionClick, pending } = this.props;
     const { searchValue, filterType, words, wordDisplay, isBoxActive } = this.state;
-    const boxActiveClass = isBoxActive ? 'is-open' : 'is-close';
 
     return (
       <div className="dictionary">
         <div className="dictionary__row">
           <WordsDisplay
             optionClick={this.optionClick}
-            wordDisplay={wordDisplay}/>
+            wordDisplay={wordDisplay} />
 
-          <div className="dictionary__options">
-            <div
-              onClick={this.boxActiveToggle}
-              className={`dictionary__options__item green ${boxActiveClass}`} >
-
-              <img src="/img/import-icon.svg" alt=""/>
-              <span>Import words</span>
-            </div>
-          </div>
+          <WordsImport
+            handleClick={this.boxActiveToggle}
+            isActive={isBoxActive} />
 
           <ScrollGroup />
 
