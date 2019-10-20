@@ -4,7 +4,7 @@ export const scrollToBottom = () => {
   scroll.scrollToBottom({
     duration: 1000,
     delay: 100,
-    smooth: "easeInOutQuint",
+    smooth: 'easeInOutQuint',
     containerId: 'dictionaryTable'
-  })
-}
+  });
+};

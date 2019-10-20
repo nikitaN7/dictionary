@@ -7,11 +7,11 @@ import Preloader from '../preloader';
 class WordsTable extends Component {
   state = {
     visibleWordsId: []
-  }
+  };
 
   componentDidUpdate(prevProps) {
     if (prevProps.wordDisplay !== this.props.wordDisplay) {
-      this.setState({ visibleWordsId: [] })
+      this.setState({ visibleWordsId: [] });
     }
   }
 
@@ -21,9 +21,9 @@ class WordsTable extends Component {
     if (!list.includes(id) && className === 'hide') {
       this.setState({
         visibleWordsId: [...list, id]
-      })
+      });
     }
-  }
+  };
 
   setClassName(id, option) {
     const { visibleWordsId } = this.state;
@@ -37,27 +37,27 @@ class WordsTable extends Component {
   }
 
   renderRows() {
-    let { words } = this.props;
+    const { words, onActionClick } = this.props;
 
-    return (
-      words.map((data, idx) => {
-        return (
-          <WordRow
-            data={data}
-            key={idx}
-            onActionClick={this.props.onActionClick}
-            onWordClick={this.onWordClick}
-            index={idx}
-            enClass={this.setClassName(data.id, HIDE_EN_WORDS)}
-            ruClass={this.setClassName(data.id, HIDE_RU_WORDS)} />
-        )
-      })
-    )
+    return words.map((data, idx) => {
+      return (
+        <WordRow
+          data={data}
+          key={idx}
+          onActionClick={onActionClick}
+          onWordClick={this.onWordClick}
+          index={idx}
+          enClass={this.setClassName(data.id, HIDE_EN_WORDS)}
+          ruClass={this.setClassName(data.id, HIDE_RU_WORDS)}
+        />
+      );
+    });
   }
 
   render() {
-    const hasData = this.props.words.length > 0;
-    const isLoading = this.props.pending && !hasData;
+    const { words, pending } = this.props;
+    const hasData = words.length > 0;
+    const isLoading = pending && !hasData;
 
     return (
       <Element className="dictionary__table" id="dictionaryTable">
@@ -72,18 +72,19 @@ class WordsTable extends Component {
           </thead>
 
           <tbody>
-            { isLoading
-              ? <tr colSpan="4" className="transparent">
-                  <td><Preloader size="lg" /></td>
-                </tr>
-              : null
-            }
+            {isLoading ? (
+              <tr colSpan="4" className="transparent">
+                <td>
+                  <Preloader size="lg" />
+                </td>
+              </tr>
+            ) : null}
 
-            { hasData ? this.renderRows() : null }
+            {hasData ? this.renderRows() : null}
           </tbody>
         </table>
       </Element>
-    )
+    );
   }
 }
 

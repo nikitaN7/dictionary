@@ -1,11 +1,11 @@
-export const validateFields = (fields) => {
+export const validateFields = fields => {
   let isValidate = true;
 
-  Object.keys(fields).forEach((item) => {
+  Object.keys(fields).forEach(item => {
     if (fields[item].length === 0) {
       isValidate = false;
     }
-  })
+  });
 
   return isValidate;
-}
+};

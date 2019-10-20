@@ -4,24 +4,27 @@ import { Link } from 'react-scroll';
 class ScrollGroup extends Component {
   state = {
     scrollTo: ''
-  }
+  };
 
-  handleChange = (value) => {
+  handleChange = value => {
     const re = /^[0-9\b]+$/;
 
     if (value === '' || re.test(value)) {
-      this.setState({ scrollTo: value })
+      this.setState({ scrollTo: value });
     }
-  }
+  };
 
   render() {
     const { scrollTo } = this.state;
 
     return (
       <div className="dictionary__scroll">
-        <input type="text" placeholder="Enter col number"
+        <input
+          type="text"
+          placeholder="Enter col number"
           value={scrollTo}
-          onChange={(e) => this.handleChange(e.target.value)} />
+          onChange={e => this.handleChange(e.target.value)}
+        />
 
         <Link
           activeClass="active"
@@ -30,11 +33,13 @@ class ScrollGroup extends Component {
           spy={true}
           offset={-225}
           smooth={true}
-          to={scrollTo + '-col'}
-          duration={400}> Scroll
+          to={`${scrollTo}-col`}
+          duration={400}
+        >
+          Scroll
         </Link>
       </div>
-    )
+    );
   }
 }
 

@@ -1,28 +1,34 @@
-import React, { Component } from 'react';
-import Dictionary from '../dictionary/';
+import React from 'react';
+import Dictionary from '../dictionary';
 
-class Main extends Component {
+const Main = props => {
+  const { navIsActive, navToggle, onActionClick } = props;
 
-  render() {
-    const { navIsActive, navToggle, onActionClick } = this.props;
-    return (
-      <main className="main">
-        <div className="header">
-          <button className={`header__burger ${navIsActive ? 'is-open' : ''}`} onClick={navToggle}>
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
+  return (
+    <main className="main">
+      <div className="header">
+        <button
+          className={`header__burger ${navIsActive ? 'is-open' : ''}`}
+          type="button"
+          onClick={navToggle}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
 
-          <button className="btn btn--lg btn--add" onClick={(e) => onActionClick(null, 'add')}>
-            Add word
-          </button>
-        </div>
+        <button
+          type="button"
+          className="btn btn--lg btn--add"
+          onClick={() => onActionClick(null, 'add')}
+        >
+          Add word
+        </button>
+      </div>
 
-        <Dictionary onActionClick={onActionClick} />
-      </main>
-    )
-  }
-}
+      <Dictionary onActionClick={onActionClick} />
+    </main>
+  );
+};
 
 export default Main;

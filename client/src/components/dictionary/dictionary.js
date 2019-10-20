@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import WordsDisplay from './words-display';
 import WordsUpload from './words-upload';
 import ScrollGroup from './scroll-group';
@@ -7,7 +8,6 @@ import WordsSearch from './words-search';
 import WordsTable from './words-table';
 import WordsImport from './words-import';
 import { SHOW_ALL_WORDS } from '../../constants';
-import { connect } from 'react-redux';
 import { fetchWords } from '../../actions/word-list-fetch';
 import { filterWordsByType } from '../../function/filterWordsByType';
 import { searchWordsByStr } from '../../function/searchWordsByStr';
@@ -38,15 +38,6 @@ class Dictionary extends Component {
     this.setState({ wordDisplay: value });
   };
 
-  wordsUpdate() {
-    let { words } = this.props;
-
-    words = searchWordsByStr(words, this.state.searchValue);
-    words = filterWordsByType(words, this.state.filterType);
-
-    this.setState({ words: words });
-  }
-
   boxActiveToggle = () => {
     this.setState(prevState => {
       return { isBoxActive: !prevState.isBoxActive };
@@ -74,6 +65,16 @@ class Dictionary extends Component {
 
     this.setState({ [name]: value });
   };
+
+  wordsUpdate() {
+    let { words } = this.props;
+    const { searchValue, filterType } = this.state;
+
+    words = searchWordsByStr(words, searchValue);
+    words = filterWordsByType(words, filterType);
+
+    this.setState({ words });
+  }
 
   render() {
     const { onActionClick, pending } = this.props;
@@ -106,12 +107,12 @@ class Dictionary extends Component {
           />
 
           <WordsFilter
-            filterType={this.state.filterType}
+            filterType={filterType}
             handleChange={this.handleChange}
           />
         </div>
 
-        {this.state.isBoxActive ? <WordsUpload /> : null}
+        {isBoxActive ? <WordsUpload /> : null}
 
         <WordsTable
           words={words}
