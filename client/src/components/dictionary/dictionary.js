@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import WordsHide from './words-hide';
-import WordsUpload from './words-upload';
+import WordsUploadBox from './words-upload-box';
+import WordsUploadDropdown from './words-upload-dropdown';
 import ScrollGroup from './scroll-group';
 import WordsFilter from './words-filter';
 import WordsSearch from './words-search';
 import WordsTable from './words-table';
-import WordsImport from './words-import';
+
 import { fetchWords } from '../../actions/word-list-fetch';
 import { filterWordsByType } from '../../function/filterWordsByType';
 import { searchWordsByStr } from '../../function/searchWordsByStr';
@@ -15,7 +16,7 @@ import { getSortedWords } from '../../selectors';
 class Dictionary extends Component {
   state = {
     hiddenWords: '',
-    isBoxActive: false,
+    uploadBoxIsOpen: false,
     filterType: 'all-words',
     searchValue: '',
     words: {}
@@ -37,9 +38,9 @@ class Dictionary extends Component {
     this.setState({ hiddenWords: value });
   };
 
-  boxActiveToggle = () => {
+  toggleUploadBox = () => {
     this.setState(prevState => {
-      return { isBoxActive: !prevState.isBoxActive };
+      return { uploadBoxIsOpen: !prevState.uploadBoxIsOpen };
     });
   };
 
@@ -82,7 +83,7 @@ class Dictionary extends Component {
       filterType,
       words,
       hiddenWords,
-      isBoxActive
+      uploadBoxIsOpen
     } = this.state;
 
     return (
@@ -93,9 +94,9 @@ class Dictionary extends Component {
             hiddenWords={hiddenWords}
           />
 
-          <WordsImport
-            handleClick={this.boxActiveToggle}
-            isActive={isBoxActive}
+          <WordsUploadDropdown
+            handleClick={this.toggleUploadBox}
+            isActive={uploadBoxIsOpen}
           />
 
           <ScrollGroup />
@@ -111,7 +112,7 @@ class Dictionary extends Component {
           />
         </div>
 
-        {isBoxActive ? <WordsUpload /> : null}
+        {uploadBoxIsOpen ? <WordsUploadBox /> : null}
 
         <WordsTable
           words={words}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import DropdownSelect from './dropdown-select';
 import * as constants from '../../constants';
 
 const options = [
@@ -50,19 +51,17 @@ class WordsHide extends Component {
 
   render() {
     const { isToggleOn } = this.state;
-    const toggleClass = isToggleOn ? 'is-open' : 'is-close';
+    const activeClass = isToggleOn ? 'is-open' : 'is-close';
 
     return (
       <div className="dictionary__options">
-        <div
+        <DropdownSelect
           onClick={this.toggleOptions}
-          role="button"
-          tabIndex="0"
-          className={`dictionary__options__item blue ${toggleClass}`}
-        >
-          <img src="/img/hide-eye.svg" alt="" />
-          <span>Hide words</span>
-        </div>
+          activeClass={activeClass}
+          bgColor="blue"
+          icon="hide-eye.svg"
+          text="Hide words"
+        />
 
         {isToggleOn ? this.renderDropdown() : null}
       </div>
