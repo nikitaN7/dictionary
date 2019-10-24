@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { allWordsDelete } from '../../actions/word-list-remove';
 
 class Nav extends Component {
   onDeleteAllWords = e => {
     e.preventDefault();
-    this.props.allWordsDelete(this.props.modalClose);
+    this.props.allWordsDelete();
   };
 
   render() {
@@ -69,7 +67,4 @@ class Nav extends Component {
   }
 }
 
-export default connect(
-  null,
-  { allWordsDelete }
-)(Nav);
+export default Nav;

@@ -2,13 +2,13 @@ import React from 'react';
 import Dictionary from '../dictionary';
 
 const Main = props => {
-  const { navIsActive, navToggle, onActionClick } = props;
+  const { navIsOpen, navToggle, onActionClick } = props;
 
   return (
     <main className="main">
       <div className="header">
         <button
-          className={`header__burger ${navIsActive ? 'is-open' : ''}`}
+          className={`header__burger ${navIsOpen ? 'is-open' : ''}`}
           type="button"
           onClick={navToggle}
         >

@@ -130,7 +130,6 @@ class Dictionary extends Component {
 const mapStateToProps = state => {
   return {
     words: getSortedWords(state),
-    error: state.wordList.error,
     pending: state.wordList.pending
   };
 };

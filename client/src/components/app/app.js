@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Nav from '../nav';
 import Main from '../main';
 import Modal from '../modal';
+import { preloadImages } from '../../data/preload-images';
+import { allWordsDelete } from '../../actions/word-list-remove';
 import '../../scss/app.scss';
-
-const preloadImages = [
-  { fileName: '/img/warning.svg' },
-  { fileName: '/img/sm-loader.svg' }
-];
 
 class App extends Component {
   state = {
-    navIsActive: false,
+    navIsOpen: false,
     modalIsOpen: false,
     wordId: null,
     wordAction: ''
@@ -24,8 +22,8 @@ class App extends Component {
   }
 
   navToggle = () => {
-    const { navIsActive } = this.state;
-    this.setState({ navIsActive: !navIsActive });
+    const { navIsOpen } = this.state;
+    this.setState({ navIsOpen: !navIsOpen });
   };
 
   modalClose = () => {
@@ -41,15 +39,16 @@ class App extends Component {
   };
 
   render() {
-    const { navIsActive, modalIsOpen, wordId, wordAction } = this.state;
+    const { navIsOpen, modalIsOpen, wordId, wordAction } = this.state;
+    const { allWordsDelete } = this.props;
 
     return (
       <div className="container">
-        <Nav isActive={navIsActive} />
+        <Nav isActive={navIsOpen} allWordsDelete={allWordsDelete} />
 
         <Main
           navToggle={this.navToggle}
-          navIsActive={navIsActive}
+          navIsOpen={navIsOpen}
           onActionClick={this.onActionClick}
         />
 
@@ -64,4 +63,7 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(
+  null,
+  { allWordsDelete }
+)(App);
