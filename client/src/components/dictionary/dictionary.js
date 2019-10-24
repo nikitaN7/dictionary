@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import WordsHide from './words-hide';
 import WordsUploadBox from './words-upload-box';
 import WordsUploadDropdown from './words-upload-dropdown';
-import ScrollGroup from './scroll-group';
+import ScrollField from './scroll-field';
 import WordsFilter from './words-filter';
 import WordsSearch from './words-search';
 import WordsTable from './words-table';
@@ -44,26 +44,8 @@ class Dictionary extends Component {
     });
   };
 
-  onFilterClick = value => {
-    this.setState(
-      {
-        filterType: value
-      },
-      () => this.wordsUpdate()
-    );
-  };
-
   handleChange = (name, value) => {
-    let wordsUpdateNames = ['searchValue', 'filterType'];
-
-    for (let prop of wordsUpdateNames) {
-      if (prop === name) {
-        this.setState({ [name]: value }, () => this.wordsUpdate());
-        return;
-      }
-    }
-
-    this.setState({ [name]: value });
+    this.setState({ [name]: value }, () => this.wordsUpdate());
   };
 
   wordsUpdate() {
@@ -99,7 +81,7 @@ class Dictionary extends Component {
             isActive={uploadBoxIsOpen}
           />
 
-          <ScrollGroup />
+          <ScrollField />
 
           <WordsSearch
             searchValue={searchValue}

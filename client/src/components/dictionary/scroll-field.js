@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-scroll';
 
-class ScrollGroup extends Component {
+class ScrollField extends Component {
   state = {
     scrollTo: ''
   };
@@ -43,4 +43,4 @@ class ScrollGroup extends Component {
   }
 }
 
-export default ScrollGroup;
+export default ScrollField;
