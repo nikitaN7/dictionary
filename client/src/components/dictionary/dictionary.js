@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import WordsDisplay from './words-display';
+import WordsHide from './words-hide';
 import WordsUpload from './words-upload';
 import ScrollGroup from './scroll-group';
 import WordsFilter from './words-filter';
 import WordsSearch from './words-search';
 import WordsTable from './words-table';
 import WordsImport from './words-import';
-import { SHOW_ALL_WORDS } from '../../constants';
 import { fetchWords } from '../../actions/word-list-fetch';
 import { filterWordsByType } from '../../function/filterWordsByType';
 import { searchWordsByStr } from '../../function/searchWordsByStr';
@@ -15,7 +14,7 @@ import { getSortedWords } from '../../selectors';
 
 class Dictionary extends Component {
   state = {
-    wordDisplay: SHOW_ALL_WORDS,
+    hiddenWords: '',
     isBoxActive: false,
     filterType: 'all-words',
     searchValue: '',
@@ -34,8 +33,8 @@ class Dictionary extends Component {
     }
   }
 
-  optionClick = value => {
-    this.setState({ wordDisplay: value });
+  setHiddenWords = value => {
+    this.setState({ hiddenWords: value });
   };
 
   boxActiveToggle = () => {
@@ -82,16 +81,16 @@ class Dictionary extends Component {
       searchValue,
       filterType,
       words,
-      wordDisplay,
+      hiddenWords,
       isBoxActive
     } = this.state;
 
     return (
       <div className="dictionary">
         <div className="dictionary__row">
-          <WordsDisplay
-            optionClick={this.optionClick}
-            wordDisplay={wordDisplay}
+          <WordsHide
+            setHiddenWords={this.setHiddenWords}
+            hiddenWords={hiddenWords}
           />
 
           <WordsImport
@@ -120,7 +119,7 @@ class Dictionary extends Component {
           filterType={filterType}
           searchValue={searchValue}
           onActionClick={onActionClick}
-          wordDisplay={wordDisplay}
+          hiddenWords={hiddenWords}
         />
       </div>
     );

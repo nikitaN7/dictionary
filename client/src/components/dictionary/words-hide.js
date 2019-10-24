@@ -2,41 +2,41 @@ import React, { Component } from 'react';
 import * as constants from '../../constants';
 
 const options = [
-  { name: constants.SHOW_ALL_WORDS, icon: 'show-eye', text: 'Show all words' },
-  { name: constants.HIDE_EN_WORDS, icon: 'en-icon', text: 'Hide en words' },
-  { name: constants.HIDE_RU_WORDS, icon: 'ru-icon', text: 'Hide ru words' }
+  { value: '', icon: 'show-eye', text: 'Show all words' },
+  { value: constants.HIDE_EN_WORDS, icon: 'en-icon', text: 'Hide en words' },
+  { value: constants.HIDE_RU_WORDS, icon: 'ru-icon', text: 'Hide ru words' }
 ];
 
-class WordsDisplay extends Component {
+class WordsHide extends Component {
   state = {
     isToggleOn: false
   };
 
   componentDidUpdate(previousProps) {
-    const { wordDisplay } = this.props;
-    if (previousProps.wordDisplay !== wordDisplay) {
-      this.handleClick();
+    const { hiddenWords } = this.props;
+    if (previousProps.hiddenWords !== hiddenWords) {
+      this.toggleOptions();
     }
   }
 
-  handleClick = () => {
+  toggleOptions = () => {
     this.setState(prevState => ({
       isToggleOn: !prevState.isToggleOn
     }));
   };
 
   renderDropdown() {
-    const { optionClick, wordDisplay } = this.props;
+    const { setHiddenWords, hiddenWords } = this.props;
 
     return (
       <ul className="dictionary__dropdown">
         {options.map((item, idx) => {
-          const isItemActive = wordDisplay === item.name ? 'active' : '';
+          const isItemActive = hiddenWords === item.value ? 'active' : '';
 
           return (
             <li
               key={idx}
-              onClick={() => optionClick(item.name)}
+              onClick={() => setHiddenWords(item.value)}
               className={`dictionary__options__item white ${isItemActive}`}
             >
               <img src={`/img/${item.icon}.svg`} alt="" />
@@ -55,7 +55,7 @@ class WordsDisplay extends Component {
     return (
       <div className="dictionary__options">
         <div
-          onClick={this.handleClick}
+          onClick={this.toggleOptions}
           role="button"
           tabIndex="0"
           className={`dictionary__options__item blue ${toggleClass}`}
@@ -70,4 +70,4 @@ class WordsDisplay extends Component {
   }
 }
 
-export default WordsDisplay;
+export default WordsHide;

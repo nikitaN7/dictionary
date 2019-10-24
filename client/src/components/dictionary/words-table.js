@@ -10,7 +10,7 @@ class WordsTable extends Component {
   };
 
   componentDidUpdate(prevProps) {
-    if (prevProps.wordDisplay !== this.props.wordDisplay) {
+    if (prevProps.hiddenWords !== this.props.hiddenWords) {
       this.setState({ visibleWordsId: [] });
     }
   }
@@ -27,9 +27,9 @@ class WordsTable extends Component {
 
   setClassName(id, option) {
     const { visibleWordsId } = this.state;
-    const { wordDisplay } = this.props;
+    const { hiddenWords } = this.props;
 
-    if (!visibleWordsId.includes(id) && wordDisplay === option) {
+    if (!visibleWordsId.includes(id) && hiddenWords === option) {
       return 'hide';
     }
 
