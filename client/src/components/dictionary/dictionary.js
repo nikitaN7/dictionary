@@ -7,19 +7,19 @@ import ScrollField from './scroll-field';
 import WordsFilter from './words-filter';
 import WordsSearch from './words-search';
 import WordsTable from './words-table';
-
+import { filterWords } from '../../function/filterWords';
 import { fetchWords } from '../../actions/word-list-fetch';
-import { filterWordsByType } from '../../function/filterWordsByType';
-import { searchWordsByStr } from '../../function/searchWordsByStr';
 import { getSortedWords } from '../../selectors';
 
 class Dictionary extends Component {
   state = {
     hiddenWords: '',
     uploadBoxIsOpen: false,
-    filterType: 'all-words',
-    searchValue: '',
-    words: {}
+    filterOptions: {
+      filterSearch: '',
+      filterType: 'all-words'
+    },
+    filteredWords: {}
   };
 
   componentDidMount() {
@@ -45,25 +45,29 @@ class Dictionary extends Component {
   };
 
   handleChange = (name, value) => {
-    this.setState({ [name]: value }, () => this.wordsUpdate());
+    this.setState(
+      {
+        filterOptions: {
+          ...this.state.filterOptions,
+          [name]: value
+        }
+      },
+      () => this.wordsUpdate()
+    );
   };
 
   wordsUpdate() {
-    let { words } = this.props;
-    const { searchValue, filterType } = this.state;
+    const { words } = this.props;
+    const { filterOptions } = this.state;
 
-    words = searchWordsByStr(words, searchValue);
-    words = filterWordsByType(words, filterType);
-
-    this.setState({ words });
+    this.setState({ filteredWords: filterWords(words, filterOptions) });
   }
 
   render() {
     const { onActionClick, pending } = this.props;
     const {
-      searchValue,
-      filterType,
-      words,
+      filterOptions,
+      filteredWords,
       hiddenWords,
       uploadBoxIsOpen
     } = this.state;
@@ -84,12 +88,12 @@ class Dictionary extends Component {
           <ScrollField />
 
           <WordsSearch
-            searchValue={searchValue}
+            searchValue={filterOptions.filterSearch}
             handleChange={this.handleChange}
           />
 
           <WordsFilter
-            filterType={filterType}
+            filterType={filterOptions.filterType}
             handleChange={this.handleChange}
           />
         </div>
@@ -97,10 +101,8 @@ class Dictionary extends Component {
         {uploadBoxIsOpen ? <WordsUploadBox /> : null}
 
         <WordsTable
-          words={words}
+          words={filteredWords}
           pending={pending}
-          filterType={filterType}
-          searchValue={searchValue}
           onActionClick={onActionClick}
           hiddenWords={hiddenWords}
         />

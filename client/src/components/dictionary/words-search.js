@@ -6,7 +6,7 @@ const WordsSearch = props => {
     <div className="search">
       <div className="search__group">
         <input
-          name="searchValue"
+          name="filterSearch"
           type="text"
           placeholder="Search"
           onChange={({ target }) =>
