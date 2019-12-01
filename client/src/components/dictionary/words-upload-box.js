@@ -1,117 +1,103 @@
-import React, { Component } from 'react';
+import React, { useRef, useState, useReducer, useEffect } from 'react';
 import { connect } from 'react-redux';
-import XLSX from 'xlsx';
 import axios from 'axios';
 import TargetBox from './target-box';
-import { getListFromFile } from '../../function/getListFromFile';
+import { xlsFileUpload } from '../../utils/xlsFileUpload';
 import { fetchWords } from '../../actions/word-list-fetch';
+import { fileValidate } from '../../utils/fileValidate';
 
-class WordsUpload extends Component {
-  fileInput = React.createRef();
+const fileUploadReducer = (state, action) => {
+  switch (action.type) {
+    case 'success':
+      return {
+        loading: false,
+        success: true,
+        error: null
+      };
 
-  state = {
-    fileError: '',
-    isFileLoading: false,
-    isFileSuccess: false
-  };
+    case 'error':
+      return {
+        loading: false,
+        success: false,
+        error: action.payload
+      };
 
-  handleResetForm = () => {
-    this.setState({
-      fileError: '',
-      isFileLoading: false,
-      isFileSuccess: false
-    });
-  };
+    case 'loading':
+      return {
+        success: false,
+        loading: true,
+        error: null
+      };
 
-  setFiles = files => {
-    if (!this.fileValidation(files)) {
+    case 'reset':
+      return {
+        error: null,
+        loading: false,
+        success: false
+      };
+
+    default:
+      return state;
+  }
+};
+
+const WordsUpload = ({ fetchWords }) => {
+  const fileInput = useRef(null);
+  const [files, setFiles] = useState(null);
+  const [state, dispatch] = useReducer(fileUploadReducer, {
+    error: null,
+    loading: false,
+    success: false
+  });
+
+  useEffect(() => {
+    if (!files) {
+      return;
+    }
+    if (!fileValidate(files, dispatch)) {
       return;
     }
 
-    const file = files[0];
-    const reader = new FileReader();
-
-    reader.onload = e => {
-      const data = new Uint8Array(e.target.result);
-      const workbook = XLSX.read(data, { type: 'array' });
-
-      const wordsList = getListFromFile(workbook);
-
-      this.setState({
-        isFileLoading: true
-      });
-
+    xlsFileUpload(files).then(wordsList => {
       axios
         .post('/api/putManyData', wordsList)
         .then(() => {
-          this.setState({
-            isFileLoading: false,
-            isFileSuccess: true
-          });
-          this.props.fetchWords();
+          dispatch({ type: 'success' });
+          fetchWords();
         })
         .catch(err => {
-          this.setState({
-            fileError: err.message,
-            isFileLoading: false
-          });
+          dispatch({ type: 'error', payload: err.message });
         });
-    };
+    });
+  }, [files]);
 
-    reader.readAsArrayBuffer(file);
-  };
-
-  handleFileDrop = monitor => {
+  const handleFileDrop = monitor => {
     if (monitor) {
-      const files = monitor.getItem().files;
-      this.setFiles(files);
+      const { files } = monitor.getItem();
+      setFiles(files);
     }
   };
 
-  handleFile = () => {
-    const { files } = this.fileInput.current;
-    this.setFiles(files);
+  const handleFile = () => {
+    const { files } = fileInput.current;
+
+    setFiles(files);
   };
 
-  fileValidation(files) {
-    const allowedExtension = /(\.xlsx)$/i;
-    const fileName = files[0].name;
+  const { error, success, loading } = state;
 
-    if (files.length > 1) {
-      this.setState({
-        fileError: 'Only 1 file must be load'
-      });
-
-      return false;
-    }
-
-    if (!allowedExtension.exec(fileName)) {
-      this.setState({
-        fileError: 'Only xlsx file is allowed'
-      });
-
-      return false;
-    }
-
-    return true;
-  }
-
-  render() {
-    const { fileError, isFileSuccess, isFileLoading } = this.state;
-
-    return (
-      <TargetBox
-        onDrop={this.handleFileDrop}
-        error={fileError}
-        isSuccess={isFileSuccess}
-        isLoading={isFileLoading}
-        onResetForm={this.handleResetForm}
-        handleFile={this.handleFile}
-        fileInput={this.fileInput}
-      />
-    );
-  }
-}
+  return (
+    <TargetBox
+      onDrop={handleFileDrop}
+      error={error}
+      isSuccess={success}
+      isLoading={loading}
+      onResetForm={() => dispatch({ type: 'reset' })}
+      handleFile={handleFile}
+      fileInput={fileInput}
+    />
+  );
+};
 
 export default connect(
   null,

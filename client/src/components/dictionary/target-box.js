@@ -2,7 +2,7 @@ import React from 'react';
 import { useDrop } from 'react-dnd';
 import { NativeTypes } from 'react-dnd-html5-backend';
 import BoxInput from './box-input';
-import { isAdvancedUpload } from '../../function/isAdvancedUpload';
+import { isAdvancedUpload } from '../../utils/isAdvancedUpload';
 
 const TargetBox = props => {
   const [{ canDrop, isOver }, drop] = useDrop({

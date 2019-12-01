@@ -1,7 +1,7 @@
 import axios from 'axios';
 import store from '../store';
-import { scrollToBottom } from '../function/scrollToBottom';
-import { getMaxId } from '../function/getMaxId';
+import { scrollToBottom } from '../utils/scrollToBottom';
+import { getMaxId } from '../utils/getMaxId';
 import {
   UPDATE_LIST_PENDING,
   UPDATE_LIST_FAILURE,

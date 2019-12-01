@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import Nav from '../nav';
 import Main from '../main';
@@ -7,61 +7,55 @@ import { preloadImages } from '../../data/preload-images';
 import { allWordsDelete } from '../../actions/word-list-remove';
 import '../../scss/app.scss';
 
-class App extends Component {
-  state = {
-    navIsOpen: false,
-    modalIsOpen: false,
-    wordId: null,
-    wordAction: ''
-  };
+const App = props => {
+  const [navShow, setNavShow] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
+  const [word, setWord] = useState({
+    id: null,
+    action: ''
+  });
 
-  componentDidMount() {
+  useEffect(() => {
     preloadImages.forEach(picture => {
       new Image().src = picture.fileName;
     });
-  }
+  }, []);
 
-  navToggle = () => {
-    const { navIsOpen } = this.state;
-    this.setState({ navIsOpen: !navIsOpen });
+  const navToggle = () => {
+    setNavShow(navShow => !navShow);
   };
 
-  modalClose = () => {
-    this.setState({ modalIsOpen: false });
+  const modalClose = () => {
+    setModalShow(false);
   };
 
-  onActionClick = (id, action) => {
-    this.setState({
-      modalIsOpen: true,
-      wordId: id,
-      wordAction: action
-    });
+  const onActionClick = (id, action) => {
+    setModalShow(true);
+    setWord({ id, action });
   };
 
-  render() {
-    const { navIsOpen, modalIsOpen, wordId, wordAction } = this.state;
-    const { allWordsDelete } = this.props;
+  const { id, action } = word;
+  const { allWordsDelete } = props;
 
-    return (
-      <div className="container">
-        <Nav isActive={navIsOpen} allWordsDelete={allWordsDelete} />
+  return (
+    <div className="container">
+      <Nav isActive={navShow} allWordsDelete={allWordsDelete} />
 
-        <Main
-          navToggle={this.navToggle}
-          navIsOpen={navIsOpen}
-          onActionClick={this.onActionClick}
-        />
+      <Main
+        navToggle={navToggle}
+        navShow={navShow}
+        onActionClick={onActionClick}
+      />
 
-        <Modal
-          modalClose={this.modalClose}
-          isOpen={modalIsOpen}
-          wordId={wordId}
-          wordAction={wordAction}
-        />
-      </div>
-    );
-  }
-}
+      <Modal
+        modalClose={modalClose}
+        isOpen={modalShow}
+        wordId={id}
+        wordAction={action}
+      />
+    </div>
+  );
+};
 
 export default connect(
   null,

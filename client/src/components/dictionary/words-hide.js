@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import DropdownSelect from './dropdown-select';
 import * as constants from '../../constants';
 
@@ -8,27 +8,20 @@ const options = [
   { value: constants.HIDE_RU_WORDS, icon: 'ru-icon', text: 'Hide ru words' }
 ];
 
-class WordsHide extends Component {
-  state = {
-    isToggleOn: false
-  };
+const WordsHide = ({ hiddenWords, setHiddenWords }) => {
+  const [dropdownShow, setDropdownShow] = useState(false);
+  const isFirstRender = useRef(true);
 
-  componentDidUpdate(previousProps) {
-    const { hiddenWords } = this.props;
-    if (previousProps.hiddenWords !== hiddenWords) {
-      this.toggleOptions();
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
     }
-  }
 
-  toggleOptions = () => {
-    this.setState(prevState => ({
-      isToggleOn: !prevState.isToggleOn
-    }));
-  };
+    setDropdownShow(dropdownShow => !dropdownShow);
+  }, [hiddenWords]);
 
-  renderDropdown() {
-    const { setHiddenWords, hiddenWords } = this.props;
-
+  const renderDropdown = () => {
     return (
       <ul className="dictionary__dropdown">
         {options.map((item, idx) => {
@@ -47,26 +40,23 @@ class WordsHide extends Component {
         })}
       </ul>
     );
-  }
+  };
 
-  render() {
-    const { isToggleOn } = this.state;
-    const activeClass = isToggleOn ? 'is-open' : 'is-close';
+  const activeClass = dropdownShow ? 'is-open' : 'is-close';
 
-    return (
-      <div className="dictionary__options">
-        <DropdownSelect
-          onClick={this.toggleOptions}
-          activeClass={activeClass}
-          bgColor="blue"
-          icon="hide-eye.svg"
-          text="Hide words"
-        />
+  return (
+    <div className="dictionary__options">
+      <DropdownSelect
+        onClick={() => setDropdownShow(dropdownShow => !dropdownShow)}
+        activeClass={activeClass}
+        bgColor="blue"
+        icon="hide-eye.svg"
+        text="Hide words"
+      />
 
-        {isToggleOn ? this.renderDropdown() : null}
-      </div>
-    );
-  }
-}
+      {dropdownShow ? renderDropdown() : null}
+    </div>
+  );
+};
 
 export default WordsHide;

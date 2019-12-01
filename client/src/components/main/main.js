@@ -3,12 +3,12 @@ import Dictionary from '../dictionary';
 import Header from '../header';
 
 const Main = props => {
-  const { navIsOpen, navToggle, onActionClick } = props;
+  const { navShow, navToggle, onActionClick } = props;
 
   return (
     <main className="main">
       <Header
-        navIsOpen={navIsOpen}
+        navShow={navShow}
         navToggle={navToggle}
         onActionClick={onActionClick}
       />

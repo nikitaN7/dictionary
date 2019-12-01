@@ -1,91 +1,75 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Element } from 'react-scroll';
 import { HIDE_EN_WORDS, HIDE_RU_WORDS } from '../../constants';
 import WordRow from './word-row';
 import Preloader from '../preloader';
 
-class WordsTable extends Component {
-  state = {
-    visibleWordsId: []
-  };
+const WordsTable = ({ hiddenWords, words, onActionClick, pending }) => {
+  const [visibleWords, setVisibleWords] = useState([]);
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.hiddenWords !== this.props.hiddenWords) {
-      this.setState({ visibleWordsId: [] });
-    }
-  }
+  useEffect(() => {
+    setVisibleWords([]);
+  }, [hiddenWords]);
 
-  onWordClick = (id, className) => {
-    let list = this.state.visibleWordsId;
-
-    if (!list.includes(id) && className === 'hide') {
-      this.setState({
-        visibleWordsId: [...list, id]
-      });
+  const onWordClick = (id, className) => {
+    if (!visibleWords.includes(id) && className === 'hide') {
+      setVisibleWords(prevState => [...prevState, id]);
     }
   };
 
-  setClassName(id, option) {
-    const { visibleWordsId } = this.state;
-    const { hiddenWords } = this.props;
-
-    if (!visibleWordsId.includes(id) && hiddenWords === option) {
+  const setClassName = (id, option) => {
+    if (!visibleWords.includes(id) && hiddenWords === option) {
       return 'hide';
     }
 
     return '';
-  }
+  };
 
-  renderRows() {
-    const { words, onActionClick } = this.props;
-
+  const renderRows = () => {
     return words.map((data, idx) => {
       return (
         <WordRow
           data={data}
           key={idx}
           onActionClick={onActionClick}
-          onWordClick={this.onWordClick}
+          onWordClick={onWordClick}
           index={idx}
-          enClass={this.setClassName(data.id, HIDE_EN_WORDS)}
-          ruClass={this.setClassName(data.id, HIDE_RU_WORDS)}
+          enClass={setClassName(data.id, HIDE_EN_WORDS)}
+          ruClass={setClassName(data.id, HIDE_RU_WORDS)}
         />
       );
     });
-  }
+  };
 
-  render() {
-    const { words, pending } = this.props;
-    const hasData = words.length > 0;
-    const isLoading = pending && !hasData;
+  const hasData = words.length > 0;
+  const isLoading = pending && !hasData;
 
-    return (
-      <Element className="dictionary__table" id="dictionaryTable">
-        <table>
-          <thead>
-            <tr className="blue">
-              <th>EN</th>
-              <th>RU</th>
-              <th>Action</th>
-              <th>Bookmarks</th>
+  return (
+    <Element className="dictionary__table" id="dictionaryTable">
+      <table>
+        <thead>
+          <tr className="blue">
+            <th>EN</th>
+            <th>RU</th>
+            <th>Action</th>
+            <th>Bookmarks</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {isLoading ? (
+            <tr colSpan="4" className="transparent">
+              <td>
+                <Preloader size="lg" />
+              </td>
             </tr>
-          </thead>
+          ) : null}
 
-          <tbody>
-            {isLoading ? (
-              <tr colSpan="4" className="transparent">
-                <td>
-                  <Preloader size="lg" />
-                </td>
-              </tr>
-            ) : null}
-
-            {hasData ? this.renderRows() : null}
-          </tbody>
-        </table>
-      </Element>
-    );
-  }
-}
+          {hasData ? renderRows() : null}
+        </tbody>
+      </table>
+    </Element>
+  );
+};
 
 export default WordsTable;

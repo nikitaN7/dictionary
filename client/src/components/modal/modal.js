@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import ModalInner from './modal-inner';
-import { getWordById } from '../../function/getWordById';
+import { getWordById } from '../../utils/getWordById';
 import {
   wordUpdate,
   wordDelete,
