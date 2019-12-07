@@ -1,38 +1,18 @@
-import React, { useState } from 'react';
-import { Link } from 'react-scroll';
+import React from 'react';
 
-const ScrollField = () => {
-  const [scrollTo, setScrollTo] = useState('');
-
-  const handleChange = value => {
-    const re = /^[0-9\b]+$/;
-
-    if (value === '' || re.test(value)) {
-      setScrollTo(value);
-    }
-  };
-
+const ScrollField = ({ handleTableScroll, tableScrollIdx }) => {
   return (
     <div className="dictionary__scroll">
       <input
         type="text"
         placeholder="Enter col number"
-        value={scrollTo}
-        onChange={e => handleChange(e.target.value)}
+        value={tableScrollIdx}
+        onChange={e => handleTableScroll(e.target.value)}
       />
 
-      <Link
-        activeClass="active"
-        className="dictionary__scroll__anchor"
-        containerId="dictionaryTable"
-        spy={true}
-        offset={-225}
-        smooth={true}
-        to={`${scrollTo}-col`}
-        duration={400}
-      >
+      <button href="#" className="dictionary__scroll__anchor">
         Scroll
-      </Link>
+      </button>
     </div>
   );
 };

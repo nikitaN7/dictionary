@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Element } from 'react-scroll';
-import { HIDE_EN_WORDS, HIDE_RU_WORDS } from '../../constants';
-import WordRow from './word-row';
+import { Column, Table } from 'react-virtualized';
 import Preloader from '../preloader';
 
-const WordsTable = ({ hiddenWords, words, onActionClick, pending }) => {
+const WordsTable = ({
+  hiddenWords,
+  words,
+  onActionClick,
+  pending,
+  tableScrollIdx
+}) => {
   const [visibleWords, setVisibleWords] = useState([]);
 
   useEffect(() => {
@@ -25,50 +29,122 @@ const WordsTable = ({ hiddenWords, words, onActionClick, pending }) => {
     return '';
   };
 
-  const renderRows = () => {
-    return words.map((data, idx) => {
-      return (
-        <WordRow
-          data={data}
-          key={idx}
-          onActionClick={onActionClick}
-          onWordClick={onWordClick}
-          index={idx}
-          enClass={setClassName(data.id, HIDE_EN_WORDS)}
-          ruClass={setClassName(data.id, HIDE_RU_WORDS)}
-        />
-      );
-    });
+  const renderWord = (key, word) => {
+    const { id } = word;
+
+    const isTenCell = id % 10 === 0 || id === 0;
+    const cellId = id / 10 + 1;
+
+    const className = setClassName(id, key);
+    return (
+      <div className="Words__Table__cellContent">
+        {isTenCell ? (
+          <span>
+            <b>{cellId} words column </b>
+          </span>
+        ) : null}
+
+        <span
+          className={`Words__Table__wordBtn ${className}`}
+          onClick={e => onWordClick(id, className)}
+        >
+          {word[key]}
+        </span>
+      </div>
+    );
+  };
+
+  const renderActions = id => {
+    return (
+      <div className="Words__Table__cellContent">
+        <button
+          className="Words__Table__wordAction"
+          onClick={() => onActionClick(id, 'update')}
+        >
+          <img src="../../img/notepad-update.svg" alt="" />
+        </button>
+
+        <button
+          className="Words__Table__wordAction"
+          onClick={() => onActionClick(id, 'delete')}
+        >
+          <img src="../../img/notepad-minus.svg" alt="" />
+        </button>
+      </div>
+    );
   };
 
   const hasData = words.length > 0;
   const isLoading = pending && !hasData;
 
   return (
-    <Element className="dictionary__table" id="dictionaryTable">
-      <table>
-        <thead>
-          <tr className="blue">
-            <th>EN</th>
-            <th>RU</th>
-            <th>Action</th>
-            <th>Bookmarks</th>
-          </tr>
-        </thead>
+    <div className="dictionary__table" id="dictionaryTable">
+      {isLoading ? <Preloader size="lg" /> : null}
 
-        <tbody>
-          {isLoading ? (
-            <tr colSpan="4" className="transparent">
-              <td>
-                <Preloader size="lg" />
-              </td>
-            </tr>
-          ) : null}
-
-          {hasData ? renderRows() : null}
-        </tbody>
-      </table>
-    </Element>
+      {hasData ? (
+        <Table
+          width={1240}
+          height={720}
+          headerHeight={45}
+          rowHeight={60}
+          scrollToIndex={tableScrollIdx * 10}
+          rowCount={hasData ? words.length : 0}
+          rowGetter={({ index }) => words[index]}
+          className="Words__Table"
+          headerClassName="Words__Table__headerColumn"
+          rowClassName="Words__Table__row"
+          gridClassName="Words__Table__Grid"
+        >
+          <Column
+            label="En"
+            dataKey="en"
+            width={400}
+            className="Words__Table__Grid__rowColumn"
+            cellRenderer={({ rowData, dataKey }) => {
+              return renderWord(dataKey, rowData);
+            }}
+            flexGrow={1}
+          />
+          <Column
+            width={400}
+            label="Ru"
+            dataKey="ru"
+            className="Words__Table__Grid__rowColumn"
+            cellRenderer={({ rowData, dataKey }) => {
+              return renderWord(dataKey, rowData);
+            }}
+            flexGrow={1}
+          />
+          <Column
+            width={190}
+            label="Actions"
+            className="Words__Table__Grid__rowColumn"
+            flexGrow={1}
+            dataKey="actions"
+            cellRenderer={({ rowData }) => {
+              return renderActions(rowData.id);
+            }}
+          />
+          <Column
+            width={190}
+            label="Bookmarks"
+            className="Words__Table__Grid__rowColumn"
+            flexGrow={1}
+            dataKey="bookmarks"
+            cellRenderer={({ rowData }) => {
+              const { bookmarks } = rowData;
+              return (
+                <div className="Words__Table__cellContent">
+                  {bookmarks ? (
+                    <img src="../../img/lace-star.svg" alt="" />
+                  ) : null}
+                </div>
+              );
+            }}
+          />
+        </Table>
+      ) : null}
+    </div>
   );
 };
 

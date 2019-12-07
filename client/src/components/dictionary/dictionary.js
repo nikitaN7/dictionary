@@ -11,7 +11,14 @@ import { filterWords } from '../../utils/filterWords';
 import { fetchWords } from '../../actions/word-list-fetch';
 import { getSortedWords } from '../../selectors';
 
-const Dictionary = ({ fetchWords, words, onActionClick, pending }) => {
+const Dictionary = ({
+  fetchWords,
+  words,
+  onActionClick,
+  pending,
+  handleTableScroll,
+  tableScrollIdx
+}) => {
   const [hiddenWords, setHiddenWords] = useState('');
   const [uploadBoxShow, setUploadBoxShow] = useState(false);
   const [filteredWords, setFilteredWords] = useState({});
@@ -45,7 +52,10 @@ const Dictionary = ({ fetchWords, words, onActionClick, pending }) => {
           isActive={uploadBoxShow}
         />
 
-        <ScrollField />
+        <ScrollField
+          handleTableScroll={handleTableScroll}
+          tableScrollIdx={tableScrollIdx}
+        />
 
         <WordsSearch
           searchValue={filterOptions.filterSearch}
@@ -65,6 +75,7 @@ const Dictionary = ({ fetchWords, words, onActionClick, pending }) => {
         pending={pending}
         onActionClick={onActionClick}
         hiddenWords={hiddenWords}
+        tableScrollIdx={tableScrollIdx}
       />
     </div>
   );

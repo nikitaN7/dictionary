@@ -1,0 +1,142 @@
+.ReactVirtualized__Table__headerRow {
+  font-weight: 700;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.ReactVirtualized__Table__row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.ReactVirtualized__Table__headerTruncatedText {
+  display: inline-block;
+  max-width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.ReactVirtualized__Table__headerColumn,
+.ReactVirtualized__Table__rowColumn {
+  margin-right: 5px;
+  min-width: 0px;
+}
+.ReactVirtualized__Table__rowColumn {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ReactVirtualized__Table__sortableHeaderColumn {
+  cursor: pointer;
+}
+
+.ReactVirtualized__Table__sortableHeaderIconContainer {
+  display: flex;
+  align-items: center;
+}
+.ReactVirtualized__Table__sortableHeaderIcon {
+  flex: 0 0 24px;
+  height: 1em;
+  width: 1em;
+  fill: currentColor;
+}
+
+.Words__Table {
+
+  &__headerColumn {
+    span {
+      color: white;
+      text-align: center;
+      width: 100%;
+      color: white;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      text-align: center;
+      background: transparent;
+      display: block;
+      background-color: skyblue;
+    }
+
+    &:last-child span {
+      border-top-right-radius: 50px;
+      border-bottom-right-radius: 50px;
+    }
+
+    &:first-child span {
+      border-top-left-radius: 50px;
+      border-bottom-left-radius: 50px;
+    }
+  }
+
+  &__row:not(.ReactVirtualized__Table__headerRow ) {
+    padding-top: 5px;
+  }
+
+  &__headerColumn {
+    height: 100%;
+
+    span {
+      display: flex;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  &__wordBtn {
+    transition: all .3s ease;
+    color: #0f3c4b;
+    // position: absolute;
+    // height: 100%;
+    // width: 100%;
+    // vertical-align: middle;
+    // left: 0;
+    // top: 0;
+    // display: flex;
+    // align-items: center;
+    // padding: inherit;
+    // line-height: 1;
+    &.hide {
+      opacity: 0;
+      cursor: pointer;
+    }
+  }
+
+  &__cellContent {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    transition: all .3s ease;
+    background-color: lightgray;
+    width: 100%;
+    height: 100%;
+    padding: 11px 20px;
+    font-weight: 500;
+    color: #0f3c4b;
+    position: relative;
+
+    img {
+      max-width: 34px;
+      width: 100%;
+      margin: 0 auto;
+    }
+  }
+
+  &__Grid__rowColumn {
+    height: 100%;
+
+    &:last-child .Words__Table__cellContent{
+      border-top-right-radius: 50px;
+      border-bottom-right-radius: 50px;
+    }
+
+    &:first-child .Words__Table__cellContent{
+      border-top-left-radius: 50px;
+      border-bottom-left-radius: 50px;
+    }
+  }
+}

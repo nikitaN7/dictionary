@@ -10,6 +10,8 @@ import '../../scss/app.scss';
 const App = props => {
   const [navShow, setNavShow] = useState(false);
   const [modalShow, setModalShow] = useState(false);
+  const [tableScrollIdx, setTableScrollIdx] = useState(0);
+
   const [word, setWord] = useState({
     id: null,
     action: ''
@@ -34,6 +36,14 @@ const App = props => {
     setWord({ id, action });
   };
 
+  const handleTableScroll = value => {
+    const re = /^[0-9\b]+$/;
+
+    if (value === '' || re.test(value)) {
+      setTableScrollIdx(value);
+    }
+  };
+
   const { id, action } = word;
   const { allWordsDelete } = props;
 
@@ -45,6 +55,8 @@ const App = props => {
         navToggle={navToggle}
         navShow={navShow}
         onActionClick={onActionClick}
+        handleTableScroll={handleTableScroll}
+        tableScrollIdx={tableScrollIdx}
       />
 
       <Modal
@@ -52,6 +64,7 @@ const App = props => {
         isOpen={modalShow}
         wordId={id}
         wordAction={action}
+        setTableScrollIdx={setTableScrollIdx}
       />
     </div>
   );
