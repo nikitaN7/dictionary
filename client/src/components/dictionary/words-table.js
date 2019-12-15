@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Column, Table } from 'react-virtualized';
+import { Column, Table, AutoSizer } from 'react-virtualized';
 import Preloader from '../preloader';
 
 const WordsTable = ({
@@ -82,67 +82,72 @@ const WordsTable = ({
       {isLoading ? <Preloader size="lg" /> : null}
 
       {hasData ? (
-        <Table
-          width={1240}
-          height={720}
-          headerHeight={45}
-          rowHeight={60}
-          scrollToIndex={tableScrollIdx * 10}
-          rowCount={hasData ? words.length : 0}
-          rowGetter={({ index }) => words[index]}
-          className="Words__Table"
-          headerClassName="Words__Table__headerColumn"
-          rowClassName="Words__Table__row"
-          gridClassName="Words__Table__Grid"
-        >
-          <Column
-            label="En"
-            dataKey="en"
-            width={400}
-            className="Words__Table__Grid__rowColumn"
-            cellRenderer={({ rowData, dataKey }) => {
-              return renderWord(dataKey, rowData);
-            }}
-            flexGrow={1}
-          />
-          <Column
-            width={400}
-            label="Ru"
-            dataKey="ru"
-            className="Words__Table__Grid__rowColumn"
-            cellRenderer={({ rowData, dataKey }) => {
-              return renderWord(dataKey, rowData);
-            }}
-            flexGrow={1}
-          />
-          <Column
-            width={190}
-            label="Actions"
-            className="Words__Table__Grid__rowColumn"
-            flexGrow={1}
-            dataKey="actions"
-            cellRenderer={({ rowData }) => {
-              return renderActions(rowData.id);
-            }}
-          />
-          <Column
-            width={190}
-            label="Bookmarks"
-            className="Words__Table__Grid__rowColumn"
-            flexGrow={1}
-            dataKey="bookmarks"
-            cellRenderer={({ rowData }) => {
-              const { bookmarks } = rowData;
-              return (
-                <div className="Words__Table__cellContent">
-                  {bookmarks ? (
-                    <img src="../../img/lace-star.svg" alt="" />
-                  ) : null}
-                </div>
-              );
-            }}
-          />
-        </Table>
+        <AutoSizer>
+          {({ width, height }) => (
+            <Table
+              width={width}
+              height={height}
+              headerHeight={45}
+              rowHeight={60}
+              scrollToIndex={(tableScrollIdx * 10).toFixed()}
+              rowCount={hasData ? words.length : 0}
+              rowGetter={({ index }) => words[index]}
+              className="Words__Table"
+              headerClassName="Words__Table__headerColumn"
+              rowClassName="Words__Table__row"
+              gridClassName="Words__Table__Grid"
+            >
+              <Column
+                label="En"
+                dataKey="en"
+                width={(width / 100) * 35}
+                className="Words__Table__Grid__rowColumn"
+                cellRenderer={({ rowData, dataKey }) => {
+                  return renderWord(dataKey, rowData);
+                }}
+                flexGrow={1}
+              />
+              <Column
+                width={(width / 100) * 35}
+                label="Ru"
+                dataKey="ru"
+                className="Words__Table__Grid__rowColumn"
+                cellRenderer={({ rowData, dataKey }) => {
+                  return renderWord(dataKey, rowData);
+                }}
+                flexGrow={1}
+              />
+
+              <Column
+                width={(width / 100) * 25}
+                label="Actions"
+                className="Words__Table__Grid__rowColumn"
+                flexGrow={1}
+                dataKey="actions"
+                cellRenderer={({ rowData }) => {
+                  return renderActions(rowData.id);
+                }}
+              />
+              <Column
+                width={(width / 100) * 25}
+                label="Bookmarks"
+                className="Words__Table__Grid__rowColumn"
+                flexGrow={1}
+                dataKey="bookmarks"
+                cellRenderer={({ rowData }) => {
+                  const { bookmarks } = rowData;
+                  return (
+                    <div className="Words__Table__cellContent">
+                      {bookmarks ? (
+                        <img src="../../img/lace-star.svg" alt="" />
+                      ) : null}
+                    </div>
+                  );
+                }}
+              />
+            </Table>
+          )}
+        </AutoSizer>
       ) : null}
     </div>
   );

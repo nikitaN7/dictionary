@@ -59,6 +59,11 @@
       background: transparent;
       display: block;
       background-color: skyblue;
+
+      @media only screen and (max-width: 767px) {
+        letter-spacing: 0;
+        font-size: 11px;
+      }
     }
 
     &:last-child span {
@@ -90,6 +95,9 @@
   &__wordBtn {
     transition: all .3s ease;
     color: #0f3c4b;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     // position: absolute;
     // height: 100%;
     // width: 100%;
@@ -119,10 +127,24 @@
     color: #0f3c4b;
     position: relative;
 
+    @media only screen and (max-width: 767px) {
+      padding: 5px 10px;
+    }
+
+    button {
+      @media only screen and (max-width: 767px) {
+        padding: 0;
+      }
+    }
+
     img {
       max-width: 34px;
       width: 100%;
       margin: 0 auto;
+
+      @media only screen and (max-width: 767px) {
+        max-width: 25px
+      }
     }
   }
 

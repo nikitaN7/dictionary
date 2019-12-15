@@ -64,7 +64,7 @@ const wordAdd = (wordData, modalClose, modalReset, scrollToBottom) => (
       dispatch(wordAddSuccess(newId, newWord));
       modalClose();
       modalReset();
-      scrollToBottom(words.length / 10);
+      scrollToBottom((words.length / 10).toFixed());
     })
     .catch(err => {
       dispatch(updateListError(err.message));
