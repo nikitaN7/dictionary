@@ -87,17 +87,16 @@ router.delete('/deleteAllData', (req, res) => {
 });
 
 // this method adds new data in our database
+const getMaxId = arr => {
+  const idList = arr.map(item => item.id);
+  return Math.max(...idList, 0);
+};
+
+// this method adds new data in our database
 router.post('/putData', (req, res) => {
+  const { en, ru, bookmarks } = req.body;
+
   let data = new Data();
-
-  const { id, en, ru, bookmarks } = req.body;
-
-  if (!id && id !== 0) {
-    return res.json({
-      success: false,
-      error: 'Data must contain id',
-    });
-  }
 
   if (!en || !ru) {
     return res.json({
@@ -106,14 +105,25 @@ router.post('/putData', (req, res) => {
     });
   }
 
-  data.id = id;
   data.en = en;
   data.ru = ru;
-  data.bookmarks = bookmarks;
+  data.bookmarks = bookmarks || false;
 
-  data.save((err) => {
+  Data.find((err, dataList) => {
     if (err) return res.json({ success: false, error: err });
-    return res.json({ success: true, data: data });
+
+    const maxId = getMaxId(dataList);
+
+    if (!maxId || maxId === 0) {
+      data.id = 1;
+    }
+
+    data.id = maxId + 1;
+
+    data.save((err) => {
+      if (err) return res.json({ success: false, error: err });
+      return res.json({ success: true, data: data});
+    });
   });
 });
 
