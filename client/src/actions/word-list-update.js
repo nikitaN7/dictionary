@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { getMaxId } from '../utils/getMaxId';
 import {
   UPDATE_LIST_PENDING,
   UPDATE_LIST_FAILURE,
@@ -21,10 +20,9 @@ const updateListError = error => {
   };
 };
 
-const wordAddSuccess = (wordId, wordData) => {
+const wordAddSuccess = (wordData) => {
   return {
     type: WORDS_ADD_SUCCESS,
-    wordId,
     wordData
   };
 };
@@ -49,19 +47,17 @@ const wordAdd = (wordData, modalClose, modalReset, scrollToBottom) => (
   getState
 ) => {
   const { words } = getState().wordList;
-  const newId = getMaxId(words) + 1;
 
   dispatch(updateListPending());
 
   axios
     .post('/api/putData', {
       ...wordData,
-      id: newId
     })
     .then(res => {
       const newWord = res.data.data;
 
-      dispatch(wordAddSuccess(newId, newWord));
+      dispatch(wordAddSuccess(newWord));
       modalClose();
       modalReset();
       scrollToBottom((words.length / 10).toFixed());

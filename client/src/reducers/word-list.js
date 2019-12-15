@@ -22,10 +22,10 @@ const removeWordItem = (words, wordIdx) => {
   ];
 };
 
-const addWordItem = (words, wordIdx, { wordData, wordId }) => {
+const addWordItem = (words, wordIdx, { wordData }) => {
   return [
-    ...words, //
-    { ...wordData, id: wordId }
+    ...words,
+    wordData
   ];
 };
 
