@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import DropdownSelect from './dropdown-select';
-import * as constants from '../../constants';
 
 const options = [
   { value: '', icon: 'show-eye', text: 'Show all words' },
-  { value: constants.HIDE_EN_WORDS, icon: 'en-icon', text: 'Hide en words' },
-  { value: constants.HIDE_RU_WORDS, icon: 'ru-icon', text: 'Hide ru words' }
+  { value: 'en', icon: 'en-icon', text: 'Hide en words' },
+  { value: 'ru', icon: 'ru-icon', text: 'Hide ru words' }
 ];
 
 const WordsHide = ({ hiddenWords, setHiddenWords }) => {

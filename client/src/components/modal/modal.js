@@ -39,7 +39,12 @@ const Modal = props => {
     }
 
     if (action === 'add') {
-      props.wordAdd(newWord, props.modalClose, resetState);
+      props.wordAdd(
+        newWord,
+        props.modalClose,
+        resetState,
+        props.setTableScrollIdx
+      );
     }
 
     if (action === 'delete') {
