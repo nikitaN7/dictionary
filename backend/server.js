@@ -63,10 +63,12 @@ router.get('/getData/:id', (req, res) => {
 // this method overwrites existing data in our database
 router.post('/updateData', (req, res) => {
   const { id, update } = req.body;
-  Data.findByIdAndUpdate(id, update, (err) => {
-    if (err) return res.json({ success: false, error: err });
-    return res.json({ success: true });
-  });
+
+  Data.findByIdAndUpdate(id, {$set: update}, {new:true}).then((date)=> {
+    res.json({ success: true, data: date });
+  }).catch((err)=>{
+    res.json({ success: false, error: err });
+  })
 });
 
 // this method removes existing data in our database
