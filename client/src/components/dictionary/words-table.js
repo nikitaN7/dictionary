@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Column, Table, AutoSizer } from 'react-virtualized';
+import ReactTooltip from 'react-tooltip';
+import { debounce } from 'lodash';
 import Preloader from '../preloader';
 
 const WordsTable = ({
@@ -36,18 +38,20 @@ const WordsTable = ({
     const cellId = id / 10 + 1;
 
     const className = setClassName(id, key);
+
     return (
-      <div className="Words__Table__cellContent">
+      <div
+        className="Words__Table__cellContent"
+        data-tip={word[key]}
+        onClick={e => onWordClick(id, className)}
+      >
         {isTenCell ? (
           <span>
             <b>{cellId} words column </b>
           </span>
         ) : null}
 
-        <span
-          className={`Words__Table__wordBtn ${className}`}
-          onClick={e => onWordClick(id, className)}
-        >
+        <span className={`Words__Table__wordBtn ${className}`}>
           {word[key]}
         </span>
       </div>
@@ -74,6 +78,11 @@ const WordsTable = ({
     );
   };
 
+  const rebuildTooltip = debounce(() => ReactTooltip.rebuild(), 200, {
+    leading: false,
+    trailing: true
+  });
+
   const hasData = words.length > 0;
   const isLoading = pending && !hasData;
 
@@ -96,6 +105,7 @@ const WordsTable = ({
               headerClassName="Words__Table__headerColumn"
               rowClassName="Words__Table__row"
               gridClassName="Words__Table__Grid"
+              onScroll={rebuildTooltip}
             >
               <Column
                 label="En"
@@ -149,6 +159,17 @@ const WordsTable = ({
           )}
         </AutoSizer>
       ) : null}
+
+      <ReactTooltip
+        type="info"
+        effect="solid"
+        getContent={dataTip => dataTip}
+        isCapture={true}
+        event="click"
+        html={true}
+        clickable={true}
+        scrollHide={true}
+      />
     </div>
   );
 };
