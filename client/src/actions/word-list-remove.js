@@ -1,11 +1,9 @@
+import axios from 'axios';
 import {
   DELETE_WORDS_PENDING,
   DELETE_WORDS_FAILURE,
   DELETE_WORDS_SUCCESS
 } from './actions';
-
-import { fetchWords } from './word-list-fetch';
-import axios from 'axios';
 
 const deleteWordsPending = () => {
   return {
@@ -19,22 +17,22 @@ const deleteWordsSuccess = () => {
   };
 };
 
-const deleteWordsError = (error) => {
+const deleteWordsError = error => {
   return {
     type: DELETE_WORDS_FAILURE,
     payload: error
   };
 };
 
-export const allWordsDelete = () => (dispatch) => {
+export const allWordsDelete = () => dispatch => {
   dispatch(deleteWordsPending());
 
-  axios.delete('/api/deleteAllData')
-  .then((res) => {
-    dispatch(deleteWordsSuccess());
-  })
-  .catch((err) => {
-    dispatch(deleteWordsError(err));
-  });
-
+  axios
+    .delete('/api/deleteAllData')
+    .then(() => {
+      dispatch(deleteWordsSuccess());
+    })
+    .catch(err => {
+      dispatch(deleteWordsError(err));
+    });
 };

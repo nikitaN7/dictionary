@@ -1,101 +1,91 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
-import ModalInner from './modal-inner';
-import { getWordById } from '../../function/getWordById';
-import { validateFields } from '../../function/validateFields';
-import { wordUpdate, wordDelete, wordAdd } from '../../actions/word-list-update';
 import { connect } from 'react-redux';
+import ModalInner from './modal-inner';
+import { getWordById } from '../../utils/getWordById';
+import {
+  wordUpdate,
+  wordDelete,
+  wordAdd
+} from '../../actions/word-list-update';
 
 const initialNewWord = {
   en: '',
   ru: '',
   bookmarks: false
-}
+};
 
-class Modal extends Component {
+const Modal = props => {
+  const [newWord, setNewWord] = useState({ ...initialNewWord });
 
-  state = {
-    newWord: {...initialNewWord}
-  }
+  const resetState = () => {
+    setNewWord({ ...initialNewWord });
+  };
 
-  resetState = () => {
-    this.setState({
-      newWord: {...initialNewWord}
-    });
-  }
-
-  handleChange = ({target}) => {
+  const handleChange = ({ target }) => {
     const value = target.type === 'checkbox' ? target.checked : target.value;
 
-    this.setState({
-      newWord: {
-        ...this.state.newWord,
-       [target.name]: value
-      }
-    })
-  }
+    setNewWord(prevState => {
+      return {
+        ...prevState,
+        [target.name]: value
+      };
+    });
+  };
 
-  componentDidUpdate(previousProps, previousState) {
-    const word = this.props.word;
-    const newWord = this.state.newWord;
-
-    if (previousProps.word.id !== word.id) {
-      this.resetState();
-
-      if (Object.keys(word).length > 0) {
-
-        Object.keys(newWord).forEach((key) => {
-          newWord[key] = word[key];
-        })
-
-        this.setState({newWord})
-      }
-    }
-  }
-
-  onSubmit = (action) => {
-
-    const word = this.state.newWord;
-    const fields = {
-      en: word.en,
-      ru: word.ru
-    }
-
+  const onSubmit = action => {
     if (action === 'update') {
-      this.props.wordUpdate(this.props.word, this.state.newWord, this.props.modalClose);
+      props.wordUpdate(props.word, newWord, props.modalClose);
     }
 
     if (action === 'add') {
-      this.props.wordAdd(this.state.newWord, this.props.modalClose, this.resetState);
+      props.wordAdd(
+        newWord,
+        props.modalClose,
+        resetState,
+        props.setTableScrollIdx
+      );
     }
 
     if (action === 'delete') {
-      this.props.wordDelete(this.props.word, this.props.modalClose);
+      props.wordDelete(props.word, props.modalClose);
     }
-  }
+  };
 
-  render() {
-    return ReactDOM
-      .createPortal(
-        this.props.isOpen
-          ? <ModalInner
-              { ...this.props }
-              onSubmit={this.onSubmit}
-              newWord={this.state.newWord}
-              handleChange={this.handleChange} />
-          : null,
-        document.querySelector("#modal-root")
-      );
-  }
-}
+  useEffect(() => {
+    const word = { ...newWord };
 
-const mapStateToProps = ({wordList}, ownProps) => {
+    resetState();
+
+    if (Object.keys(props.word).length > 0) {
+      Object.keys(word).forEach(key => {
+        word[key] = props.word[key];
+      });
+
+      setNewWord({ ...word });
+    }
+  }, [props.word.id]);
+
+  return ReactDOM.createPortal(
+    props.isOpen ? (
+      <ModalInner
+        {...props}
+        onSubmit={onSubmit}
+        newWord={newWord}
+        handleChange={handleChange}
+      />
+    ) : null,
+    document.querySelector('#modal-root')
+  );
+};
+
+const mapStateToProps = ({ wordList }, ownProps) => {
   return {
     word: getWordById(wordList.words, ownProps.wordId),
     error: wordList.error,
     pending: wordList.pending
-  }
-}
+  };
+};
 
 export default connect(
   mapStateToProps,

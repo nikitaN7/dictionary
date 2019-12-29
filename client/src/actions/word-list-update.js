@@ -1,7 +1,4 @@
 import axios from 'axios';
-import store from '../store';
-import { scrollToBottom } from '../function/scrollToBottom';
-import { getMaxId } from '../function/getMaxId';
 import {
   UPDATE_LIST_PENDING,
   UPDATE_LIST_FAILURE,
@@ -16,99 +13,93 @@ const updateListPending = () => {
   };
 };
 
-const updateListError = (error) => {
+const updateListError = error => {
   return {
     type: UPDATE_LIST_FAILURE,
     payload: error
   };
 };
 
-const wordAddSuccess = (wordId, wordData) => {
+const wordAddSuccess = (wordData) => {
   return {
     type: WORDS_ADD_SUCCESS,
-    wordId: wordId,
-    wordData: wordData
-  }
-}
+    wordData
+  };
+};
 
 const wordUpdateSuccess = (wordId, wordData) => {
   return {
     type: WORDS_UPDATE_SUCCESS,
-    wordId: wordId,
-    wordData: wordData
-  }
-}
-
-const wordDeleteSuccess = (wordId) => {
-  return {
-    type: WORDS_DELETE_SUCCESS,
-    wordId: wordId
+    wordId,
+    wordData
   };
 };
 
-const wordAdd = (wordData, modalClose, modalReset) => (dispatch) => {
+const wordDeleteSuccess = wordId => {
+  return {
+    type: WORDS_DELETE_SUCCESS,
+    wordId
+  };
+};
 
-  const { words } = store.getState().wordList;
-  const newId = getMaxId(words) + 1;
+const wordAdd = (wordData, modalClose, modalReset, scrollToBottom) => (
+  dispatch,
+  getState
+) => {
+  const { words } = getState().wordList;
 
   dispatch(updateListPending());
 
-  axios.post('/api/putData', {
-    ...wordData,
-    id: newId
-  })
-  .then((res) => {
-    const newWord = res.data.data;
+  axios
+    .post('/api/putData', {
+      ...wordData,
+    })
+    .then(res => {
+      const newWord = res.data.data;
 
-    dispatch(wordAddSuccess(newId, newWord));
-    modalClose();
-    modalReset();
-    scrollToBottom();
-
-  })
-  .catch((err) => {
-    dispatch(updateListError(err.message));
-  });
+      dispatch(wordAddSuccess(newWord));
+      modalClose();
+      modalReset();
+      scrollToBottom((words.length / 10).toFixed());
+    })
+    .catch(err => {
+      dispatch(updateListError(err.message));
+    });
 };
 
-const wordUpdate = (word, wordData, modalClose) => (dispatch) => {
-
+const wordUpdate = (word, wordData, modalClose) => dispatch => {
   dispatch(updateListPending());
 
-  axios.post('/api/updateData', {
-    id: word._id,
-    update: { ...wordData },
-  })
-  .then((res) => {
-    dispatch(wordUpdateSuccess(word.id, wordData))
-    modalClose();
-  })
-  .catch((err) => {
-    dispatch(updateListError(err.message));
-  });
-
+  axios
+    .post('/api/updateData', {
+      id: word._id,
+      update: { ...wordData }
+    })
+    .then((res) => {
+      dispatch(wordUpdateSuccess(word.id, res.data.data));
+      modalClose();
+    })
+    .catch(err => {
+      dispatch(updateListError(err.message));
+    });
 };
 
-const wordDelete = (word, modalClose) => (dispatch) => {
-
+const wordDelete = (word, modalClose) => dispatch => {
   dispatch(updateListPending());
 
-  axios.delete('/api/deleteData', {
-    data: {
-      id: word._id
-    }
-  })
-  .then((res) => {
-    dispatch(wordDeleteSuccess(word.id))
-    modalClose();
-  })
-  .catch((err) => {
-    dispatch(updateListError(err.message));
-  });
+  axios
+    .delete('/api/deleteData', {
+      data: {
+        id: word._id
+      }
+    })
+    .then(() => {
+      dispatch(wordDeleteSuccess(word.id));
+      modalClose();
+    })
+    .catch(err => {
+      dispatch(updateListError(err.message));
+    });
 };
 
-export {
-  wordAdd,
-  wordUpdate,
-  wordDelete
-};
+export { wordAdd, wordUpdate, wordDelete };

@@ -1,66 +1,76 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import Nav from '../nav';
 import Main from '../main';
 import Modal from '../modal';
+import { preloadImages } from '../../data/preload-images';
+import { allWordsDelete } from '../../actions/word-list-remove';
 import '../../scss/app.scss';
 
-const preloadImages = [
-  {fileName: '/img/warning.svg'},
-  {fileName: '/img/sm-loader.svg'}
-]
+const App = props => {
+  const [navShow, setNavShow] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
+  const [tableScrollIdx, setTableScrollIdx] = useState(0);
 
-class App extends Component {
+  const [word, setWord] = useState({
+    id: null,
+    action: ''
+  });
 
-  state = {
-    navIsActive: false,
-    modalIsOpen: false,
-    wordId: null,
-    wordAction: ''
-  }
-
-  componentDidMount() {
-    preloadImages.forEach((picture) => {
+  useEffect(() => {
+    preloadImages.forEach(picture => {
       new Image().src = picture.fileName;
     });
-}
+  }, []);
 
-  navToggle = () => {
-    this.setState({navIsActive: !this.state.navIsActive})
-  }
+  const navToggle = () => {
+    setNavShow(navShow => !navShow);
+  };
 
-  modalClose = () => {
-    this.setState({modalIsOpen: false})
-  }
+  const modalClose = () => {
+    setModalShow(false);
+  };
 
-  onActionClick = (id, action) => {
-    this.setState({
-      modalIsOpen: true,
-      wordId: id,
-      wordAction: action
-    })
-  }
+  const onActionClick = (id, action) => {
+    setModalShow(true);
+    setWord({ id, action });
+  };
 
-  render() {
-    const { navIsActive, modalIsOpen, wordId, wordAction } = this.state;
+  const handleTableScroll = value => {
+    const re = /^[0-9\b]+$/;
 
-    return (
-      <div className="container">
-        <Nav
-          isActive={navIsActive} />
+    if (value === '' || re.test(value)) {
+      setTableScrollIdx(value);
+    }
+  };
 
-        <Main
-          navToggle={this.navToggle}
-          navIsActive={navIsActive}
-          onActionClick={this.onActionClick} />
+  const { id, action } = word;
+  const { allWordsDelete } = props;
 
-        <Modal
-          modalClose={this.modalClose}
-          isOpen={modalIsOpen}
-          wordId={wordId}
-          wordAction={wordAction} />
-      </div>
-    )
-  }
-}
+  return (
+    <div className="container">
+      <Nav isActive={navShow} allWordsDelete={allWordsDelete} />
 
-export default App;
+      <Main
+        navToggle={navToggle}
+        navShow={navShow}
+        onActionClick={onActionClick}
+        handleTableScroll={handleTableScroll}
+        tableScrollIdx={tableScrollIdx}
+      />
+
+      <Modal
+        modalClose={modalClose}
+        isOpen={modalShow}
+        wordId={id}
+        wordAction={action}
+        setTableScrollIdx={setTableScrollIdx}
+      />
+    </div>
+  );
+};
+
+export default connect(
+  null,
+  { allWordsDelete }
+)(App);
