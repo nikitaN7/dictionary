@@ -75,8 +75,8 @@ const wordUpdate = (word, wordData, modalClose) => dispatch => {
       id: word._id,
       update: { ...wordData }
     })
-    .then(() => {
-      dispatch(wordUpdateSuccess(word.id, wordData));
+    .then((res) => {
+      dispatch(wordUpdateSuccess(word.id, res.data.data));
       modalClose();
     })
     .catch(err => {
