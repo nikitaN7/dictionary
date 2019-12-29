@@ -126,7 +126,22 @@ const WordsTable = ({
               <Column
                 label="En"
                 dataKey="en"
-                width={(width / 100) * 40}
+                width={(width / 100) * 10}
+                className="Words__Table__Grid__rowColumn"
+                cellRenderer={({ rowIndex }) => {
+                  return (
+                    <div className="Words__Table__cellContent center">
+                      {rowIndex}
+                    </div>
+                  );
+                }}
+                flexGrow={1}
+              />
+
+              <Column
+                label="En"
+                dataKey="en"
+                width={(width / 100) * 35}
                 className="Words__Table__Grid__rowColumn"
                 cellRenderer={({ rowData, dataKey }) => {
                   return renderWord(dataKey, rowData);
@@ -134,7 +149,7 @@ const WordsTable = ({
                 flexGrow={1}
               />
               <Column
-                width={(width / 100) * 40}
+                width={(width / 100) * 35}
                 label="Ru"
                 dataKey="ru"
                 className="Words__Table__Grid__rowColumn"
