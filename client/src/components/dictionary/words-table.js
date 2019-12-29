@@ -46,12 +46,6 @@ const WordsTable = ({
         data-tip={word[key]}
         onClick={e => onWordClick(id, className)}
       >
-        {isTenCell ? (
-          <span>
-            <b>{cellId} words column </b>
-          </span>
-        ) : null}
-
         <span className={`Words__Table__wordBtn ${className}`}>
           {word[key]}
         </span>
