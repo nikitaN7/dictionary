@@ -51,7 +51,6 @@ const Modal = props => {
       props.wordDelete(props.word, props.modalClose);
     }
   };
-
   useEffect(() => {
     const word = { ...newWord };
 
