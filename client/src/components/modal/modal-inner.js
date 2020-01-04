@@ -29,7 +29,7 @@ const ModalInner = ({
 
     document.addEventListener('keydown', onKeyPress, false);
     return () => document.removeEventListener('keydown', onKeyPress, false);
-  }, []);
+  }, [onSubmit, modalClose, wordAction]);
 
   const hasData = !(pending || error);
 

@@ -20,7 +20,7 @@ const updateListError = error => {
   };
 };
 
-const wordAddSuccess = (wordData) => {
+const wordAddSuccess = wordData => {
   return {
     type: WORDS_ADD_SUCCESS,
     wordData
@@ -52,12 +52,15 @@ const wordAdd = (wordData, modalClose, modalReset, scrollToBottom) => (
 
   axios
     .post('/api/putData', {
-      ...wordData,
+      ...wordData
     })
     .then(res => {
-      const newWord = res.data.data;
+      if (!res.data.success) {
+        dispatch(updateListError(res.data.error));
+        return;
+      }
 
-      dispatch(wordAddSuccess(newWord));
+      dispatch(wordAddSuccess(res.data.data));
       modalClose();
       modalReset();
       scrollToBottom((words.length / 10).toFixed());
@@ -75,7 +78,12 @@ const wordUpdate = (word, wordData, modalClose) => dispatch => {
       id: word._id,
       update: { ...wordData }
     })
-    .then((res) => {
+    .then(res => {
+      if (!res.data.success) {
+        dispatch(updateListError(res.data.error));
+        return;
+      }
+
       dispatch(wordUpdateSuccess(word.id, res.data.data));
       modalClose();
     })
@@ -93,7 +101,12 @@ const wordDelete = (word, modalClose) => dispatch => {
         id: word._id
       }
     })
-    .then(() => {
+    .then(res => {
+      if (!res.data.success) {
+        dispatch(updateListError(res.data.error));
+        return;
+      }
+
       dispatch(wordDeleteSuccess(word.id));
       modalClose();
     })
