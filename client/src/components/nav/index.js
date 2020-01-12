@@ -14,13 +14,13 @@ const Nav = ({ isActive, allWordsDelete }) => {
 
       <div className="nav--top">
         <a href="#" className="nav__link active">
-          Words
+          Words Dictionary
         </a>
         <a href="#" className="nav__link">
-          Bookmarks
+          Words Trainer
         </a>
         <a href="#" className="nav__link">
-          Random words
+          Words Import
         </a>
       </div>
 

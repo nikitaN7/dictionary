@@ -11,20 +11,21 @@ import { filterWords } from '../../utils/filterWords';
 import { fetchWords } from '../../actions/word-list-fetch';
 import { getSortedWords } from '../../selectors';
 
-const Dictionary = ({
-  fetchWords,
-  words,
-  onActionClick,
-  pending,
-  handleTableScroll,
-  tableScrollIdx
-}) => {
+import Modal from '../modal';
+
+const Dictionary = ({ fetchWords, words, pending }) => {
   const [hiddenWords, setHiddenWords] = useState('');
   const [uploadBoxShow, setUploadBoxShow] = useState(false);
   const [filteredWords, setFilteredWords] = useState({});
+  const [modalShow, setModalShow] = useState(false);
+  const [tableScrollIdx, setTableScrollIdx] = useState(0);
   const [filterOptions, setFilterOptions] = useState({
     filterSearch: '',
     filterType: 'all-words'
+  });
+  const [word, setWord] = useState({
+    id: null,
+    action: ''
   });
 
   useEffect(() => fetchWords(), [fetchWords]);
@@ -42,42 +43,82 @@ const Dictionary = ({
     }));
   };
 
+  const modalClose = () => {
+    setModalShow(false);
+  };
+
+  const onActionClick = (id, action) => {
+    setModalShow(true);
+    setWord({ id, action });
+  };
+
+  const handleTableScroll = value => {
+    const re = /^[0-9\b]+$/;
+
+    if (value === '' || re.test(value)) {
+      setTableScrollIdx(value);
+    }
+  };
+
   return (
-    <div className="dictionary">
-      <div className="dictionary__row">
-        <WordsHide setHiddenWords={setHiddenWords} hiddenWords={hiddenWords} />
+    <>
+      <div className="dictionary">
+        <div className="dictionary__row">
+          <WordsHide
+            setHiddenWords={setHiddenWords}
+            hiddenWords={hiddenWords}
+          />
 
-        <WordsUploadDropdown
-          handleClick={() => setUploadBoxShow(uploadBoxShow => !uploadBoxShow)}
-          isActive={uploadBoxShow}
-        />
+          <button
+            type="button"
+            className="btn btn--lg btn--add"
+            onClick={() => onActionClick(null, 'add')}
+          >
+            Add word
+          </button>
 
-        <ScrollField
-          handleTableScroll={handleTableScroll}
+          <WordsUploadDropdown
+            handleClick={() =>
+              setUploadBoxShow(uploadBoxShow => !uploadBoxShow)
+            }
+            isActive={uploadBoxShow}
+          />
+
+          <ScrollField
+            handleTableScroll={handleTableScroll}
+            tableScrollIdx={tableScrollIdx}
+          />
+
+          <WordsSearch
+            searchValue={filterOptions.filterSearch}
+            handleChange={handleChange}
+          />
+
+          <WordsFilter
+            filterType={filterOptions.filterType}
+            handleChange={handleChange}
+          />
+        </div>
+
+        {uploadBoxShow ? <WordsUploadBox /> : null}
+
+        <WordsTable
+          words={filteredWords}
+          pending={pending}
+          onActionClick={onActionClick}
+          hiddenWords={hiddenWords}
           tableScrollIdx={tableScrollIdx}
-        />
-
-        <WordsSearch
-          searchValue={filterOptions.filterSearch}
-          handleChange={handleChange}
-        />
-
-        <WordsFilter
-          filterType={filterOptions.filterType}
-          handleChange={handleChange}
         />
       </div>
 
-      {uploadBoxShow ? <WordsUploadBox /> : null}
-
-      <WordsTable
-        words={filteredWords}
-        pending={pending}
-        onActionClick={onActionClick}
-        hiddenWords={hiddenWords}
-        tableScrollIdx={tableScrollIdx}
+      <Modal
+        modalClose={modalClose}
+        isOpen={modalShow}
+        wordId={word.id}
+        wordAction={word.action}
+        setTableScrollIdx={setTableScrollIdx}
       />
-    </div>
+    </>
   );
 };
 

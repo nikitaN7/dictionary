@@ -14,14 +14,6 @@ const Header = props => {
         <span />
         <span />
       </button>
-
-      <button
-        type="button"
-        className="btn btn--lg btn--add"
-        onClick={() => onActionClick(null, 'add')}
-      >
-        Add word
-      </button>
     </div>
   );
 };

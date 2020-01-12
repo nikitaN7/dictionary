@@ -1,26 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Dictionary from '../dictionary';
 import Header from '../header';
 
-const Main = ({
-  navShow,
-  navToggle,
-  onActionClick,
-  handleTableScroll,
-  tableScrollIdx
-}) => {
+const Main = ({ navShow, navToggle }) => {
   return (
     <main className="main">
-      <Header
-        navShow={navShow}
-        navToggle={navToggle}
-        onActionClick={onActionClick}
-      />
-      <Dictionary
-        onActionClick={onActionClick}
-        handleTableScroll={handleTableScroll}
-        tableScrollIdx={tableScrollIdx}
-      />
+      <Header navShow={navShow} navToggle={navToggle} />
+
+      <Dictionary />
     </main>
   );
 };
