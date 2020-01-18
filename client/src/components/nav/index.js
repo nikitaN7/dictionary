@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 const Nav = ({ isActive, allWordsDelete }) => {
   return (
@@ -13,15 +14,17 @@ const Nav = ({ isActive, allWordsDelete }) => {
       </div>
 
       <div className="nav--top">
-        <a href="#" className="nav__link active">
-          Words Dictionary
-        </a>
-        <a href="#" className="nav__link">
-          Words Trainer
-        </a>
-        <a href="#" className="nav__link">
-          Words Import
-        </a>
+        <div className="nav--menu">
+          <NavLink to="/" exact activeClassName="active">
+            Home
+          </NavLink>
+          <NavLink to="/trainer" activeClassName="active">
+            Words Trainer
+          </NavLink>
+          <NavLink to="/upload" activeClassName="active">
+            Words Import
+          </NavLink>
+        </div>
       </div>
 
       <div className="nav--bottom">

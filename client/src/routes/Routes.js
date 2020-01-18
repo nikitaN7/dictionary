@@ -1,7 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-const AppRoutes = lazy(() => import('./AppRoutes'));
+const App = lazy(() => import('./App'));
 
 const FallBack = <div>loading</div>;
 
@@ -10,7 +10,7 @@ const Routes = () => {
     <Switch>
       <Route path="/">
         <Suspense fallback={FallBack}>
-          <AppRoutes />
+          <App />
         </Suspense>
       </Route>
     </Switch>

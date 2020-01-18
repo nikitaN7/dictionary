@@ -1,12 +1,16 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import App from '../components/app';
+import Dictionary from '../components/dictionary';
+import WordsUploadBox from '../components/dictionary/words-upload-box';
 
 const AppRoutes = () => {
   return (
     <Switch>
-      <Route path="/">
-        <App />
+      <Route path="/" exact>
+        <Dictionary />
+      </Route>
+      <Route path="/upload">
+        <WordsUploadBox />
       </Route>
     </Switch>
   );

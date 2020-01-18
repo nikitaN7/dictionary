@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import WordsHide from './words-hide';
-import WordsUploadBox from './words-upload-box';
-import WordsUploadDropdown from './words-upload-dropdown';
 import ScrollField from './scroll-field';
 import WordsFilter from './words-filter';
 import WordsSearch from './words-search';
@@ -15,7 +13,6 @@ import Modal from '../modal';
 
 const Dictionary = ({ fetchWords, words, pending }) => {
   const [hiddenWords, setHiddenWords] = useState('');
-  const [uploadBoxShow, setUploadBoxShow] = useState(false);
   const [filteredWords, setFilteredWords] = useState({});
   const [modalShow, setModalShow] = useState(false);
   const [tableScrollIdx, setTableScrollIdx] = useState(0);
@@ -77,13 +74,6 @@ const Dictionary = ({ fetchWords, words, pending }) => {
             Add word
           </button>
 
-          <WordsUploadDropdown
-            handleClick={() =>
-              setUploadBoxShow(uploadBoxShow => !uploadBoxShow)
-            }
-            isActive={uploadBoxShow}
-          />
-
           <ScrollField
             handleTableScroll={handleTableScroll}
             tableScrollIdx={tableScrollIdx}
@@ -99,8 +89,6 @@ const Dictionary = ({ fetchWords, words, pending }) => {
             handleChange={handleChange}
           />
         </div>
-
-        {uploadBoxShow ? <WordsUploadBox /> : null}
 
         <WordsTable
           words={filteredWords}

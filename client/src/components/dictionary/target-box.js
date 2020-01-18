@@ -33,45 +33,47 @@ const TargetBox = props => {
   } = props;
 
   return (
-    <form
-      method="post"
-      action=""
-      encType="multipart/form-data"
-      ref={drop}
-      className={`box ${dragOver} ${advUpload}`}
-    >
-      {!error && !isLoading && !isSuccess ? (
-        <BoxInput
-          advUpload={advUpload}
-          fileInput={fileInput}
-          handleFile={handleFile}
-        />
-      ) : null}
+    <div className="box-wrapper">
+      <form
+        method="post"
+        action=""
+        encType="multipart/form-data"
+        ref={drop}
+        className={`box ${dragOver} ${advUpload}`}
+      >
+        {!error && !isLoading && !isSuccess ? (
+          <BoxInput
+            advUpload={advUpload}
+            fileInput={fileInput}
+            handleFile={handleFile}
+          />
+        ) : null}
 
-      {isLoading ? (
-        <span className="box__uploading box__text">Uploading&hellip;</span>
-      ) : null}
+        {isLoading ? (
+          <span className="box__uploading box__text">Uploading&hellip;</span>
+        ) : null}
 
-      {isSuccess ? (
-        <span className="box__success box__text">
-          Done!
-          <strong onClick={onResetForm} role="button" tabIndex={0}>
-            {' '}
-            Load more.
-          </strong>
-        </span>
-      ) : null}
+        {isSuccess ? (
+          <span className="box__success box__text">
+            Done!
+            <strong onClick={onResetForm} role="button" tabIndex={0}>
+              {' '}
+              Load more.
+            </strong>
+          </span>
+        ) : null}
 
-      {error ? (
-        <span className="box__error box__text">
-          Error! {error}.
-          <strong onClick={onResetForm} role="button" tabIndex={0}>
-            {' '}
-            Try again.
-          </strong>
-        </span>
-      ) : null}
-    </form>
+        {error ? (
+          <span className="box__error box__text">
+            Error! {error}.
+            <strong onClick={onResetForm} role="button" tabIndex={0}>
+              {' '}
+              Try again.
+            </strong>
+          </span>
+        ) : null}
+      </form>
+    </div>
   );
 };
 
