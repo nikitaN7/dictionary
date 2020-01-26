@@ -2,17 +2,19 @@
   position: relative;
 
   &__btn {
-    width: 108px;
-    height: 43px;
     background-color: white;
     border: none;
     border-radius: 2px;
-    border: 1px solid #c6cbd4;
+    border: 1px solid #E7E9ED;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #333333;
+    color: skyblue;
+    font-weight: 600;
     cursor: pointer;
+    border-radius: 24px;
+    padding: 0.8em 1.5em;
+    font-size: 14px;
 
     @media screen and (max-width: 767px) {
       width: 103px;
@@ -23,8 +25,10 @@
       padding-right: 10px;
     }
 
-    img {
-      width: 16px;
+    svg {
+      width: 20px;
+      height: 20px;
+      fill: darkgray;
     }
   }
 
@@ -39,6 +43,7 @@
     bottom: -12px;
     right: 0;
     z-index: 1;
+
   }
 
   &__item {

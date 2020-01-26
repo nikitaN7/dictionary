@@ -1,10 +1,11 @@
 import React from 'react';
+import SearchIcon from '../../assets/icons/SearchIcon';
 
 const WordsSearch = props => {
   const { searchValue } = props;
   return (
-    <div className="search">
-      <div className="search__group">
+    <div className="search search--grow">
+      <div className="search__group search__group--md">
         <input
           name="filterSearch"
           type="text"
@@ -14,6 +15,9 @@ const WordsSearch = props => {
           }
           value={searchValue}
         />
+        <button className="search__btn">
+          <SearchIcon />
+        </button>
       </div>
     </div>
   );

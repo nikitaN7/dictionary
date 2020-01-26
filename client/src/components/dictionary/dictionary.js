@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import WordsHide from './words-hide';
 import ScrollField from './scroll-field';
 import WordsFilter from './words-filter';
 import WordsSearch from './words-search';
@@ -8,6 +7,7 @@ import WordsTable from './words-table';
 import { filterWords } from '../../utils/filterWords';
 import { fetchWords } from '../../actions/word-list-fetch';
 import { getSortedWords } from '../../selectors';
+import DictionaryHeader from './DictionaryHeader';
 
 import Modal from '../modal';
 
@@ -15,7 +15,7 @@ const Dictionary = ({ fetchWords, words, pending }) => {
   const [hiddenWords, setHiddenWords] = useState('');
   const [filteredWords, setFilteredWords] = useState({});
   const [modalShow, setModalShow] = useState(false);
-  const [tableScrollIdx, setTableScrollIdx] = useState(0);
+  const [tableScrollIdx, setTableScrollIdx] = useState(null);
   const [filterOptions, setFilterOptions] = useState({
     filterSearch: '',
     filterType: 'all-words'
@@ -61,27 +61,20 @@ const Dictionary = ({ fetchWords, words, pending }) => {
     <>
       <div className="dictionary">
         <div className="dictionary__row">
-          <WordsHide
+          <DictionaryHeader
+            onActionClick={onActionClick}
             setHiddenWords={setHiddenWords}
             hiddenWords={hiddenWords}
-          />
-
-          <button
-            type="button"
-            className="btn btn--lg btn--add"
-            onClick={() => onActionClick(null, 'add')}
-          >
-            Add word
-          </button>
-
-          <ScrollField
-            handleTableScroll={handleTableScroll}
-            tableScrollIdx={tableScrollIdx}
           />
 
           <WordsSearch
             searchValue={filterOptions.filterSearch}
             handleChange={handleChange}
+          />
+
+          <ScrollField
+            handleTableScroll={handleTableScroll}
+            tableScrollIdx={tableScrollIdx}
           />
 
           <WordsFilter
