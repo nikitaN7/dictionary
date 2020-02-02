@@ -1,18 +1,13 @@
 import React from 'react';
 import css from '../scss/jumble-letters.module.scss';
-import classNames from 'classnames/bind';
 
-const JumbleLettersList = () => {
+const JumbleLettersList = ({ letters }) => {
   return (
     <div className={css.list}>
       <div className={css.letters}>
-        <div className={classNames(css.lettersItem, css.empty)}></div>
-        <div className={classNames(css.lettersItem)}>S</div>
-        <div className={classNames(css.lettersItem, css.success)}>U</div>
-        <div className={classNames(css.lettersItem, css.success)}>U</div>
-        <div className={classNames(css.lettersItem, css.error)}></div>
-        <div className={classNames(css.lettersItem, css.error)}></div>
-        <div className={classNames(css.lettersItem, css.error)}></div>
+        {letters.map(letter => {
+          return <div className={css.lettersItem}>{letter}</div>;
+        })}
       </div>
     </div>
   );
