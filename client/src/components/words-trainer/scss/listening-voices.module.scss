@@ -16,10 +16,7 @@
   margin: 0 15px;
   cursor: pointer;
   transition: all .3s;
-
-  &.disabled {
-    opacity: .3;
-  }
+  opacity: .3;
 
   &.active {
     opacity: 1;

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react';
 import styles from '../scss/listening-voices.module.scss';
 import AmericaFlagIcon from '../../../assets/icons/AmericaFlagIcon';
@@ -17,9 +18,21 @@ const getFlagIconByCountry = country => {
   }
 };
 
-const ListeningVoicesSpeaker = ({ name, icon, country }) => {
+const ListeningVoicesSpeaker = ({
+  name,
+  icon,
+  country,
+  activeVoice,
+  voice,
+  handleVoiceChange
+}) => {
   return (
-    <li className={classNames(styles.speaker, styles.active)}>
+    <li
+      className={classNames(styles.speaker, {
+        [styles.active]: activeVoice === voice
+      })}
+      onClick={() => handleVoiceChange(voice)}
+    >
       <div className={styles.speakerFlag}>{getFlagIconByCountry(country)}</div>
       <div className={styles.speakerIcon}>{icon}</div>
       <span className={styles.speakerName}>{name}</span>
