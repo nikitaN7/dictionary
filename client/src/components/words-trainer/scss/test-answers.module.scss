@@ -1,0 +1,64 @@
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 533px;
+  width: 100%;
+  margin: 0 auto;
+  justify-content: space-between;
+}
+
+.item {
+  margin-bottom: 1.5rem;
+  &.error {
+    .itemBtn {
+      background-color: #d26852;
+      border-color: #d26852;
+    }
+
+    .itemText {
+      color: white;
+    }
+  }
+
+  &.success {
+    .itemBtn {
+      background-color: #66bf66;
+      border-color: #66bf66;
+    }
+
+    .itemText {
+      color: white;
+    }
+  }
+
+  &Btn {
+    margin: 0 auto;
+    display: table-cell;
+    vertical-align: middle;
+    height: 64px;
+    width: 250px;
+    padding: 0 17px;
+    text-align: center;
+    cursor: pointer;
+    border: solid 2px #d9d9d9;
+    border-radius: 5px;
+    background-color: #fff;
+    position: relative;
+  }
+
+  &Count {
+    position: absolute;
+    top: 7px;
+    left: 7px;
+    font-size: 14px;
+    color: grey;
+    font-weight: 500;
+  }
+
+  &Text {
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    color: slategray;
+  }
+}

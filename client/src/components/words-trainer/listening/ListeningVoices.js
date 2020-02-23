@@ -18,9 +18,9 @@ const ListeningVoices = ({ word = 'survey' }) => {
     voicePlay(voice);
   };
 
-  useEffect(() => {
-    voicePlay(INITIAL_VOICE);
-  }, []);
+  // useEffect(() => {
+  //   voicePlay(INITIAL_VOICE);
+  // }, []);
 
   const setNextVoice = () => {
     const { length } = speakerList;

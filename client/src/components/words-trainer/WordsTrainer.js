@@ -3,6 +3,7 @@ import css from './scss/words-trainer.module.scss';
 import WordsTrainerHeader from './WordsTrainerHeader';
 import JumbleLetters from './jumble-letters/JumbleLetters';
 import ListeningVoices from './listening/ListeningVoices';
+import TestAnswers from './test-answers/TestAnswers';
 
 const WordsTrainer = () => {
   return (
@@ -10,6 +11,7 @@ const WordsTrainer = () => {
       <WordsTrainerHeader />
       <JumbleLetters />
       <ListeningVoices />
+      <TestAnswers />
     </div>
   );
 };
