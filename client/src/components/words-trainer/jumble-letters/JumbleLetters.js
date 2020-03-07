@@ -14,7 +14,7 @@ const shuffleLetters = word => {
   return allLetters;
 };
 
-const JumbleLetters = ({ word = 'go for a walk' }) => {
+const JumbleLetters = ({ word = 'go for a walk', handleCompleteTest }) => {
   const [enteredLetters, setEnteredLetters] = useState([]);
   const [remainingLetters, setRemainingLetters] = useState([]);
   const [hasError, setHasError] = useState(false);
@@ -49,7 +49,16 @@ const JumbleLetters = ({ word = 'go for a walk' }) => {
     }
 
     setRemainingLetters(state => {
-      return [...state.slice(0, idx), ...state.slice(idx + 1)];
+      const remainingLetters = [
+        ...state.slice(0, idx),
+        ...state.slice(idx + 1)
+      ];
+
+      if (remainingLetters.length === 0) {
+        handleCompleteTest();
+      }
+
+      return remainingLetters;
     });
 
     setEnteredLetters(state => [...state, letter]);

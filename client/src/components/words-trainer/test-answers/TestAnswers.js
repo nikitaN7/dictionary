@@ -2,19 +2,6 @@ import React, { useState, useEffect } from 'react';
 import TestAnswersList from './TestAnswersList';
 import styles from '../scss/test-answers.module.scss';
 
-const wordsList = [
-  'glance ',
-  'in general',
-  'nasty',
-  'distinct',
-  'inefficient',
-  'pretty darn',
-  'listen up',
-  'taste',
-  'flavour',
-  'around the corner'
-];
-
 const shuffle = arr => {
   const copyArray = [...arr];
   return copyArray.sort(() => 0.5 - Math.random());
@@ -25,7 +12,11 @@ const getRandomItems = (list, n) => {
   return shuffled.slice(0, n);
 };
 
-const TestAnswers = ({ correctAnswer = 'in general' }) => {
+const TestAnswers = ({
+  correctAnswer = 'in general',
+  wordsList = [],
+  handleCompleteTest
+}) => {
   const [answers, setAnswers] = useState([]);
   const [answerData, setAnswerData] = useState({
     selected: false,
@@ -52,6 +43,8 @@ const TestAnswers = ({ correctAnswer = 'in general' }) => {
         successAnswer: correctAnswer,
         errorAnswer: answer !== correctAnswer && answer
       });
+
+      handleCompleteTest(answer);
     }
   };
 
