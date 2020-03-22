@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import WordsTrainerWord from '../WordsTrainerWord';
 import ListeningVoices from '../listening/ListeningVoices';
 import WordsTrainerNext from '../WordsTrainerNext';
+import TestWriting from '../writing/TestWriting';
 
 const WordsTrainerWriting = ({
   direction = 'en-ru',
@@ -36,7 +37,7 @@ const WordsTrainerWriting = ({
       <WordsTrainerWord word={word[from]} />
       {!speakers ? null : <ListeningVoices word={word[from]} />}
 
-      <input type="text" />
+      <TestWriting />
 
       {isCompleted ? <WordsTrainerNext onClick={handleNextTest} /> : null}
     </div>

@@ -1,0 +1,51 @@
+.wrapper {
+  margin: 0 auto;
+}
+
+.answer {
+  margin-top: 40px;
+  padding-bottom: 60px;
+  text-align: center;
+  &Title {
+    font-size: 80px;
+    color: #66bf66;
+    display: block;
+    font-weight: 500;
+  }
+
+  &Translate {
+    font-size: 20px;
+    letter-spacing: 1px;
+  }
+}
+
+.field {
+  text-align: center;
+  input {
+    width: 393px;
+    height: 70px;
+    border-radius: 3px;
+    border: solid 2px #bfbfbf;
+    box-sizing: border-box;
+    text-align: center;
+    font-weight: 500;
+    outline: none;
+    vertical-align: middle;
+    display: inline-block;
+    background-color: #f6f6f6;
+    font-size: 30px;
+    padding: 15px 30px;
+    color: slategray;
+
+    &.success {
+      border: solid 2px #66bf66!important;
+      color: #66bf66;
+    }
+
+    &.error {
+      border: solid 2px #cc483e!important;
+      color: #cc483e;
+    }
+
+  }
+}
