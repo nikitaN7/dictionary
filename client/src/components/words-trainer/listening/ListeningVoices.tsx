@@ -6,14 +6,24 @@ import { speakerList } from '../../../data/speakerList';
 
 const INITIAL_VOICE = 'UK English Male';
 
-const ListeningVoices = ({ word = 'survey' }) => {
+type Props = {
+  word: string;
+};
+
+declare global {
+  interface Window {
+    responsiveVoice: any;
+  }
+}
+
+const ListeningVoices: React.FC<Props> = ({ word = 'survey' }) => {
   const [activeVoice, setActiveVoice] = useState(INITIAL_VOICE);
 
-  const voicePlay = voice => {
+  const voicePlay = (voice: string) => {
     window.responsiveVoice.speak(word, voice);
   };
 
-  const handleVoiceChange = voice => {
+  const handleVoiceChange = (voice: string) => {
     setActiveVoice(voice);
     voicePlay(voice);
   };

@@ -4,12 +4,30 @@ import TestAnswers from '../test-answers/TestAnswers';
 import ListeningVoices from '../listening/ListeningVoices';
 import WordsTrainerNext from '../WordsTrainerNext';
 
-const WordsTrainerVariants = ({
+type IWordsListType = {
+  from: string;
+  to: string;
+};
+
+type WordsListType = {
+  en: string;
+  ru: string;
+};
+
+type Props = {
+  direction?: string;
+  speakers?: boolean;
+  word?: WordsListType;
+  wordsList?: WordsListType[];
+  handleNextTest?(): void;
+};
+
+const WordsTrainerVariants: React.FC<Props> = ({
   direction = 'en-ru',
   speakers = true,
   word = {
-    en: 'ought to',
-    ru: 'обязан'
+    en: 'text',
+    ru: 'text'
   },
   wordsList = [
     { en: 'glance ', ru: 'перевод' },
@@ -23,22 +41,25 @@ const WordsTrainerVariants = ({
     { en: 'flavour', ru: 'вкус' },
     { en: 'around the corner', ru: 'за углом' }
   ],
-  handleNextTest
+  handleNextTest = () => {}
 }) => {
   const [from, to] = direction.split('-');
   const [isCompleted, setIsCompleted] = useState(false);
 
-  const handleCompleteTest = answer => {
+  const handleCompleteTest = (answer: any) => {
     setIsCompleted(true);
   };
 
+  const wordFrom = from === 'ru' || from === 'en' ? word[from] : '';
+  const wordTo = to === 'ru' || to === 'en' ? word[to] : '';
+
   return (
     <div>
-      <WordsTrainerWord word={word[from]} />
-      {!speakers ? null : <ListeningVoices word={word[from]} />}
+      <WordsTrainerWord word={wordFrom} />
+      {!speakers ? null : <ListeningVoices word={wordFrom} />}
       <TestAnswers
-        correctAnswer={word[to]}
-        wordsList={wordsList.map(word => word[to])}
+        correctAnswer={wordTo}
+        wordsList={wordsList.map(word => wordTo)}
         handleCompleteTest={handleCompleteTest}
       />
 

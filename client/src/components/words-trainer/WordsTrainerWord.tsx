@@ -1,6 +1,10 @@
 import React from 'react';
 
-const WordsTrainerWord = ({ word }) => {
+type Props = {
+  word: string;
+};
+
+const WordsTrainerWord: React.FC<Props> = ({ word }) => {
   return <div>{word}</div>;
 };
 

@@ -1,7 +1,15 @@
 import React from 'react';
 import css from '../scss/jumble-letters.module.scss';
 
-const JumbleLettersList = ({ letters, onClick }) => {
+type Props = {
+  letters: string[];
+  onClick(letter: string, idx: number): void;
+};
+
+const JumbleLettersList: React.FC<Props> = ({
+  letters = [],
+  onClick = () => {}
+}) => {
   return (
     <div className={css.list}>
       <div className={css.letters}>

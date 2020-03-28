@@ -2,7 +2,23 @@ import React from 'react';
 import TestAnswersItem from './TestAnswersItem';
 import styles from '../scss/test-answers.module.scss';
 
-const TestAnswersList = ({ list, answerData, handleAnswerClick }) => {
+type AnswerData = {
+  selected: boolean;
+  successAnswer: null | string | false;
+  errorAnswer: null | string | false;
+};
+
+type Props = {
+  list: string[];
+  answerData: AnswerData;
+  handleAnswerClick(answer: string): void;
+};
+
+const TestAnswersList: React.FC<Props> = ({
+  list,
+  answerData,
+  handleAnswerClick
+}) => {
   return (
     <div className={styles.list}>
       {list.map((answer, idx) => {

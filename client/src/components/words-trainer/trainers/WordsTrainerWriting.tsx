@@ -4,6 +4,19 @@ import ListeningVoices from '../listening/ListeningVoices';
 import WordsTrainerNext from '../WordsTrainerNext';
 import TestWriting from '../writing/TestWriting';
 
+type WordsListType = {
+  en: string;
+  ru: string;
+};
+
+type Props = {
+  direction?: string;
+  speakers?: boolean;
+  word?: WordsListType;
+  wordsList?: WordsListType[];
+  handleNextTest?(): void;
+};
+
 const WordsTrainerWriting = ({
   direction = 'en-ru',
   speakers = true,
@@ -23,19 +36,22 @@ const WordsTrainerWriting = ({
     { en: 'flavour', ru: 'вкус' },
     { en: 'around the corner', ru: 'за углом' }
   ],
-  handleNextTest
+  handleNextTest = () => {}
 }) => {
   const [from, to] = direction.split('-');
   const [isCompleted, setIsCompleted] = useState(false);
 
-  const handleCompleteTest = answer => {
+  const handleCompleteTest = (answer: string) => {
     setIsCompleted(true);
   };
 
+  const wordFrom = from === 'ru' || from === 'en' ? word[from] : '';
+  const wordTo = to === 'ru' || to === 'en' ? word[to] : '';
+
   return (
     <div>
-      <WordsTrainerWord word={word[from]} />
-      {!speakers ? null : <ListeningVoices word={word[from]} />}
+      <WordsTrainerWord word={wordFrom} />
+      {!speakers ? null : <ListeningVoices word={wordFrom} />}
 
       <TestWriting />
 

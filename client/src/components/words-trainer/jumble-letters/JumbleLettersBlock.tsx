@@ -2,7 +2,7 @@ import React from 'react';
 import css from '../scss/jumble-letters.module.scss';
 import classNames from 'classnames/bind';
 
-const getIdxExcludeSpaces = (word, idx) => {
+const getIdxExcludeSpaces = (word: string, idx: number) => {
   const slicedWord = word.slice(0, idx);
   const lengthWithSpaces = slicedWord.split('').length;
   const lengthExcludeSpaces = slicedWord.replace(/\s/g, '').split('').length;
@@ -11,8 +11,14 @@ const getIdxExcludeSpaces = (word, idx) => {
   return idx - lengthDifference;
 };
 
-const JumbleLettersBlock = ({ word, letters, hasError }) => {
-  const renderLetter = (letter, idx) => {
+type Props = {
+  word: string;
+  letters: string[];
+  hasError: boolean;
+};
+
+const JumbleLettersBlock: React.FC<Props> = ({ word, letters, hasError }) => {
+  const renderLetter = (letter: string, idx: number) => {
     if (letter.trim() === '') {
       return <div className={css.spaceBlock} />;
     }

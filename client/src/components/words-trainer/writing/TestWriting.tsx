@@ -2,8 +2,12 @@ import React, { useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from '../scss/test-writing.module.scss';
 
-const TestWriting = ({
-  handleCompleteTest,
+type Props = {
+  answer?: string;
+  translate?: string;
+};
+
+const TestWriting: React.FC<Props> = ({
   answer = 'question',
   translate = 'вопрос'
 }) => {

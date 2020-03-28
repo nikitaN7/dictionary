@@ -4,7 +4,19 @@ import TestAnswers from '../test-answers/TestAnswers';
 import WordsTrainerNext from '../WordsTrainerNext';
 import JumbleLetters from '../jumble-letters/JumbleLetters';
 
-const WordsTrainerJumbling = ({
+type WordsListType = {
+  en: string;
+  ru: string;
+};
+
+type Props = {
+  direction?: string;
+  word?: WordsListType;
+  wordsList?: WordsListType[];
+  handleNextTest?(): void;
+};
+
+const WordsTrainerJumbling: React.FC<Props> = ({
   direction = 'ru-en',
   word = {
     en: 'ought to',
@@ -22,7 +34,7 @@ const WordsTrainerJumbling = ({
     { en: 'flavour', ru: 'вкус' },
     { en: 'around the corner', ru: 'за углом' }
   ],
-  handleNextTest
+  handleNextTest = () => {}
 }) => {
   const [from, to] = direction.split('-');
   const [isCompleted, setIsCompleted] = useState(false);
@@ -31,10 +43,13 @@ const WordsTrainerJumbling = ({
     setIsCompleted(true);
   };
 
+  const wordFrom = from === 'ru' || from === 'en' ? word[from] : '';
+  const wordTo = to === 'ru' || to === 'en' ? word[to] : '';
+
   return (
     <div>
-      <WordsTrainerWord word={word[from]} />
-      <JumbleLetters word={word[to]} handleCompleteTest={handleCompleteTest} />
+      <WordsTrainerWord word={wordFrom} />
+      <JumbleLetters word={wordTo} handleCompleteTest={handleCompleteTest} />
 
       {isCompleted ? <WordsTrainerNext onClick={handleNextTest} /> : null}
     </div>

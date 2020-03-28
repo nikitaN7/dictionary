@@ -2,7 +2,24 @@ import React from 'react';
 import styles from '../scss/listening-voices.module.scss';
 import ListeningVoicesSpeaker from './ListeningVoicesSpeaker';
 
-const ListeningVoicesList = ({ handleVoiceChange, activeVoice, speakers }) => {
+type Speaker = {
+  desc: string;
+  icon: React.ReactNode;
+  name: string;
+  country: string;
+};
+
+type Props = {
+  handleVoiceChange(voice: string): void;
+  activeVoice: string;
+  speakers: Speaker[];
+};
+
+const ListeningVoicesList: React.FC<Props> = ({
+  handleVoiceChange,
+  activeVoice,
+  speakers
+}) => {
   return (
     <ul className={styles.speakers}>
       {speakers.map(speaker => {

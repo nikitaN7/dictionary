@@ -3,7 +3,7 @@ import css from '../scss/jumble-letters.module.scss';
 import JumbleLettersBlock from './JumbleLettersBlock';
 import JumbleLettersList from './JumbleLettersList';
 
-const shuffleLetters = word => {
+const shuffleLetters = (word: string) => {
   const allLetters = word.replace(/\s/g, '').split('');
 
   for (let i = allLetters.length - 1; i > 0; i--) {
@@ -14,9 +14,17 @@ const shuffleLetters = word => {
   return allLetters;
 };
 
-const JumbleLetters = ({ word = 'go for a walk', handleCompleteTest }) => {
-  const [enteredLetters, setEnteredLetters] = useState([]);
-  const [remainingLetters, setRemainingLetters] = useState([]);
+type Props = {
+  word: string;
+  handleCompleteTest(): void;
+};
+
+const JumbleLetters: React.FC<Props> = ({
+  word = 'go for a walk',
+  handleCompleteTest
+}) => {
+  const [enteredLetters, setEnteredLetters] = useState<string[]>([]);
+  const [remainingLetters, setRemainingLetters] = useState<string[]>([]);
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
@@ -40,7 +48,7 @@ const JumbleLetters = ({ word = 'go for a walk', handleCompleteTest }) => {
     }, 1000);
   };
 
-  const onLetterClick = (letter, idx) => {
+  const onLetterClick = (letter: string, idx: number) => {
     const nextLetter = getNextLetter();
 
     if (letter !== nextLetter) {

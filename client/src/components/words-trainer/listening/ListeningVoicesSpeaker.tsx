@@ -5,7 +5,7 @@ import AmericaFlagIcon from '../../../assets/icons/AmericaFlagIcon';
 import BritainFlagIcon from '../../../assets/icons/BritainFlagIcon';
 import classNames from 'classnames/bind';
 
-const getFlagIconByCountry = country => {
+const getFlagIconByCountry = (country: string) => {
   switch (country) {
     case 'UK':
       return <BritainFlagIcon />;
@@ -18,7 +18,16 @@ const getFlagIconByCountry = country => {
   }
 };
 
-const ListeningVoicesSpeaker = ({
+type Props = {
+  icon: React.ReactNode;
+  name: string;
+  country: string;
+  activeVoice: string;
+  voice: string;
+  handleVoiceChange(voice: string): void;
+};
+
+const ListeningVoicesSpeaker: React.FC<Props> = ({
   name,
   icon,
   country,

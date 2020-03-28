@@ -2,7 +2,21 @@ import React from 'react';
 import styles from '../scss/test-answers.module.scss';
 import classNames from 'classnames/bind';
 
-const TestAnswersItem = ({ answer, error, success, id, onClick }) => {
+type Props = {
+  answer: string | null;
+  error: boolean;
+  success: boolean;
+  id: number;
+  onClick(): void;
+};
+
+const TestAnswersItem: React.FC<Props> = ({
+  answer,
+  error,
+  success,
+  id,
+  onClick
+}) => {
   return (
     <div
       className={classNames(

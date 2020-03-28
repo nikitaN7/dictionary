@@ -5,7 +5,7 @@ import WordsTrainerJumbling from './trainers/WordsTrainerJumbling';
 import WordsTrainerVariants from './trainers/WordsTrainerVariants';
 import WordsTrainerWriting from './trainers/WordsTrainerWriting';
 
-const WordsTrainer = () => {
+const WordsTrainer: React.FC = () => {
   return (
     <div className={css.wrapper}>
       <WordsTrainerHeader />

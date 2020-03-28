@@ -2,23 +2,35 @@ import React, { useState, useEffect } from 'react';
 import TestAnswersList from './TestAnswersList';
 import styles from '../scss/test-answers.module.scss';
 
-const shuffle = arr => {
+const shuffle = (arr: any[]) => {
   const copyArray = [...arr];
   return copyArray.sort(() => 0.5 - Math.random());
 };
 
-const getRandomItems = (list, n) => {
+const getRandomItems = (list: any[], n: number) => {
   const shuffled = shuffle(list);
   return shuffled.slice(0, n);
 };
 
-const TestAnswers = ({
+type Props = {
+  correctAnswer: string;
+  wordsList: string[];
+  handleCompleteTest(answer: string): void;
+};
+
+type AnswerData = {
+  selected: boolean;
+  successAnswer: null | string | false;
+  errorAnswer: null | string | false;
+};
+
+const TestAnswers: React.FC<Props> = ({
   correctAnswer = 'in general',
   wordsList = [],
   handleCompleteTest
 }) => {
-  const [answers, setAnswers] = useState([]);
-  const [answerData, setAnswerData] = useState({
+  const [answers, setAnswers] = useState<string[]>([]);
+  const [answerData, setAnswerData] = useState<AnswerData>({
     selected: false,
     successAnswer: null,
     errorAnswer: null
@@ -36,7 +48,7 @@ const TestAnswers = ({
     setAnswers(newAnswers);
   }, []);
 
-  const handleAnswerClick = answer => {
+  const handleAnswerClick = (answer: string) => {
     if (!answerData.selected) {
       setAnswerData({
         selected: true,
