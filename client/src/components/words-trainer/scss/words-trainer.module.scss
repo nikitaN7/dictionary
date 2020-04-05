@@ -22,3 +22,15 @@
   flex-grow: 1;
   color: slategray;
 }
+
+.wordTitle {
+  width: 100%;
+  margin-bottom: 2rem;
+  text-align: center;
+
+  &Text {
+    color: #2f4051;
+    font-size: 1.7rem;
+    font-weight: 500;
+  }
+}

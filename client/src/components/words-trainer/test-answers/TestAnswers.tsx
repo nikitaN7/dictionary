@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import TestAnswersList from './TestAnswersList';
+import { filterList } from '../../../utils/filterList';
 import styles from '../scss/test-answers.module.scss';
 
 const shuffle = (arr: any[]) => {
@@ -13,50 +14,80 @@ const getRandomItems = (list: any[], n: number) => {
 };
 
 type Props = {
-  correctAnswer: string;
-  wordsList: string[];
-  handleCompleteTest(answer: string): void;
+  wordsList?: any;
+  wordId?: number;
+  lang?: string;
+  handleCompleteTest?(answer: string): void;
 };
 
 type AnswerData = {
-  selected: boolean;
-  successAnswer: null | string | false;
-  errorAnswer: null | string | false;
+  selected?: boolean;
+  successAnswerId?: null | number | string;
+  errorAnswerId?: null | number | string;
+};
+
+type Answer = {
+  key: string;
+  correct: boolean;
+  wordId: number | string;
 };
 
 const TestAnswers: React.FC<Props> = ({
-  correctAnswer = 'in general',
   wordsList = [],
-  handleCompleteTest
+  wordId,
+  lang = 'en',
+  handleCompleteTest = () => {}
 }) => {
-  const [answers, setAnswers] = useState<string[]>([]);
+  const [answers, setAnswers] = useState<Answer[]>([]);
+  const [correctAnswerId, setCorrectAnswerId] = useState();
   const [answerData, setAnswerData] = useState<AnswerData>({
     selected: false,
-    successAnswer: null,
-    errorAnswer: null
+    successAnswerId: null,
+    errorAnswerId: null
   });
 
   useEffect(() => {
     const RANDOM_WORDS_AMOUNT = 3;
-    const incorrectAnswers = wordsList.filter(item => item !== correctAnswer);
+
+    if (!wordId || !wordsList) {
+      return;
+    }
+
+    const correctAnswer = wordsList[wordId];
+    const filterById = (item: any) => item.id !== correctAnswer.id;
+    const incorrectAnswers = filterList(wordsList, filterById);
+
     const randomIncorrectAnswers = getRandomItems(
       incorrectAnswers,
       RANDOM_WORDS_AMOUNT
     );
-    const newAnswers = shuffle([...randomIncorrectAnswers, correctAnswer]);
 
-    setAnswers(newAnswers);
-  }, []);
+    setCorrectAnswerId(correctAnswer.id);
 
-  const handleAnswerClick = (answer: string) => {
+    setAnswers(() => {
+      const answers = shuffle([...randomIncorrectAnswers, correctAnswer]);
+
+      const mappableAnswers = answers.map(answer => {
+        return {
+          key: answer[lang],
+          correct: answer.id === correctAnswer.id,
+          wordId: answer.id
+        };
+      });
+
+      return mappableAnswers;
+    });
+  }, [wordId, wordsList, lang]);
+
+  const handleAnswerClick = (answer: Answer) => {
     if (!answerData.selected) {
       setAnswerData({
         selected: true,
-        successAnswer: correctAnswer,
-        errorAnswer: answer !== correctAnswer && answer
+        successAnswerId: correctAnswerId,
+        errorAnswerId: answer.wordId !== correctAnswerId ? answer.wordId : null
       });
 
-      handleCompleteTest(answer);
+      // handleCompleteTest(answer);
     }
   };
 

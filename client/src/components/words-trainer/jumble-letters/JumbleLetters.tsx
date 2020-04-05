@@ -15,13 +15,13 @@ const shuffleLetters = (word: string) => {
 };
 
 type Props = {
-  word: string;
-  handleCompleteTest(): void;
+  word?: string;
+  handleCompleteTest?(): void;
 };
 
 const JumbleLetters: React.FC<Props> = ({
   word = 'go for a walk',
-  handleCompleteTest
+  handleCompleteTest = () => {}
 }) => {
   const [enteredLetters, setEnteredLetters] = useState<string[]>([]);
   const [remainingLetters, setRemainingLetters] = useState<string[]>([]);

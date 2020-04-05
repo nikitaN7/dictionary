@@ -3,32 +3,38 @@ import TestAnswersItem from './TestAnswersItem';
 import styles from '../scss/test-answers.module.scss';
 
 type AnswerData = {
-  selected: boolean;
-  successAnswer: null | string | false;
-  errorAnswer: null | string | false;
+  selected?: boolean;
+  successAnswerId?: null | number | string;
+  errorAnswerId?: null | number | string;
+};
+
+type Answer = {
+  key: string;
+  correct: boolean;
+  wordId: number | string;
 };
 
 type Props = {
-  list: string[];
-  answerData: AnswerData;
-  handleAnswerClick(answer: string): void;
+  list: Answer[];
+  answerData?: AnswerData;
+  handleAnswerClick(answer: Answer): void;
 };
 
 const TestAnswersList: React.FC<Props> = ({
-  list,
-  answerData,
-  handleAnswerClick
+  list = [],
+  answerData = {},
+  handleAnswerClick = () => {}
 }) => {
   return (
     <div className={styles.list}>
-      {list.map((answer, idx) => {
+      {list.map((answer: Answer, idx: number) => {
         return (
           <TestAnswersItem
-            key={idx}
-            id={idx + 1}
+            key={answer.key}
+            idx={idx}
             answer={answer}
-            error={answerData.errorAnswer === answer}
-            success={answerData.successAnswer === answer}
+            error={answer.wordId === answerData.errorAnswerId}
+            success={answer.wordId === answerData.successAnswerId}
             onClick={() => handleAnswerClick(answer)}
           />
         );

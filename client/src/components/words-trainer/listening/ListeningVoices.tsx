@@ -7,7 +7,7 @@ import { speakerList } from '../../../data/speakerList';
 const INITIAL_VOICE = 'UK English Male';
 
 type Props = {
-  word: string;
+  word?: string;
 };
 
 declare global {

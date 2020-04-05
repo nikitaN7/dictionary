@@ -57,11 +57,6 @@ const WordsTrainerVariants: React.FC<Props> = ({
     <div>
       <WordsTrainerWord word={wordFrom} />
       {!speakers ? null : <ListeningVoices word={wordFrom} />}
-      <TestAnswers
-        correctAnswer={wordTo}
-        wordsList={wordsList.map(word => wordTo)}
-        handleCompleteTest={handleCompleteTest}
-      />
 
       {isCompleted ? <WordsTrainerNext onClick={handleNextTest} /> : null}
     </div>

@@ -2,20 +2,26 @@ import React from 'react';
 import styles from '../scss/test-answers.module.scss';
 import classNames from 'classnames/bind';
 
+type Answer = {
+  key: string;
+  correct: boolean;
+  wordId: number | string;
+};
+
 type Props = {
-  answer: string | null;
+  answer: Answer;
   error: boolean;
   success: boolean;
-  id: number;
   onClick(): void;
+  idx: number;
 };
 
 const TestAnswersItem: React.FC<Props> = ({
-  answer,
-  error,
-  success,
-  id,
-  onClick
+  answer = {},
+  error = false,
+  success = false,
+  onClick = () => {},
+  idx = 0
 }) => {
   return (
     <div
@@ -26,8 +32,8 @@ const TestAnswersItem: React.FC<Props> = ({
       )}
     >
       <button className={styles.itemBtn} onClick={onClick}>
-        <span className={styles.itemCount}>{id}</span>
-        <span className={styles.itemText}>{answer}</span>
+        <span className={styles.itemCount}>{idx + 1}</span>
+        <span className={styles.itemText}>{answer.key}</span>
       </button>
     </div>
   );
