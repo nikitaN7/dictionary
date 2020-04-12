@@ -17,7 +17,7 @@ type Props = {
   wordsList?: any;
   wordId?: number;
   lang?: string;
-  handleCompleteTest?(answer: string): void;
+  handleCompleteTest?(testInfo: any): void;
 };
 
 type AnswerData = {
@@ -32,19 +32,29 @@ type Answer = {
   wordId: number | string;
 };
 
+const initialAnswerData = {
+  selected: false,
+  successAnswerId: null,
+  errorAnswerId: null
+};
+
 const TestAnswers: React.FC<Props> = ({
   wordsList = [],
   wordId,
   lang = 'en',
-  handleCompleteTest = () => {}
+  handleCompleteTest = (testInfo: any) => {}
 }) => {
   const [answers, setAnswers] = useState<Answer[]>([]);
   const [correctAnswerId, setCorrectAnswerId] = useState();
-  const [answerData, setAnswerData] = useState<AnswerData>({
-    selected: false,
-    successAnswerId: null,
-    errorAnswerId: null
-  });
+  const [answerData, setAnswerData] = useState<AnswerData>(initialAnswerData);
+
+  const resetAnswerData = () => {
+    setAnswerData(initialAnswerData);
+  };
+
+  useEffect(() => {
+    resetAnswerData();
+  }, [wordId, wordsList, lang]);
 
   useEffect(() => {
     const RANDOM_WORDS_AMOUNT = 3;
@@ -80,6 +90,11 @@ const TestAnswers: React.FC<Props> = ({
   }, [wordId, wordsList, lang]);
 
   const handleAnswerClick = (answer: Answer) => {
+    const testInfo = {
+      hasErrors: answer.wordId !== correctAnswerId,
+      errorNumbers: 1
+    };
+
     if (!answerData.selected) {
       setAnswerData({
         selected: true,
@@ -87,7 +102,7 @@ const TestAnswers: React.FC<Props> = ({
         errorAnswerId: answer.wordId !== correctAnswerId ? answer.wordId : null
       });
 
-      // handleCompleteTest(answer);
+      handleCompleteTest(testInfo);
     }
   };
 

@@ -12,10 +12,21 @@ type Props = {
   queue: IQueue[];
   queueIdx: number;
   wordsList: any;
+  handleNextTestClick: (completedTestInfo: TestInfo) => void;
 };
 
 type NewProps = {
   title: string;
+};
+
+type TestInfo = {
+  hasErrors: boolean;
+  errorNumbers: number;
+};
+
+const initialCompletedTestInfo = {
+  hasErrors: false,
+  errorNumbers: 0
 };
 
 const WordsTrainerRepetitionTitle: React.FC<NewProps> = ({ title }) => {
@@ -30,8 +41,13 @@ const WordsTrainerRepetitionWrapper: React.FC<Props> = ({
   children,
   typeId,
   wordId,
-  wordsList
+  wordsList = [],
+  handleNextTestClick = () => {}
 }) => {
+  const [completedTestInfo, setCompletedTestInfo] = useState<TestInfo>(
+    initialCompletedTestInfo
+  );
+  const [isTestCompleted, setIsTestCompleted] = useState(false);
   const [currentType, setCurrentType] = useState<IRepetitionType | null>(null);
 
   useEffect(() => {
@@ -44,31 +60,59 @@ const WordsTrainerRepetitionWrapper: React.FC<Props> = ({
     }
   }, [typeId]);
 
+  useEffect(() => {
+    setIsTestCompleted(false);
+    setCompletedTestInfo(initialCompletedTestInfo);
+  }, [typeId, wordId]);
+
+  const handleCompleteTest = (testInfo: any) => {
+    setCompletedTestInfo(testInfo);
+    setIsTestCompleted(true);
+  };
+
   const renderRepetitionContent = () => {
     if (currentType) {
       return children({
         type: currentType!.name,
         lang: currentType!.lang,
         wordId,
-        wordsList
+        wordsList,
+        handleCompleteTest
       });
     }
 
     return null;
   };
 
-  //wordId
-  //wordsList
+  const getTrainerWord = () => {
+    if (wordId && currentType) {
+      const currentWord = wordsList[wordId];
+
+      if (currentType.lang === 'ru') {
+        return currentWord.en;
+      }
+
+      return currentWord.ru;
+    }
+
+    return '';
+  };
 
   return (
     <div className={css.wrapper}>
       {currentType && <WordsTrainerRepetitionTitle title={currentType.title} />}
       {currentType && currentType.name !== 'writing' && (
-        <WordsTrainerWord word={'Some word'} />
+        <WordsTrainerWord word={getTrainerWord()} />
       )}
       {currentType && currentType.speakers && <ListeningVoices />}
 
       {renderRepetitionContent()}
+
+      {isTestCompleted && (
+        <button onClick={() => handleNextTestClick(completedTestInfo)}>
+          Continue
+        </button>
+      )}
     </div>
   );
 };
