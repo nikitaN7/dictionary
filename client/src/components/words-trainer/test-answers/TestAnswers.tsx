@@ -13,11 +13,16 @@ const getRandomItems = (list: any[], n: number) => {
   return shuffled.slice(0, n);
 };
 
+type TestInfo = {
+  hasErrors: boolean;
+  errorNumbers: number;
+};
+
 type Props = {
   wordsList?: any;
   wordId?: number;
   lang?: string;
-  handleCompleteTest?(testInfo: any): void;
+  handleCompleteTest?(testInfo: TestInfo): void;
 };
 
 type AnswerData = {

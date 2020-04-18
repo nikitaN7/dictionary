@@ -14,26 +14,57 @@ const shuffleLetters = (word: string) => {
   return allLetters;
 };
 
+type TestInfo = {
+  hasErrors: boolean;
+  errorNumbers: number;
+};
+
 type Props = {
-  word?: string;
-  handleCompleteTest?(): void;
+  wordsList?: any;
+  wordId?: number;
+  lang?: string;
+  handleCompleteTest?(testInfo: TestInfo): void;
 };
 
 const JumbleLetters: React.FC<Props> = ({
-  word = 'go for a walk',
-  handleCompleteTest = () => {}
+  handleCompleteTest = () => {},
+  wordsList = [],
+  wordId,
+  lang = 'en'
 }) => {
   const [enteredLetters, setEnteredLetters] = useState<string[]>([]);
   const [remainingLetters, setRemainingLetters] = useState<string[]>([]);
+  const [currentWordText, setCurrentWordText] = useState<string>('');
   const [hasError, setHasError] = useState(false);
+  const [errorsNumbers, setErrorsNumbers] = useState<number>(0);
+
+  const resetState = () => {
+    setEnteredLetters([]);
+    setRemainingLetters([]);
+    setErrorsNumbers(0);
+    setHasError(false);
+  };
 
   useEffect(() => {
-    const updatedLetters = shuffleLetters(word);
-    setRemainingLetters(updatedLetters);
-  }, [word]);
+    if (!wordId || !wordsList) {
+      return;
+    }
+
+    resetState();
+
+    const currentWord = wordsList[wordId];
+    setCurrentWordText(currentWord[lang]);
+  }, [wordId, wordsList, lang]);
+
+  useEffect(() => {
+    if (currentWordText.length > 0) {
+      const updatedLetters = shuffleLetters(currentWordText);
+      setRemainingLetters(updatedLetters);
+    }
+  }, [currentWordText]);
 
   const getNextLetter = () => {
-    const wordWithoutSpaces = word.replace(/\s/g, '').split('');
+    const wordWithoutSpaces = currentWordText.replace(/\s/g, '').split('');
     const nextLetter = wordWithoutSpaces[enteredLetters.length];
 
     return nextLetter || '';
@@ -52,6 +83,7 @@ const JumbleLetters: React.FC<Props> = ({
     const nextLetter = getNextLetter();
 
     if (letter !== nextLetter) {
+      setErrorsNumbers(state => state + 1);
       showError();
       return;
     }
@@ -63,7 +95,12 @@ const JumbleLetters: React.FC<Props> = ({
       ];
 
       if (remainingLetters.length === 0) {
-        handleCompleteTest();
+        const testInfo = {
+          hasErrors: errorsNumbers > 0,
+          errorNumbers: errorsNumbers
+        };
+
+        handleCompleteTest(testInfo);
       }
 
       return remainingLetters;
@@ -76,7 +113,7 @@ const JumbleLetters: React.FC<Props> = ({
     <div className={css.wrapper}>
       <JumbleLettersBlock
         letters={enteredLetters}
-        word={word}
+        word={currentWordText}
         hasError={hasError}
       />
       <JumbleLettersList letters={remainingLetters} onClick={onLetterClick} />
