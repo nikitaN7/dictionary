@@ -25,6 +25,7 @@ const ListeningVoicesList: React.FC<Props> = ({
       {speakers.map(speaker => {
         return (
           <ListeningVoicesSpeaker
+            key={speaker.name}
             name={speaker.name}
             handleVoiceChange={handleVoiceChange}
             voice={speaker.desc}

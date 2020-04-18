@@ -16,7 +16,7 @@ declare global {
   }
 }
 
-const ListeningVoices: React.FC<Props> = ({ word = 'survey' }) => {
+const ListeningVoices: React.FC<Props> = ({ word = '' }) => {
   const [activeVoice, setActiveVoice] = useState(INITIAL_VOICE);
 
   const voicePlay = (voice: string) => {
@@ -28,9 +28,10 @@ const ListeningVoices: React.FC<Props> = ({ word = 'survey' }) => {
     voicePlay(voice);
   };
 
-  // useEffect(() => {
-  //   voicePlay(INITIAL_VOICE);
-  // }, []);
+  useEffect(() => {
+    setActiveVoice(INITIAL_VOICE);
+    voicePlay(INITIAL_VOICE);
+  }, [word]);
 
   const setNextVoice = () => {
     const { length } = speakerList;

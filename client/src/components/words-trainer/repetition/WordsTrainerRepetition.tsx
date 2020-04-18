@@ -148,9 +148,9 @@ const WordsTrainerRepetition: React.FC<Props> = ({ wordsData }) => {
       return;
     }
 
+    setWordId(nextQueue.id);
     setQueueIdx(state => state + 1);
     setTypeId(nextQueue.type);
-    setWordId(nextQueue.id);
   };
 
   return (

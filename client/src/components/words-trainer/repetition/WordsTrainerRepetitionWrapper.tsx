@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { IQueue, IRepetitionType } from '../interfaces';
 import WordsTrainerWord from '../WordsTrainerWord';
 import ListeningVoices from '../listening/ListeningVoices';
@@ -49,6 +49,7 @@ const WordsTrainerRepetitionWrapper: React.FC<Props> = ({
   );
   const [isTestCompleted, setIsTestCompleted] = useState(false);
   const [currentType, setCurrentType] = useState<IRepetitionType | null>(null);
+  const [trainerWord, setTrainerWord] = useState<string>('');
 
   useEffect(() => {
     const currentType = wordsRepetitionTypes.find(
@@ -58,7 +59,21 @@ const WordsTrainerRepetitionWrapper: React.FC<Props> = ({
     if (currentType) {
       setCurrentType(currentType);
     }
-  }, [typeId]);
+
+    setTrainerWord(() => {
+      if (wordId && currentType) {
+        const currentWord = wordsList[wordId];
+
+        if (currentType.lang === 'ru') {
+          return currentWord.en;
+        }
+
+        return currentWord.ru;
+      }
+
+      return '';
+    });
+  }, [typeId, wordId]);
 
   useEffect(() => {
     setIsTestCompleted(false);
@@ -84,27 +99,16 @@ const WordsTrainerRepetitionWrapper: React.FC<Props> = ({
     return null;
   };
 
-  const getTrainerWord = () => {
-    if (wordId && currentType) {
-      const currentWord = wordsList[wordId];
-
-      if (currentType.lang === 'ru') {
-        return currentWord.en;
-      }
-
-      return currentWord.ru;
-    }
-
-    return '';
-  };
-
   return (
     <div className={css.wrapper}>
       {currentType && <WordsTrainerRepetitionTitle title={currentType.title} />}
+
       {currentType && currentType.name !== 'writing' && (
-        <WordsTrainerWord word={getTrainerWord()} />
+        <WordsTrainerWord word={trainerWord} />
       )}
-      {currentType && currentType.speakers && <ListeningVoices />}
+      {currentType && currentType.speakers && (
+        <ListeningVoices word={trainerWord} />
+      )}
 
       {renderRepetitionContent()}
 
