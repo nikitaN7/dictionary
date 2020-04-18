@@ -113,7 +113,10 @@ const WordsTrainerRepetitionWrapper: React.FC<Props> = ({
       {renderRepetitionContent()}
 
       {isTestCompleted && (
-        <button onClick={() => handleNextTestClick(completedTestInfo)}>
+        <button
+          className={css.continueBtn}
+          onClick={() => handleNextTestClick(completedTestInfo)}
+        >
           Continue
         </button>
       )}

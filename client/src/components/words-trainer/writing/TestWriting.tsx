@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
+import repetitionStyles from '../scss/repetition.module.scss';
 import styles from '../scss/test-writing.module.scss';
 
 type TestInfo = {
@@ -96,7 +97,12 @@ const TestWriting: React.FC<Props> = ({
       </div>
 
       {!isCompleted ? (
-        <button onClick={handleCompleteClick}>Continue</button>
+        <button
+          className={repetitionStyles.continueBtn}
+          onClick={handleCompleteClick}
+        >
+          Complete
+        </button>
       ) : null}
     </div>
   );

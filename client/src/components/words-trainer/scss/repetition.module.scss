@@ -9,3 +9,31 @@
     font-weight: 500;
   }
 }
+
+.continueBtn {
+  position: relative;
+  cursor: pointer;
+  box-sizing: border-box;
+  text-decoration: none;
+  text-align: center;
+  white-space: nowrap;
+  font-size: 14px;
+  line-height: 1.25;
+  padding: 15px 32px 12px;
+  height: 48px;
+  border-radius: 3px;
+  border: 2px solid transparent;
+  transition-duration: .1s;
+  text-transform: uppercase;
+  box-sizing: border-box;
+  font-size: 14px;
+  line-height: 1.25;
+  padding: 15px 32px 12px;
+  height: 48px;
+  background-color: #0061a1;
+  color: #fff;
+  text-transform: none;
+  margin-top: 10px;
+  margin: 20px auto 0;
+  display: block;
+}
