@@ -25,6 +25,6 @@ export default [
     title: 'Напишите услышанное слово',
     name: 'writing',
     lang: 'en',
-    speakers: false
+    speakers: true
   }
 ];

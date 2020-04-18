@@ -64,7 +64,7 @@ const WordsTrainerRepetitionWrapper: React.FC<Props> = ({
       if (wordId && currentType) {
         const currentWord = wordsList[wordId];
 
-        if (currentType.lang === 'ru') {
+        if (currentType.lang === 'ru' || currentType.speakers) {
           return currentWord.en;
         }
 
