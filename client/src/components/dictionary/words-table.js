@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Column, Table, AutoSizer } from 'react-virtualized';
 import ReactTooltip from 'react-tooltip';
 import { debounce } from 'lodash';
+
+import SoundIcon from '../../assets/icons/SoundIcon';
 import { defaultTableRowRenderer } from 'react-virtualized';
 import Preloader from '../preloader';
 
@@ -32,7 +34,7 @@ const WordsTable = ({
     return '';
   };
 
-  const renderWord = (key, word) => {
+  const renderWord = (key, word, hasSound) => {
     const { id } = word;
 
     const isTenCell = id % 10 === 0 || id === 0;
@@ -46,6 +48,14 @@ const WordsTable = ({
         data-tip={word[key]}
         onClick={e => onWordClick(id, className)}
       >
+        {hasSound && (
+          <button
+            className={`Words__Table__soundBtn ${className}`}
+            onClick={() => window.responsiveVoice.speak(word[key])}
+          >
+            <SoundIcon />
+          </button>
+        )}
         <span className={`Words__Table__wordBtn ${className}`}>
           {word[key]}
         </span>
@@ -118,8 +128,8 @@ const WordsTable = ({
               rowRenderer={renderRow}
             >
               <Column
-                label="En"
-                dataKey="en"
+                label="Id"
+                dataKey=""
                 width={(width / 100) * 10}
                 className="Words__Table__Grid__rowColumn"
                 cellRenderer={({ rowIndex }) => {
@@ -138,7 +148,7 @@ const WordsTable = ({
                 width={(width / 100) * 35}
                 className="Words__Table__Grid__rowColumn"
                 cellRenderer={({ rowData, dataKey }) => {
-                  return renderWord(dataKey, rowData);
+                  return renderWord(dataKey, rowData, true);
                 }}
                 flexGrow={1}
               />
@@ -148,7 +158,7 @@ const WordsTable = ({
                 dataKey="ru"
                 className="Words__Table__Grid__rowColumn"
                 cellRenderer={({ rowData, dataKey }) => {
-                  return renderWord(dataKey, rowData);
+                  return renderWord(dataKey, rowData, false);
                 }}
                 flexGrow={1}
               />
