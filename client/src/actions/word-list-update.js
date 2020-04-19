@@ -7,6 +7,21 @@ import {
   WORDS_DELETE_SUCCESS
 } from './actions';
 
+const transformWordData = data => {
+  return {
+    id: data.id,
+    en: data.en,
+    ru: data.ru,
+    bookmarks: data.bookmarks,
+    association: data.association,
+    transcription: data.transcription,
+    examples: {
+      ru: data.ruExample,
+      en: data.enExample
+    }
+  };
+};
+
 const updateListPending = () => {
   return {
     type: UPDATE_LIST_PENDING
@@ -51,9 +66,12 @@ const wordAdd = (wordData, modalClose, modalReset, scrollToBottom) => (
   dispatch(updateListPending());
 
   axios
-    .post('/api/putData', {
-      ...wordData
-    })
+    .post(
+      '/api/putData',
+      transformWordData({
+        ...wordData
+      })
+    )
     .then(res => {
       if (!res.data.success) {
         dispatch(updateListError(res.data.error));
@@ -76,7 +94,7 @@ const wordUpdate = (word, wordData, modalClose) => dispatch => {
   axios
     .post('/api/updateData', {
       id: word._id,
-      update: { ...wordData }
+      update: transformWordData({ ...wordData })
     })
     .then(res => {
       if (!res.data.success) {

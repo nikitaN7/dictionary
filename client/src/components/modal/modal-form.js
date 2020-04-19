@@ -33,8 +33,59 @@ const ModalForm = props => {
         />
       </div>
 
+      <div className="form__group form__group--field">
+        <label className="form__group__label" htmlFor="transcription">
+          Transcription
+        </label>
+        <input
+          type="text"
+          id="transcription"
+          name="transcription"
+          placeholder="Enter en word"
+          onChange={props.handleChange}
+          value={newWord.transcription}
+        />
+      </div>
+
+      <div className="form__group form__group--field">
+        <label htmlFor="association" className="form__group__label">
+          Association
+        </label>
+        <input
+          type="text"
+          id="association"
+          name="association"
+          placeholder="Enter association"
+          onChange={props.handleChange}
+          value={newWord.association}
+        />
+      </div>
+
+      <div className="form__group form__group--field">
+        <label className="form__group__label">Examples</label>
+        <input
+          type="text"
+          id="enExample"
+          name="enExample"
+          placeholder="Enter en example"
+          onChange={props.handleChange}
+          value={newWord.enExample}
+        />
+      </div>
+
+      <div className="form__group form__group--field">
+        <input
+          type="text"
+          id="ruExample"
+          name="ruExample"
+          placeholder="Enter ru example"
+          onChange={props.handleChange}
+          value={newWord.ruExample}
+        />
+      </div>
+
       <div className="form__group form__group--checkbox">
-        <span className="form__group__label">Bookmark</span>
+        <span className="form__group__label">In bookmarks</span>
         <input
           id="bookmarks"
           name="bookmarks"
