@@ -8,7 +8,13 @@ const DataSchema = new Schema(
     id: Number,
     en: String,
     ru: String,
-    bookmarks: Boolean
+    examples: {
+      ru: String,
+      en: String,
+    },
+    association: String,
+    transcription: String,
+    bookmarks: Boolean,
   },
   { timestamps: true }
 );
