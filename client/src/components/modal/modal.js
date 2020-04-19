@@ -12,14 +12,19 @@ import {
 const initialNewWord = {
   en: '',
   ru: '',
-  bookmarks: false
+  bookmarks: false,
+  transcription: '',
+  association: '',
+  enExample: '',
+  ruExample: ''
 };
 
 const Modal = props => {
   const [newWord, setNewWord] = useState({ ...initialNewWord });
 
   const resetState = () => {
-    setNewWord({ ...initialNewWord });
+    const copy = { ...initialNewWord };
+    setNewWord(copy);
   };
 
   const handleChange = ({ target }) => {
@@ -58,7 +63,24 @@ const Modal = props => {
 
     if (Object.keys(props.word).length > 0) {
       Object.keys(word).forEach(key => {
-        word[key] = props.word[key];
+        if (key === 'ruExample') {
+          const value =
+            (props.word.examples && props.word.examples.ru) ||
+            initialNewWord.ruExample;
+          word.ruExample = value;
+          return;
+        }
+
+        if (key === 'enExample') {
+          const value =
+            (props.word.examples && props.word.examples.en) ||
+            initialNewWord.enExample;
+          word.enExample = value;
+          return;
+        }
+
+        const value = props.word[key] || initialNewWord[key];
+        word[key] = value;
       });
 
       setNewWord({ ...word });

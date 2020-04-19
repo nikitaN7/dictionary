@@ -7,15 +7,8 @@ import { preloadImages } from '../../data/preload-images';
 import { allWordsDelete } from '../../actions/word-list-remove';
 import '../../scss/app.scss';
 
-const App = props => {
+const App = ({ allWordsDelete }) => {
   const [navShow, setNavShow] = useState(false);
-  const [modalShow, setModalShow] = useState(false);
-  const [tableScrollIdx, setTableScrollIdx] = useState(0);
-
-  const [word, setWord] = useState({
-    id: null,
-    action: ''
-  });
 
   useEffect(() => {
     preloadImages.forEach(picture => {
@@ -27,45 +20,11 @@ const App = props => {
     setNavShow(navShow => !navShow);
   };
 
-  const modalClose = () => {
-    setModalShow(false);
-  };
-
-  const onActionClick = (id, action) => {
-    setModalShow(true);
-    setWord({ id, action });
-  };
-
-  const handleTableScroll = value => {
-    const re = /^[0-9\b]+$/;
-
-    if (value === '' || re.test(value)) {
-      setTableScrollIdx(value);
-    }
-  };
-
-  const { id, action } = word;
-  const { allWordsDelete } = props;
-
   return (
     <div className="container">
       <Nav isActive={navShow} allWordsDelete={allWordsDelete} />
 
-      <Main
-        navToggle={navToggle}
-        navShow={navShow}
-        onActionClick={onActionClick}
-        handleTableScroll={handleTableScroll}
-        tableScrollIdx={tableScrollIdx}
-      />
-
-      <Modal
-        modalClose={modalClose}
-        isOpen={modalShow}
-        wordId={id}
-        wordAction={action}
-        setTableScrollIdx={setTableScrollIdx}
-      />
+      <Main navToggle={navToggle} navShow={navShow} />
     </div>
   );
 };

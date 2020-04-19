@@ -1,26 +1,12 @@
-import React, { useState } from 'react';
-import Dictionary from '../dictionary';
+import React from 'react';
+import AppRoutes from '../../routes/AppRoutes';
 import Header from '../header';
 
-const Main = ({
-  navShow,
-  navToggle,
-  onActionClick,
-  handleTableScroll,
-  tableScrollIdx
-}) => {
+const Main = ({ navShow, navToggle }) => {
   return (
     <main className="main">
-      <Header
-        navShow={navShow}
-        navToggle={navToggle}
-        onActionClick={onActionClick}
-      />
-      <Dictionary
-        onActionClick={onActionClick}
-        handleTableScroll={handleTableScroll}
-        tableScrollIdx={tableScrollIdx}
-      />
+      <Header navShow={navShow} navToggle={navToggle} />
+      <AppRoutes />
     </main>
   );
 };

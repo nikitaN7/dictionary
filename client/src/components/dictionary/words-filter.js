@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import FilterIcon from '../../assets/icons/FilterIcon';
 
 const filterTypes = [
   { type: 'all-words', text: 'All words' },
@@ -15,8 +16,7 @@ const WordsFilter = ({ filterType, handleChange }) => {
         className="filter__btn"
         onClick={() => setFilterShow(filterShow => !filterShow)}
       >
-        <span>Filter</span>
-        <img src="/img/filter-icon.svg" alt="" />
+        <FilterIcon />
       </button>
 
       {filterShow ? (

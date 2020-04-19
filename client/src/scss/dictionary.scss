@@ -11,22 +11,24 @@
     padding: 10px;
   }
 
+  &__title {
+    font-size: 34px;
+    font-weight: 600;
+    flex-grow: 1;
+    color: slategray;
+  }
+
   &__header {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 35px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid white;
 
-    img {
-      max-width: 40px;
-      margin-right: 20px;
-    }
-
-    h1 {
-      font-size: 2.3rem;
-      line-height: 1.2;
-      display: inline;
-      vertical-align: bottom;
-      text-shadow: 2px 2px 4px $dark-blue;
+    > div {
+      margin-right: 10px;
     }
   }
 
@@ -137,22 +139,27 @@
   &__options {
     position: relative;
     display: flex;
-    padding-top: 20px;
+    outline: none;
 
     @media screen and (max-width: 767px) {
       order: 3;
     }
 
+    > .dictionary__options__item {
+      border-radius: 24px;
+    }
+
     &__item {
       display: flex;
       align-items: center;
-      padding: 9px 17px;
-      width: 220px;
+      font-size: 14px;
+      width: 181px;
+      padding: 0.8em 0.8em;
       cursor: pointer;
       border-left: 3px solid transparent;
       transition: all .3s ease;
       position: relative;
-      margin-right: 30px;
+      outline: none;
 
       @media screen and (max-width: 767px) {
         max-width: 20px;
@@ -219,11 +226,12 @@
 
       &.is-open:before {
         border-width: 3px 0 0 3px;
-        top: 19px;
+        top: 17px;
       }
 
       img {
         max-width: 25px;
+        position: absolute;
 
         @media screen and (max-width: 767px) {
           max-width: 20px;
@@ -231,9 +239,9 @@
       }
 
       span {
-        font-size: 1rem;
+        font-size: 14px;
         line-height: 1.2;
-        padding-left: 15px;
+        padding-left: 37px;
         font-weight: 500;
 
         @media screen and (max-width: 767px) {
@@ -246,7 +254,7 @@
   &__dropdown {
     position: absolute;
     width: 100%;
-    top: 76px;
+    top: 54px;
     max-width: 190px;
     z-index: 99;
 

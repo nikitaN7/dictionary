@@ -90,6 +90,12 @@
     &--marked .Words__Table__wordBtn {
       color: white;
     }
+
+    &--marked .Words__Table__soundBtn {
+      * {
+        fill: white
+      }
+    }
   }
 
   &__headerColumn {
@@ -100,6 +106,25 @@
       height: 100%;
       align-items: center;
       justify-content: center;
+    }
+  }
+
+  &__soundBtn {
+    max-width: 40px;
+    display: inline-flex;
+    margin-right: 6px;
+    cursor: pointer;
+    transition: all .3s ease;
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    &.hide {
+      visibility: hidden;
+      opacity: 0;
+      cursor: pointer;
     }
   }
 
