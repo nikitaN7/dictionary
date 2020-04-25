@@ -8,6 +8,7 @@ import { filterWords } from '../../utils/filterWords';
 import { fetchWords } from '../../actions/word-list-fetch';
 import { getSortedWords } from '../../selectors';
 import DictionaryHeader from './DictionaryHeader';
+import DictionaryMenu from './DictionaryMenu';
 
 import Modal from '../modal';
 
@@ -58,6 +59,10 @@ const Dictionary = ({ fetchWords, words, pending }) => {
     setSelectedWords(state => [...state, id]);
   };
 
+  const clearSelectedWords = () => {
+    setSelectedWords([]);
+  };
+
   const modalClose = () => {
     setModalShow(false);
   };
@@ -74,6 +79,8 @@ const Dictionary = ({ fetchWords, words, pending }) => {
       setTableScrollIdx(value);
     }
   };
+
+  const isRenderMenu = selectedWords.length > 0;
 
   return (
     <>
@@ -100,6 +107,13 @@ const Dictionary = ({ fetchWords, words, pending }) => {
             handleChange={handleChange}
           />
         </div>
+
+        {isRenderMenu ? (
+          <DictionaryMenu
+            selectedWords={selectedWords}
+            clearSelectedWords={clearSelectedWords}
+          />
+        ) : null}
 
         <WordsTable
           words={filteredWords}
