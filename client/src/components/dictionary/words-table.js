@@ -4,6 +4,7 @@ import ReactTooltip from 'react-tooltip';
 import { debounce } from 'lodash';
 
 import SoundIcon from '../../assets/icons/SoundIcon';
+import Checkbox from '../ui/Checkbox';
 import { defaultTableRowRenderer } from 'react-virtualized';
 import Preloader from '../preloader';
 
@@ -79,6 +80,7 @@ const WordsTable = ({
         >
           <img src="../../img/notepad-minus.svg" alt="" />
         </button>
+        <Checkbox />
       </div>
     );
   };
@@ -130,7 +132,7 @@ const WordsTable = ({
               <Column
                 label="Id"
                 dataKey=""
-                width={(width / 100) * 10}
+                width={(width / 100) * 5}
                 className="Words__Table__Grid__rowColumn"
                 cellRenderer={({ rowIndex }) => {
                   return (
@@ -164,7 +166,7 @@ const WordsTable = ({
               />
 
               <Column
-                width={(width / 100) * 20}
+                width={(width / 100) * 25}
                 label="Actions"
                 className="Words__Table__Grid__rowColumn"
                 flexGrow={1}
