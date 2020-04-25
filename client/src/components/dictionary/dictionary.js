@@ -16,6 +16,7 @@ const Dictionary = ({ fetchWords, words, pending }) => {
   const [filteredWords, setFilteredWords] = useState({});
   const [modalShow, setModalShow] = useState(false);
   const [tableScrollIdx, setTableScrollIdx] = useState(null);
+  const [selectedWords, setSelectedWords] = useState([]);
   const [filterOptions, setFilterOptions] = useState({
     filterSearch: '',
     filterType: 'all-words'
@@ -38,6 +39,23 @@ const Dictionary = ({ fetchWords, words, pending }) => {
       ...filterOptions,
       [name]: value
     }));
+  };
+
+  const wordSelectHandler = id => {
+    const isAlreadyAdded = selectedWords.includes(id);
+
+    if (isAlreadyAdded) {
+      const findIdx = selectedWords.findIndex(item => item === id);
+
+      setSelectedWords(state => [
+        ...state.slice(0, findIdx),
+        ...state.slice(findIdx + 1)
+      ]);
+
+      return;
+    }
+
+    setSelectedWords(state => [...state, id]);
   };
 
   const modalClose = () => {
@@ -89,6 +107,8 @@ const Dictionary = ({ fetchWords, words, pending }) => {
           onActionClick={onActionClick}
           hiddenWords={hiddenWords}
           tableScrollIdx={tableScrollIdx}
+          wordSelectHandler={wordSelectHandler}
+          selectedWords={selectedWords}
         />
       </div>
 

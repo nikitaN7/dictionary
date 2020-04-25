@@ -13,7 +13,9 @@ const WordsTable = ({
   words,
   onActionClick,
   pending,
-  tableScrollIdx
+  tableScrollIdx,
+  wordSelectHandler,
+  selectedWords
 }) => {
   const [visibleWords, setVisibleWords] = useState([]);
 
@@ -80,7 +82,11 @@ const WordsTable = ({
         >
           <img src="../../img/notepad-minus.svg" alt="" />
         </button>
-        <Checkbox />
+
+        <Checkbox
+          onChange={() => wordSelectHandler(id)}
+          checked={selectedWords.includes(id)}
+        />
       </div>
     );
   };
