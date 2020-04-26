@@ -1,0 +1,20 @@
+.wrapper {
+  background-color: #F5C1BC;
+  padding: 0.6rem 1rem;
+  border-radius: 5px;
+  color: white;
+  margin-top: 1rem;
+  display: flex;
+}
+
+.row {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+}
+
+.text {
+  font-weight: 600;
+  padding-left: 1.2rem;
+  letter-spacing: 0.2px;
+}

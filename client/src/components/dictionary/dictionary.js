@@ -1,21 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
 import ScrollField from './scroll-field';
 import WordsFilter from './words-filter';
 import WordsSearch from './words-search';
 import WordsTable from './words-table';
-import { filterWords } from '../../utils/filterWords';
-import { fetchWords } from '../../actions/word-list-fetch';
-import { getSortedWords } from '../../selectors';
 import DictionaryHeader from './DictionaryHeader';
-
+import DictionaryMenu from './DictionaryMenu';
 import Modal from '../modal';
 
-const Dictionary = ({ fetchWords, words, pending }) => {
+import { filterWords } from '../../utils/filterWords';
+import { fetchWords } from '../../actions/word-list-fetch';
+import { setRepetitionData } from '../../actions/wordsRepetitionActions';
+import { getSortedWords } from '../../selectors';
+
+const Dictionary = ({ fetchWords, words, pending, setRepetitionData }) => {
   const [hiddenWords, setHiddenWords] = useState('');
   const [filteredWords, setFilteredWords] = useState({});
   const [modalShow, setModalShow] = useState(false);
   const [tableScrollIdx, setTableScrollIdx] = useState(null);
+  const [selectedWords, setSelectedWords] = useState([]);
   const [filterOptions, setFilterOptions] = useState({
     filterSearch: '',
     filterType: 'all-words'
@@ -24,6 +29,8 @@ const Dictionary = ({ fetchWords, words, pending }) => {
     id: null,
     action: ''
   });
+
+  const history = useHistory();
 
   useEffect(() => fetchWords(), [fetchWords]);
 
@@ -38,6 +45,32 @@ const Dictionary = ({ fetchWords, words, pending }) => {
       ...filterOptions,
       [name]: value
     }));
+  };
+
+  const wordSelectHandler = id => {
+    const isAlreadyAdded = selectedWords.includes(id);
+
+    if (isAlreadyAdded) {
+      const findIdx = selectedWords.findIndex(item => item === id);
+
+      setSelectedWords(state => [
+        ...state.slice(0, findIdx),
+        ...state.slice(findIdx + 1)
+      ]);
+
+      return;
+    }
+
+    setSelectedWords(state => [...state, id]);
+  };
+
+  const clearSelectedWords = () => {
+    setSelectedWords([]);
+  };
+
+  const exerciseSelectedWords = () => {
+    setRepetitionData(selectedWords);
+    history.push('/trainer');
   };
 
   const modalClose = () => {
@@ -56,6 +89,8 @@ const Dictionary = ({ fetchWords, words, pending }) => {
       setTableScrollIdx(value);
     }
   };
+
+  const isRenderMenu = selectedWords.length > 0;
 
   return (
     <>
@@ -83,12 +118,22 @@ const Dictionary = ({ fetchWords, words, pending }) => {
           />
         </div>
 
+        {isRenderMenu ? (
+          <DictionaryMenu
+            selectedWords={selectedWords}
+            clearSelectedWords={clearSelectedWords}
+            exerciseSelectedWords={exerciseSelectedWords}
+          />
+        ) : null}
+
         <WordsTable
           words={filteredWords}
           pending={pending}
           onActionClick={onActionClick}
           hiddenWords={hiddenWords}
           tableScrollIdx={tableScrollIdx}
+          wordSelectHandler={wordSelectHandler}
+          selectedWords={selectedWords}
         />
       </div>
 
@@ -112,5 +157,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { fetchWords }
+  { fetchWords, setRepetitionData }
 )(Dictionary);
