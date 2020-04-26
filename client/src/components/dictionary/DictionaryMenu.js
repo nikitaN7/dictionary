@@ -13,7 +13,8 @@ const buttonStyles = {
 const DictionaryMenu = ({
   selectedWords = 0,
   allWordsQuantity = 0,
-  clearSelectedWords = () => {}
+  clearSelectedWords = () => {},
+  exerciseSelectedWords = () => {}
 }) => {
   const selectedWordQuantity = selectedWords.length;
 
@@ -28,7 +29,9 @@ const DictionaryMenu = ({
         >{`${selectedWordQuantity} of ${allWordsQuantity} selected`}</div>
       </div>
 
-      <Button styles={buttonStyles}>Exercise selected words</Button>
+      <Button styles={buttonStyles} onClick={exerciseSelectedWords}>
+        Exercise selected words
+      </Button>
     </div>
   );
 };

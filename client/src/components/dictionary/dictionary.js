@@ -6,13 +6,14 @@ import WordsSearch from './words-search';
 import WordsTable from './words-table';
 import { filterWords } from '../../utils/filterWords';
 import { fetchWords } from '../../actions/word-list-fetch';
+import { setRepetitionData } from '../../actions/wordsRepetitionActions';
 import { getSortedWords } from '../../selectors';
 import DictionaryHeader from './DictionaryHeader';
 import DictionaryMenu from './DictionaryMenu';
 
 import Modal from '../modal';
 
-const Dictionary = ({ fetchWords, words, pending }) => {
+const Dictionary = ({ fetchWords, words, pending, setRepetitionData }) => {
   const [hiddenWords, setHiddenWords] = useState('');
   const [filteredWords, setFilteredWords] = useState({});
   const [modalShow, setModalShow] = useState(false);
@@ -61,6 +62,10 @@ const Dictionary = ({ fetchWords, words, pending }) => {
 
   const clearSelectedWords = () => {
     setSelectedWords([]);
+  };
+
+  const exerciseSelectedWords = () => {
+    setRepetitionData(selectedWords);
   };
 
   const modalClose = () => {
@@ -112,6 +117,7 @@ const Dictionary = ({ fetchWords, words, pending }) => {
           <DictionaryMenu
             selectedWords={selectedWords}
             clearSelectedWords={clearSelectedWords}
+            exerciseSelectedWords={exerciseSelectedWords}
           />
         ) : null}
 
@@ -146,5 +152,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { fetchWords }
+  { fetchWords, setRepetitionData }
 )(Dictionary);

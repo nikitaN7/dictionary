@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import TestAnswersList from './TestAnswersList';
 import { filterList } from '../../../utils/filterList';
+import { shuffle } from '../../../utils/helpers';
 import styles from '../scss/test-answers.module.scss';
-
-const shuffle = (arr: any[]) => {
-  const copyArray = [...arr];
-  return copyArray.sort(() => 0.5 - Math.random());
-};
 
 const getRandomItems = (list: any[], n: number) => {
   const shuffled = shuffle(list);
