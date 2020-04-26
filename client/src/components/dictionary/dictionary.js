@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
 import ScrollField from './scroll-field';
 import WordsFilter from './words-filter';
 import WordsSearch from './words-search';
 import WordsTable from './words-table';
+import DictionaryHeader from './DictionaryHeader';
+import DictionaryMenu from './DictionaryMenu';
+import Modal from '../modal';
+
 import { filterWords } from '../../utils/filterWords';
 import { fetchWords } from '../../actions/word-list-fetch';
 import { setRepetitionData } from '../../actions/wordsRepetitionActions';
 import { getSortedWords } from '../../selectors';
-import DictionaryHeader from './DictionaryHeader';
-import DictionaryMenu from './DictionaryMenu';
-
-import Modal from '../modal';
 
 const Dictionary = ({ fetchWords, words, pending, setRepetitionData }) => {
   const [hiddenWords, setHiddenWords] = useState('');
@@ -27,6 +29,8 @@ const Dictionary = ({ fetchWords, words, pending, setRepetitionData }) => {
     id: null,
     action: ''
   });
+
+  const history = useHistory();
 
   useEffect(() => fetchWords(), [fetchWords]);
 
@@ -66,6 +70,7 @@ const Dictionary = ({ fetchWords, words, pending, setRepetitionData }) => {
 
   const exerciseSelectedWords = () => {
     setRepetitionData(selectedWords);
+    history.push('/trainer');
   };
 
   const modalClose = () => {
