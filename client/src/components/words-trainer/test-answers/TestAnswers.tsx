@@ -93,7 +93,7 @@ const TestAnswers: React.FC<Props> = ({
   const handleAnswerClick = (answer: Answer) => {
     const testInfo = {
       hasErrors: answer.wordId !== correctAnswerId,
-      errorNumbers: 1
+      errorNumbers: 0
     };
 
     if (!answerData.selected) {
@@ -102,6 +102,10 @@ const TestAnswers: React.FC<Props> = ({
         successAnswerId: correctAnswerId,
         errorAnswerId: answer.wordId !== correctAnswerId ? answer.wordId : null
       });
+
+      if (answer.wordId !== correctAnswerId) {
+        testInfo.errorNumbers = 1;
+      }
 
       handleCompleteTest(testInfo);
     }
