@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, KeyboardEvent } from 'react';
 import classNames from 'classnames/bind';
 import repetitionStyles from '../scss/repetition.module.scss';
 import styles from '../scss/test-writing.module.scss';
+import { useRef } from 'react';
 
 type TestInfo = {
   hasErrors: boolean;
@@ -26,6 +27,7 @@ const TestWriting: React.FC<Props> = ({
   lang = 'en',
   handleCompleteTest = (testInfo: any) => {}
 }) => {
+  const inputRef = useRef<HTMLInputElement>(null);
   const [isCompleted, setIsCompleted] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [currentWord, setCurrentWord] = useState<CurrentWord>({
@@ -45,6 +47,10 @@ const TestWriting: React.FC<Props> = ({
   useEffect(() => {
     if (!wordId || !wordsList) {
       return;
+    }
+
+    if (inputRef.current) {
+      inputRef.current.focus();
     }
 
     resetState();
@@ -72,6 +78,20 @@ const TestWriting: React.FC<Props> = ({
     handleCompleteTest(testInfo);
   };
 
+  const handleInputKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
+    event.stopPropagation();
+
+    const ENTER_KEY_CODE = 13;
+    const { keyCode } = event;
+
+    if (keyCode === ENTER_KEY_CODE) {
+      const { target } = event;
+
+      inputRef.current!.blur();
+      handleCompleteClick();
+    }
+  };
+
   const renderAnswer = () => {
     return (
       <div className={styles.answer}>
@@ -86,8 +106,10 @@ const TestWriting: React.FC<Props> = ({
       {isCompleted ? renderAnswer() : null}
       <div className={styles.field}>
         <input
+          ref={inputRef}
           type="text"
           value={inputValue}
+          onKeyDown={handleInputKeyPress}
           onChange={({ target }) => setInputValue(target.value)}
           className={classNames({
             [styles.success]: isCompleted && inputValue === currentWord.answer,

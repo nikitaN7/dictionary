@@ -15,7 +15,7 @@ const WordsTable = ({
   pending,
   tableScrollIdx,
   wordSelectHandler,
-  selectedWords
+  selectedWords = []
 }) => {
   const [visibleWords, setVisibleWords] = useState([]);
 

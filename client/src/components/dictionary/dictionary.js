@@ -90,8 +90,6 @@ const Dictionary = ({ fetchWords, words, pending, setRepetitionData }) => {
     }
   };
 
-  const isRenderMenu = selectedWords.length > 0;
-
   return (
     <>
       <div className="dictionary">
@@ -118,13 +116,11 @@ const Dictionary = ({ fetchWords, words, pending, setRepetitionData }) => {
           />
         </div>
 
-        {isRenderMenu ? (
-          <DictionaryMenu
-            selectedWords={selectedWords}
-            clearSelectedWords={clearSelectedWords}
-            exerciseSelectedWords={exerciseSelectedWords}
-          />
-        ) : null}
+        <DictionaryMenu
+          selectedWords={selectedWords}
+          clearSelectedWords={clearSelectedWords}
+          exerciseSelectedWords={exerciseSelectedWords}
+        />
 
         <WordsTable
           words={filteredWords}

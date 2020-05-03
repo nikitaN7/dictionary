@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { IQueue, IRepetitionType } from '../interfaces';
 import WordsTrainerWord from '../WordsTrainerWord';
 import ListeningVoices from '../listening/ListeningVoices';
@@ -50,6 +50,28 @@ const WordsTrainerRepetitionWrapper: React.FC<Props> = ({
   const [isTestCompleted, setIsTestCompleted] = useState(false);
   const [currentType, setCurrentType] = useState<IRepetitionType | null>(null);
   const [trainerWord, setTrainerWord] = useState<string>('');
+
+  const handleUserKeyPress = useCallback(
+    event => {
+      event.preventDefault();
+
+      const ENTER_KEY_CODE = 13;
+      const { keyCode } = event;
+
+      if (keyCode === ENTER_KEY_CODE && isTestCompleted) {
+        handleNextTestClick(completedTestInfo);
+      }
+    },
+    [isTestCompleted, completedTestInfo]
+  );
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleUserKeyPress);
+
+    return () => {
+      window.removeEventListener('keydown', handleUserKeyPress);
+    };
+  }, [handleUserKeyPress]);
 
   useEffect(() => {
     const currentType = wordsRepetitionTypes.find(

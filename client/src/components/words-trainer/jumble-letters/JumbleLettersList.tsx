@@ -3,7 +3,7 @@ import css from '../scss/jumble-letters.module.scss';
 
 type Props = {
   letters: string[];
-  onClick(letter: string, idx: number): void;
+  onClick(letter: string): void;
 };
 
 const JumbleLettersList: React.FC<Props> = ({
@@ -15,10 +15,7 @@ const JumbleLettersList: React.FC<Props> = ({
       <div className={css.letters}>
         {letters.map((letter, idx) => {
           return (
-            <button
-              className={css.lettersItem}
-              onClick={() => onClick(letter, idx)}
-            >
+            <button className={css.lettersItem} onClick={() => onClick(letter)}>
               {letter}
             </button>
           );

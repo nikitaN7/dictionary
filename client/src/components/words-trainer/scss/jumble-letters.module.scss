@@ -18,6 +18,7 @@
 .letters {
   display: flex;
   margin: 0 -7px;
+  flex-wrap: wrap;
 }
 
 .lettersItem {
@@ -32,6 +33,13 @@
   font-weight: 700;
   font-size: 24px;
   cursor: pointer;
+  margin-bottom: 10px;
+
+  @media only screen and (max-width: 767px) {
+    min-width: 30px;
+    min-height: 35px;
+    font-size: 20px;
+  }
 
   &.success {
     background-color: #50c350;
@@ -49,4 +57,22 @@
 
 .spaceBlock {
   width: 25px;
+  position: relative;
+  max-height: 45px;
+
+  &:after {
+    position: absolute;
+    content: '';
+    width: 2px;
+    height: 100%;
+    background-color: white;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+  }
+
+  @media only screen and (max-width: 767px) {
+    width: 15px;
+    max-height: 35px;
+  }
 }
