@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cd backend && set NODE_ENV=prod&& node server.js",
-    "dev": "concurrently \"cd backend && set NODE_ENV=dev&& nodemon server.js\" \"cd client && npm start\"",
-    "heroku-postbuild": "concurrently \"cd backend && set NODE_ENV=prod&& npm i\" \"cd client && npm i && npm run build\""
+    "start": "cd backend && node server.js",
+    "dev": "concurrently \"cd backend && set NODE_ENV=development&& nodemon server.js\" \"cd client && npm start\"",
+    "heroku-postbuild": "concurrently \"cd backend && set NODE_ENV=production&& npm i\" \"cd client && npm i && npm run build\""
   },
   "keywords": [],
   "author": "",
