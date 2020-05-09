@@ -14,6 +14,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
 const wordRoutes = require("./routes/wordRoutes");
+const authRoutes = require("./routes/authRoutes");
 const { getDbRoute } = require("./functions");
 
 const API_PORT = 3001;
@@ -38,6 +39,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(logger("dev"));
 app.use("/api", wordRoutes);
+app.use("/api", authRoutes);
 
 app.listen(process.env.PORT || API_PORT, () =>
   console.log(`LISTENING ON PORT ${API_PORT}`)
