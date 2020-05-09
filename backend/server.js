@@ -1,4 +1,10 @@
 const path = require("path");
+const dotenv = require("dotenv");
+
+dotenv.config({
+  path: path.resolve(__dirname, `../config/${process.env.NODE_ENV}.env`),
+});
+
 const mongoose = require("mongoose");
 const express = require("express");
 var cors = require("cors");
@@ -12,8 +18,7 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, "../client/build")));
 const router = express.Router();
 
-const dbRoute =
-  "mongodb+srv://Admin:12345wera@englishdictionary-a8zjg.mongodb.net/dictionary-prod?retryWrites=true&w=majority";
+const dbRoute = `mongodb+srv://${process.env.dbUsername}:${process.env.dbPassword}@${process.env.dbHost}/${process.env.dbName}?retryWrites=true&w=majority`;
 
 // connects our back end code with the database
 mongoose.connect(dbRoute, { useNewUrlParser: true });

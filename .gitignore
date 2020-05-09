@@ -17,3 +17,5 @@ public/robots.txt
 .babelrc
 *.sublime-project
 *.sublime-workspace
+
+*.env
