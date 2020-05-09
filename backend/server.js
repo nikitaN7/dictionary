@@ -1,4 +1,5 @@
 require("./models/Word");
+require("./models/User");
 
 const path = require("path");
 const dotenv = require("dotenv");
