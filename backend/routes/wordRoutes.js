@@ -8,131 +8,136 @@ const router = express.Router();
 
 router.use(requireAuth);
 
-router.get("/getData", (req, res) => {
-  Word.find((err, data) => {
-    if (err) return res.json({ success: false, error: err });
-    return res.json({ success: true, data: data });
-  });
+router.get("/words", async (req, res) => {
+  try {
+    const words = await Word.find({ userId: req.user._id });
+    res.json({ success: true, data: words });
+  } catch (error) {
+    res.json({ success: false, error });
+  }
 });
 
-router.get("/getData/:id", (req, res) => {
-  Word.find((err, data) => {
-    if (err) return res.json({ success: false, error: err });
-    return res.json({
+router.get("/words/:id", async (req, res) => {
+  try {
+    const words = await Word.find({ userId: req.user._id });
+
+    res.json({
       success: true,
-      data: getWordById(data, parseInt(req.params.id)),
+      data: getWordById(words, parseInt(req.params.id)),
     });
-  });
+  } catch (error) {
+    res.json({ success: false, error });
+  }
 });
 
-router.post("/updateData", (req, res) => {
-  const { id, update } = req.body;
+router.patch("/words/:id", async (req, res) => {
+  const { data } = req.body;
+  const { id } = req.params;
 
-  Word.findByIdAndUpdate(id, { $set: update }, { new: true })
-    .then((date) => {
-      res.json({ success: true, data: date });
-    })
-    .catch((err) => {
-      res.json({ success: false, error: err });
-    });
-});
-
-router.delete("/deleteData", (req, res) => {
-  const { id } = req.body;
-  Word.findByIdAndRemove(id, (err) => {
-    if (err) return res.send(err);
-    return res.json({ success: true });
-  });
-});
-
-router.delete("/deleteAllData", (req, res) => {
-  Word.deleteMany({}, (err) => {
-    if (err) return res.send(err);
-    return res.json({ success: true });
-  });
-});
-
-router.post("/putData", (req, res) => {
-  const { en, ru, bookmarks, examples, association, transcription } = req.body;
-
-  let data = new Word();
-
-  if (!en || !ru) {
-    return res.json({
-      success: false,
-      error: "Data must contain at least 1 word",
-    });
+  if (!data) {
+    res.status(422).send({ error: "You must provide word data" });
   }
 
-  data.en = en;
-  data.ru = ru;
-  data.bookmarks = bookmarks || false;
-  data.examples = examples || {
-    ru: null,
-    en: null,
-  };
-  data.association = association || null;
-  data.transcription = transcription || null;
+  try {
+    const updatedWord = await Word.findOneAndUpdate(
+      { id },
+      { $set: data },
+      { new: true }
+    );
 
-  Word.find((err, dataList) => {
-    if (err) return res.json({ success: false, error: err });
-
-    const maxId = getMaxId(dataList);
-
-    if (!maxId || maxId === 0) {
-      data.id = 1;
-    }
-
-    data.id = maxId + 1;
-
-    data.save((err) => {
-      if (err) return res.json({ success: false, error: err });
-      return res.json({ success: true, data: data });
-    });
-  });
+    res.json({ success: true, data: updatedWord });
+  } catch (error) {
+    res.json({ success: false, error });
+  }
 });
 
-router.post("/putManyData", (req, res) => {
-  let reqData = req.body;
-  let newData = [];
+router.delete("/words/:id", async (req, res) => {
+  const { id } = req.params;
 
-  reqData.forEach((item) => {
-    let data = new Data();
-    const {
-      id,
-      en,
-      ru,
-      bookmarks,
-      examples,
-      association,
-      transcription,
-    } = item;
+  try {
+    await Word.findOneAndRemove({ id });
+    res.json({ success: true });
+  } catch (error) {
+    res.status(422).send({ error });
+  }
+});
 
-    if (!id && id !== 0) {
-      return res.json({
-        success: false,
-        error: "Data must contain id",
-      });
+router.delete("/words", async (req, res) => {
+  const userId = req.user._id;
+
+  try {
+    await Word.deleteMany({ userId });
+    res.json({ success: true });
+  } catch (error) {
+    res.status(422).send({ error });
+  }
+});
+
+router.post("/words", async (req, res) => {
+  const { en, ru, bookmarks, examples, association, transcription } = req.body;
+
+  if (!en || !ru) {
+    return res.status(422).send({ error: "You must provide en and ru words" });
+  }
+
+  let word = new Word({
+    en,
+    ru,
+    examples,
+    bookmarks,
+    association,
+    transcription,
+    userId: req.user._id,
+  });
+
+  try {
+    const words = await Word.find();
+    const maxId = getMaxId(words);
+
+    if (!maxId || maxId === 0) {
+      word.id = 1;
     }
 
-    data.id = id;
-    data.en = en;
-    data.ru = ru;
-    data.bookmarks = bookmarks || false;
-    data.examples = examples || {
-      ru: null,
-      en: null,
-    };
-    data.association = association || null;
-    data.transcription = transcription || null;
+    word.id = maxId + 1;
+    await word.save();
+    res.send(word);
+  } catch (error) {
+    res.status(422).send({ error: error.message });
+  }
+});
 
-    newData.push(data);
+router.post("/wordsList", async (req, res) => {
+  let { data } = req.body;
+  let newData = [];
+
+  data.forEach((item) => {
+    const { en, ru, bookmarks, examples, association, transcription } = item;
+
+    if (!en || !ru) {
+      return res
+        .status(422)
+        .send({ error: "You must provide en and ru words" });
+    }
+
+    let word = new Word({
+      en,
+      ru,
+      examples,
+      bookmarks,
+      association,
+      transcription,
+      userId: req.user._id,
+    });
+
+    newData.push(word);
   });
 
-  Word.insertMany(reqData, (err) => {
-    if (err) return res.json({ success: false, error: err });
-    return res.json({ success: true });
-  });
+  try {
+    const words = await Word.insertMany(newData);
+    res.send({ success: true, data: words });
+  } catch (error) {
+    res.status(422).send({ error: error.message });
+  }
 });
 
 module.exports = router;

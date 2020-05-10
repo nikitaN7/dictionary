@@ -11,12 +11,27 @@ const wordSchema = new Schema(
     en: String,
     ru: String,
     examples: {
-      ru: String,
-      en: String,
+      type: {
+        ru: String,
+        en: String,
+      },
+      default: {
+        ru: null,
+        en: null,
+      },
     },
-    association: String,
-    transcription: String,
-    bookmarks: Boolean,
+    association: {
+      type: String,
+      default: null,
+    },
+    transcription: {
+      type: String,
+      default: null,
+    },
+    bookmarks: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );
