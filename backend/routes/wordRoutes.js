@@ -1,9 +1,12 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const requireAuth = require("../middlewares/requireAuth");
 const { getWordById, getMaxId } = require("../functions");
 
 const Word = mongoose.model("Data");
 const router = express.Router();
+
+router.use(requireAuth);
 
 router.get("/getData", (req, res) => {
   Word.find((err, data) => {

@@ -4,6 +4,10 @@ const Schema = mongoose.Schema;
 const wordSchema = new Schema(
   {
     id: Number,
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
     en: String,
     ru: String,
     examples: {

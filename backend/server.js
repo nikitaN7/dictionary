@@ -1,5 +1,5 @@
-require("./models/Word");
 require("./models/User");
+require("./models/Word");
 
 const path = require("path");
 const dotenv = require("dotenv");
@@ -22,6 +22,12 @@ const API_PORT = 3001;
 const app = express();
 app.use(cors());
 app.use(express.static(path.join(__dirname, "../client/build")));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(logger("dev"));
+
+app.use("/api", authRoutes); //Must be on the top of the other routes
+app.use("/api", wordRoutes);
 
 const dbRoute = getDbRoute();
 
@@ -34,12 +40,6 @@ mongoose.connection.on("connected", () => {
 mongoose.connection.on("error", (err) => {
   console.error("Error", err);
 });
-
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(logger("dev"));
-app.use("/api", wordRoutes);
-app.use("/api", authRoutes);
 
 app.listen(process.env.PORT || API_PORT, () =>
   console.log(`LISTENING ON PORT ${API_PORT}`)
