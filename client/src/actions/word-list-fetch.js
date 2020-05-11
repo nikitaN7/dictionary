@@ -3,6 +3,9 @@ import {
   FETCH_WORDS_FAILURE,
   FETCH_WORDS_SUCCESS
 } from './actions';
+import WordsApi from '../api/wordsApi';
+
+const wordsApi = new WordsApi();
 
 const wordsPending = newWords => {
   return {
@@ -25,10 +28,13 @@ const wordsError = error => {
   };
 };
 
-export const fetchWords = () => dispatch => {
+export const fetchWords = () => async dispatch => {
   dispatch(wordsPending());
-  fetch('/api/getData')
-    .then(data => data.json())
-    .then(res => dispatch(wordsSuccess(res.data)))
-    .catch(err => dispatch(wordsError(err)));
+
+  try {
+    const res = await wordsApi.getWords();
+    dispatch(wordsSuccess(res.data));
+  } catch (err) {
+    dispatch(wordsError(err.message));
+  }
 };
