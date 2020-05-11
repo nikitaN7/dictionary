@@ -1,18 +1,16 @@
-import React, { Suspense, lazy } from 'react';
+import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-const App = lazy(() => import('./App'));
-
-const FallBack = <div>loading</div>;
+import AppRoutes from './AppRoutes';
+import PrivateRoute from './PrivateRoute';
+import AuthPage from '../components/auth/AuthPage';
 
 const Routes = () => {
   return (
     <Switch>
-      <Route path="/">
-        <Suspense fallback={FallBack}>
-          <App />
-        </Suspense>
-      </Route>
+      <Route path="/signin" component={AuthPage} />
+      <Route path="/signup" component={AuthPage} />
+      <PrivateRoute path="/" component={AppRoutes} />
     </Switch>
   );
 };

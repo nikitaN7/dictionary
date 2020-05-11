@@ -1,12 +1,11 @@
 import React from 'react';
-import AppRoutes from '../../routes/AppRoutes';
 import Header from '../header';
 
-const Main = ({ navShow, navToggle }) => {
+const Main = ({ navShow, navToggle, children }) => {
   return (
     <main className="main">
       <Header navShow={navShow} navToggle={navToggle} />
-      <AppRoutes />
+      {children}
     </main>
   );
 };
