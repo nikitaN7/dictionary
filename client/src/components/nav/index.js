@@ -15,13 +15,13 @@ const Nav = ({ isActive, allWordsDelete }) => {
 
       <div className="nav--top">
         <div className="nav--menu">
-          <NavLink to="/" exact activeClassName="active">
+          <NavLink to="/dictionary" exact activeClassName="active">
             Home
           </NavLink>
           <NavLink to="/trainer" activeClassName="active">
             Words Trainer
           </NavLink>
-          <NavLink to="/upload" activeClassName="active">
+          <NavLink to="/import" activeClassName="active">
             Words Import
           </NavLink>
         </div>

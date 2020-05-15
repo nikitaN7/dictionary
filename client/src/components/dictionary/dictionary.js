@@ -32,7 +32,9 @@ const Dictionary = ({ fetchWords, words, pending, setRepetitionData }) => {
 
   const history = useHistory();
 
-  useEffect(() => fetchWords(), [fetchWords]);
+  useEffect(() => {
+    fetchWords();
+  }, [fetchWords]);
 
   useEffect(() => {
     const newWords = filterWords(words, filterOptions);
@@ -151,7 +153,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { fetchWords, setRepetitionData }
-)(Dictionary);
+export default connect(mapStateToProps, { fetchWords, setRepetitionData })(
+  Dictionary
+);
