@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default class WordsApi {
-  _baseUrl = `/api/`;
+  _baseUrl = `/api`;
 
   signIn = async (email, password) => {
     const res = await axios({
@@ -16,7 +16,7 @@ export default class WordsApi {
     return res;
   };
 
-  singUp = async (email, password) => {
+  signUp = async (email, password) => {
     const res = await axios({
       url: `${this._baseUrl}/signup`,
       method: 'POST',

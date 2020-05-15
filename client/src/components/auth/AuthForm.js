@@ -2,7 +2,11 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import css from './scss/authPage.module.scss';
 
-const AuthForm = ({ onSubmit = () => {}, submitBtnText = '' }) => {
+const AuthForm = ({
+  onSubmit = () => {},
+  submitBtnText = '',
+  validatePassword = true
+}) => {
   const { register, errors, handleSubmit } = useForm();
 
   return (
@@ -36,7 +40,7 @@ const AuthForm = ({ onSubmit = () => {}, submitBtnText = '' }) => {
           ref={register({
             required: 'This field is required',
             validate: value => {
-              if (value.length < 8) {
+              if (validatePassword && value.length < 8) {
                 return 'Min length is 8';
               }
             }
