@@ -11,7 +11,7 @@ const getWordById = (list, id) => {
 };
 
 const getMaxId = (arr) => {
-  const idList = arr.map((item) => item.id);
+  const idList = arr.map((item) => item.id || 0);
   return Math.max(...idList, 0);
 };
 

@@ -33,7 +33,7 @@ export const fetchWords = () => async dispatch => {
 
   try {
     const res = await wordsApi.getWords();
-    dispatch(wordsSuccess(res.data));
+    dispatch(wordsSuccess(res.data.data));
   } catch (err) {
     dispatch(wordsError(err.message));
   }

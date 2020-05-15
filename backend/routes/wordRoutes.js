@@ -100,7 +100,8 @@ router.post("/words", async (req, res) => {
 
     word.id = maxId + 1;
     await word.save();
-    res.send(word);
+
+    res.send({ data: word, success: true });
   } catch (error) {
     res.status(422).send({ error: error.message });
   }

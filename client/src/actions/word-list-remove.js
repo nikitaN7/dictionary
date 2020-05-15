@@ -1,9 +1,11 @@
-import axios from 'axios';
 import {
   DELETE_WORDS_PENDING,
   DELETE_WORDS_FAILURE,
   DELETE_WORDS_SUCCESS
 } from './actions';
+import WordsApi from '../api/wordsApi';
+
+const wordsApi = new WordsApi();
 
 const deleteWordsPending = () => {
   return {
@@ -24,15 +26,13 @@ const deleteWordsError = error => {
   };
 };
 
-export const allWordsDelete = () => dispatch => {
+export const allWordsDelete = () => async dispatch => {
   dispatch(deleteWordsPending());
 
-  axios
-    .delete('/api/deleteAllData')
-    .then(() => {
-      dispatch(deleteWordsSuccess());
-    })
-    .catch(err => {
-      dispatch(deleteWordsError(err));
-    });
+  try {
+    await wordsApi.deleteAllWords();
+    dispatch(deleteWordsSuccess());
+  } catch (error) {
+    dispatch(deleteWordsError(error.message));
+  }
 };

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { authHeader } from '../utils/helpers';
 
 export default class WordsApi {
   _baseUrl = `/api/words`;
@@ -6,6 +7,7 @@ export default class WordsApi {
   getWords = async () => {
     const res = await axios({
       url: this._baseUrl,
+      headers: authHeader(),
       method: 'GET'
     });
 
@@ -15,6 +17,7 @@ export default class WordsApi {
   getOneWord = async id => {
     const res = await axios({
       url: `${this._baseUrl}/${id}`,
+      headers: authHeader(),
       method: 'GET'
     });
 
@@ -24,6 +27,7 @@ export default class WordsApi {
   addWord = async data => {
     const res = await axios({
       url: `${this._baseUrl}`,
+      headers: authHeader(),
       method: 'POST',
       data
     });
@@ -34,6 +38,7 @@ export default class WordsApi {
   addWords = async data => {
     const res = await axios({
       url: `${this._baseUrl}`,
+      headers: authHeader(),
       method: 'POST',
       data
     });
@@ -44,6 +49,7 @@ export default class WordsApi {
   updateWord = async (id, data) => {
     const res = await axios({
       url: `${this._baseUrl}/${id}`,
+      headers: authHeader(),
       method: 'PATCH',
       data
     });
@@ -54,6 +60,7 @@ export default class WordsApi {
   deleteOneWord = async id => {
     const res = await axios({
       url: `${this._baseUrl}/${id}`,
+      headers: authHeader(),
       method: 'DELETE'
     });
 
@@ -63,6 +70,7 @@ export default class WordsApi {
   deleteAllWords = async () => {
     const res = await axios({
       url: `${this._baseUrl}/`,
+      headers: authHeader(),
       method: 'DELETE'
     });
 
