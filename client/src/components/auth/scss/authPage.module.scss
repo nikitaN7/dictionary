@@ -52,6 +52,13 @@
     display: flex;
     flex-direction: column;
     padding-top: 1rem;
+
+    &Error {
+      font-size: 0.750em;
+      color: red;
+      font-weight: 500;
+      margin-top: 0.6em;
+    }
   }
 
   &Label {
