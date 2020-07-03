@@ -18,6 +18,10 @@
   border-radius: 13px;
   background-color: white;
   overflow: hidden;
+
+  @media only screen and (max-width: 555px) {
+    height: auto;
+  }
 }
 
 .wavesImg {
@@ -32,6 +36,10 @@
   max-width: 350px;
   width: 100%;
   font-family: Montserrat;
+
+  @media only screen and (max-width: 555px) {
+    padding: 50px 20px 90px;
+  }
 
   &Wrapper {
     &Disabled {
