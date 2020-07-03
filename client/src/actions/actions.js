@@ -13,3 +13,7 @@ export const WORDS_DELETE_SUCCESS = 'WORDS_DELETE_SUCCESS';
 export const WORDS_ADD_SUCCESS = 'WORDS_ADD_SUCCESS';
 
 export const SET_REPETITION_DATA = 'SET_REPETITION_DATA';
+
+export const SIGN_IN = 'SIGN_IN';
+export const SIGN_UP = 'SIGN_UP';
+export const LOGOUT = 'LOGOUT';

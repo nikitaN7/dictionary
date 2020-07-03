@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {
   UPDATE_LIST_PENDING,
   UPDATE_LIST_FAILURE,
@@ -6,6 +5,9 @@ import {
   WORDS_UPDATE_SUCCESS,
   WORDS_DELETE_SUCCESS
 } from './actions';
+import WordsApi from '../api/wordsApi';
+
+const wordsApi = new WordsApi();
 
 const transformWordData = data => {
   return {
@@ -57,7 +59,7 @@ const wordDeleteSuccess = wordId => {
   };
 };
 
-const wordAdd = (wordData, modalClose, modalReset, scrollToBottom) => (
+const wordAdd = (wordData, modalClose, modalReset, scrollToBottom) => async (
   dispatch,
   getState
 ) => {
@@ -65,72 +67,47 @@ const wordAdd = (wordData, modalClose, modalReset, scrollToBottom) => (
 
   dispatch(updateListPending());
 
-  axios
-    .post(
-      '/api/putData',
+  try {
+    const res = await wordsApi.addWords(
       transformWordData({
         ...wordData
       })
-    )
-    .then(res => {
-      if (!res.data.success) {
-        dispatch(updateListError(res.data.error));
-        return;
-      }
+    );
 
-      dispatch(wordAddSuccess(res.data.data));
-      modalClose();
-      modalReset();
-      scrollToBottom((words.length / 10).toFixed());
-    })
-    .catch(err => {
-      dispatch(updateListError(err.message));
-    });
+    dispatch(wordAddSuccess(res.data.data));
+    modalClose();
+    modalReset();
+    scrollToBottom((words.length / 10).toFixed());
+  } catch (error) {
+    dispatch(updateListError(error.message));
+  }
 };
 
-const wordUpdate = (word, wordData, modalClose) => dispatch => {
+const wordUpdate = (word, wordData, modalClose) => async dispatch => {
   dispatch(updateListPending());
 
-  axios
-    .post('/api/updateData', {
-      id: word._id,
-      update: transformWordData({ ...wordData })
-    })
-    .then(res => {
-      if (!res.data.success) {
-        dispatch(updateListError(res.data.error));
-        return;
-      }
-
-      dispatch(wordUpdateSuccess(word.id, res.data.data));
-      modalClose();
-    })
-    .catch(err => {
-      dispatch(updateListError(err.message));
+  try {
+    const res = await wordsApi.updateWord(word.id, {
+      data: transformWordData({ ...wordData })
     });
+
+    dispatch(wordUpdateSuccess(word.id, res.data.data));
+    modalClose();
+  } catch (error) {
+    dispatch(updateListError(error.message));
+  }
 };
 
-const wordDelete = (word, modalClose) => dispatch => {
+const wordDelete = (word, modalClose) => async dispatch => {
   dispatch(updateListPending());
 
-  axios
-    .delete('/api/deleteData', {
-      data: {
-        id: word._id
-      }
-    })
-    .then(res => {
-      if (!res.data.success) {
-        dispatch(updateListError(res.data.error));
-        return;
-      }
-
-      dispatch(wordDeleteSuccess(word.id));
-      modalClose();
-    })
-    .catch(err => {
-      dispatch(updateListError(err.message));
-    });
+  try {
+    await wordsApi.deleteOneWord(word.id);
+    dispatch(wordDeleteSuccess(word.id));
+    modalClose();
+  } catch (error) {
+    dispatch(updateListError(error.message));
+  }
 };
 
 export { wordAdd, wordUpdate, wordDelete };
