@@ -1,7 +1,16 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
-const Header = props => {
-  const { navShow, navToggle, onActionClick } = props;
+import { logout } from '../../actions/userActions';
+
+const Header = ({ navShow, navToggle }) => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const handleLogoutClick = () => {
+    dispatch(logout(() => history.push('/signin')));
+  };
 
   return (
     <div className="header">
@@ -14,6 +23,8 @@ const Header = props => {
         <span />
         <span />
       </button>
+
+      <button onClick={handleLogoutClick}>Logout</button>
     </div>
   );
 };

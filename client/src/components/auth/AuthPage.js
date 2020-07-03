@@ -1,10 +1,9 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import css from './scss/authPage.module.scss';
 
 import AuthSignInForm from './AuthSignInForm';
 import AuthSignUpForm from './AuthSignUpForm';
-
-import { useLocation } from 'react-router-dom';
 
 import wavesImg from '../../assets/svg/waves.svg';
 

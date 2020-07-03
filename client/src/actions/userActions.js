@@ -1,4 +1,4 @@
-import { SIGN_IN, SIGN_UP } from './actions';
+import { SIGN_IN, SIGN_UP, LOGOUT } from './actions';
 import AuthApi from '../api/authApi';
 
 const authApi = new AuthApi();
@@ -47,4 +47,10 @@ export const signup = (email, password) => async dispatch => {
     const errMessage = error.response.data.error || error.message;
     return { success: false, error: errMessage };
   }
+};
+
+export const logout = redirectCb => dispatch => {
+  localStorage.removeItem('token');
+  dispatch({ type: LOGOUT });
+  redirectCb();
 };
