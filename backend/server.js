@@ -42,6 +42,10 @@ mongoose.connection.on("error", (err) => {
   console.error("Error", err);
 });
 
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/build", "index.html"));
+});
+
 app.listen(process.env.PORT || API_PORT, () =>
   console.log(`LISTENING ON PORT ${API_PORT}`)
 );
