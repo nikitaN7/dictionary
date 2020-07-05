@@ -22,16 +22,17 @@ const API_PORT = 3001;
 const app = express();
 app.use(cors());
 app.use(express.static(path.join(__dirname, "../client/build")));
+
+const dbRoute = getDbRoute();
+
+mongoose.connect(dbRoute, { useNewUrlParser: true, useUnifiedTopology: true });
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(logger("dev"));
 
 app.use("/api", authRoutes); //Must be on the top of the other routes
 app.use("/api", wordRoutes);
-
-const dbRoute = getDbRoute();
-
-mongoose.connect(dbRoute, { useNewUrlParser: true, useUnifiedTopology: true });
 
 mongoose.connection.on("connected", () => {
   console.log("Connected to mongo instance");
