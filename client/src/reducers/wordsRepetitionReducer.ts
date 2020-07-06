@@ -1,11 +1,18 @@
 import * as actions from '../actions/actions';
+import {
+  WordsRepetitionState,
+  RepetitionActionTypes
+} from '../types/wordsRepetition';
 
-const initialState = {
+const initialState: WordsRepetitionState = {
   queue: [],
   words: {}
 };
 
-const wordsRepetitionReducer = (state = initialState, action) => {
+const wordsRepetitionReducer = (
+  state = initialState,
+  action: RepetitionActionTypes
+): WordsRepetitionState => {
   switch (action.type) {
     case actions.SET_REPETITION_DATA: {
       const { data } = action.payload;
