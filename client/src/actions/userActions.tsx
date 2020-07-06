@@ -1,9 +1,12 @@
 import { SIGN_IN, SIGN_UP, LOGOUT } from './actions';
 import AuthApi from '../api/authApi';
+import { Dispatch } from 'redux';
+
+import { Token, UserActionTypes } from '../types/user';
 
 const authApi = new AuthApi();
 
-const signinAction = token => {
+export const signinAction = (token: Token): UserActionTypes => {
   return {
     type: SIGN_IN,
     payload: {
@@ -12,7 +15,7 @@ const signinAction = token => {
   };
 };
 
-const signupAction = token => {
+export const signupAction = (token: Token): UserActionTypes => {
   return {
     type: SIGN_UP,
     payload: {
@@ -21,13 +24,16 @@ const signupAction = token => {
   };
 };
 
-export const signin = (email, password) => async dispatch => {
+export const signin = (email: string, password: string) => async (
+  dispatch: Dispatch
+) => {
   try {
     const res = await authApi.signIn(email, password);
 
     const { token } = res.data;
     dispatch(signinAction(token));
     localStorage.setItem('token', token);
+
     return { success: true };
   } catch (error) {
     const errMessage = error.response.data.error || error.message;
@@ -35,7 +41,9 @@ export const signin = (email, password) => async dispatch => {
   }
 };
 
-export const signup = (email, password) => async dispatch => {
+export const signup = (email: 'string', password: 'string') => async (
+  dispatch: Dispatch
+) => {
   try {
     const res = await authApi.signUp(email, password);
 
@@ -49,7 +57,7 @@ export const signup = (email, password) => async dispatch => {
   }
 };
 
-export const logout = redirectCb => dispatch => {
+export const logout = (redirectCb: () => void) => (dispatch: Dispatch) => {
   localStorage.removeItem('token');
   dispatch({ type: LOGOUT });
   redirectCb();
