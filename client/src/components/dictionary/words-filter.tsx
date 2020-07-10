@@ -6,7 +6,12 @@ const filterTypes = [
   { type: 'hard-words', text: 'Hard words' }
 ];
 
-const WordsFilter = ({ filterType, handleChange }) => {
+type Props = {
+  filterType: string;
+  handleChange(name: string, type: string): void;
+};
+
+const WordsFilter: React.FC<Props> = ({ filterType, handleChange }) => {
   const [filterShow, setFilterShow] = useState(false);
 
   return (

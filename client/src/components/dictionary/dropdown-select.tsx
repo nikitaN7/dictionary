@@ -1,13 +1,21 @@
 import React from 'react';
 
-const DropdownSelect = props => {
+type Props = {
+  onClick(): void;
+  text: string;
+  icon: string;
+  bgColor: string;
+  activeClass: string;
+};
+
+const DropdownSelect: React.FC<Props> = props => {
   const { onClick, activeClass, text, bgColor, icon } = props;
 
   return (
     <div
       onClick={onClick}
       role="button"
-      tabIndex="0"
+      // tabIndex="0"
       className={`dictionary__options__item ${bgColor} ${activeClass}`}
     >
       <img src={`/img/${icon}`} alt="" />

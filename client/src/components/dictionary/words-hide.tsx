@@ -7,7 +7,12 @@ const options = [
   { value: 'ru', icon: 'ru-icon', text: 'Hide ru words' }
 ];
 
-const WordsHide = ({ hiddenWords, setHiddenWords }) => {
+type Props = {
+  hiddenWords: string;
+  setHiddenWords(value: string): void;
+};
+
+const WordsHide: React.FC<Props> = ({ hiddenWords, setHiddenWords }) => {
   const [dropdownShow, setDropdownShow] = useState(false);
   const isFirstRender = useRef(true);
 

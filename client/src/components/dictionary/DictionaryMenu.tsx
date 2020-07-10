@@ -10,8 +10,15 @@ const buttonStyles = {
   borderRadius: '4px'
 };
 
-const DictionaryMenu = ({
-  selectedWords = 0,
+type Props = {
+  selectedWords: number[];
+  allWordsQuantity: number;
+  clearSelectedWords(): void;
+  exerciseSelectedWords(): void;
+};
+
+const DictionaryMenu: React.FC<Props> = ({
+  selectedWords = [],
   allWordsQuantity = 0,
   clearSelectedWords = () => {},
   exerciseSelectedWords = () => {}

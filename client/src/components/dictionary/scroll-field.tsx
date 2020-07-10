@@ -1,7 +1,15 @@
 import React from 'react';
 import ArrowDownIcon from '../../assets/icons/ArrowDownIcon';
 
-const ScrollField = ({ handleTableScroll, tableScrollIdx }) => {
+type Props = {
+  handleTableScroll(value: string): void;
+  tableScrollIdx: number;
+};
+
+const ScrollField: React.FC<Props> = ({
+  handleTableScroll,
+  tableScrollIdx
+}) => {
   return (
     <div className="search">
       <div className="search__group search__group--sm">

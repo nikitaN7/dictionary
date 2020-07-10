@@ -1,8 +1,12 @@
 import React from 'react';
 import SearchIcon from '../../assets/icons/SearchIcon';
 
-const WordsSearch = props => {
-  const { searchValue } = props;
+type Props = {
+  searchValue: string;
+  handleChange(name: string, value: string): void;
+};
+
+const WordsSearch: React.FC<Props> = ({ searchValue, handleChange }) => {
   return (
     <div className="search search--grow">
       <div className="search__group search__group--md">
@@ -10,9 +14,7 @@ const WordsSearch = props => {
           name="filterSearch"
           type="text"
           placeholder="Search"
-          onChange={({ target }) =>
-            props.handleChange(target.name, target.value)
-          }
+          onChange={({ target }) => handleChange(target.name, target.value)}
           value={searchValue}
         />
         <button className="search__btn">
