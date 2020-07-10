@@ -7,9 +7,13 @@ import {
 } from './actions';
 import WordsApi from '../api/wordsApi';
 
+import { ThunkType } from '../reducers/index';
+
+import { Word, RepetitionActionTypes } from '../types/wordsList';
+
 const wordsApi = new WordsApi();
 
-const transformWordData = data => {
+const transformWordData = (data: any): any => {
   return {
     id: data.id,
     en: data.en,
@@ -24,27 +28,30 @@ const transformWordData = data => {
   };
 };
 
-const updateListPending = () => {
+const updateListPending = (): RepetitionActionTypes => {
   return {
     type: UPDATE_LIST_PENDING
   };
 };
 
-const updateListError = error => {
+const updateListError = (error: any): RepetitionActionTypes => {
   return {
     type: UPDATE_LIST_FAILURE,
     payload: error
   };
 };
 
-const wordAddSuccess = wordData => {
+const wordAddSuccess = (wordData: Word): RepetitionActionTypes => {
   return {
     type: WORDS_ADD_SUCCESS,
     wordData
   };
 };
 
-const wordUpdateSuccess = (wordId, wordData) => {
+const wordUpdateSuccess = (
+  wordId: number,
+  wordData: Word
+): RepetitionActionTypes => {
   return {
     type: WORDS_UPDATE_SUCCESS,
     wordId,
@@ -52,17 +59,19 @@ const wordUpdateSuccess = (wordId, wordData) => {
   };
 };
 
-const wordDeleteSuccess = wordId => {
+const wordDeleteSuccess = (wordId: number) => {
   return {
     type: WORDS_DELETE_SUCCESS,
     wordId
   };
 };
 
-const wordAdd = (wordData, modalClose, modalReset, scrollToBottom) => async (
-  dispatch,
-  getState
-) => {
+const wordAdd = (
+  wordData: Word,
+  modalClose: () => {},
+  modalReset: () => {},
+  scrollToBottom: (idx: number) => {}
+): ThunkType => async (dispatch, getState) => {
   const { words } = getState().wordList;
 
   dispatch(updateListPending());
@@ -77,13 +86,17 @@ const wordAdd = (wordData, modalClose, modalReset, scrollToBottom) => async (
     dispatch(wordAddSuccess(res.data.data));
     modalClose();
     modalReset();
-    scrollToBottom((words.length / 10).toFixed());
+    scrollToBottom(Number((words.length / 10).toFixed()));
   } catch (error) {
     dispatch(updateListError(error.message));
   }
 };
 
-const wordUpdate = (word, wordData, modalClose) => async dispatch => {
+const wordUpdate = (
+  word: Word,
+  wordData: Word,
+  modalClose: () => {}
+): ThunkType => async dispatch => {
   dispatch(updateListPending());
 
   try {
@@ -98,7 +111,10 @@ const wordUpdate = (word, wordData, modalClose) => async dispatch => {
   }
 };
 
-const wordDelete = (word, modalClose) => async dispatch => {
+const wordDelete = (
+  word: Word,
+  modalClose: () => {}
+): ThunkType => async dispatch => {
   dispatch(updateListPending());
 
   try {

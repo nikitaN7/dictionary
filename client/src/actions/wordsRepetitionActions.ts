@@ -1,6 +1,9 @@
+import { ThunkAction } from 'redux-thunk';
+import { Action } from 'redux';
+
 import { SET_REPETITION_DATA } from './actions';
 import { shuffle } from '../utils/helpers';
-import { Dispatch } from 'redux';
+import { RootState, ThunkType } from '../reducers/index';
 
 import {
   RepetitionActionTypes,
@@ -20,9 +23,9 @@ const setRepetitionDataAction = (
   };
 };
 
-export const setRepetitionData = (selectedWords: number[]) => (
-  dispatch: Dispatch,
-  getState: any
+export const setRepetitionData = (selectedWords: number[]): ThunkType => (
+  dispatch,
+  getState
 ) => {
   const wordsData: {
     [key: string]: Word;

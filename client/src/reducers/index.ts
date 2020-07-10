@@ -1,4 +1,6 @@
-import { combineReducers } from 'redux';
+import { combineReducers, Action } from 'redux';
+import { ThunkAction } from 'redux-thunk';
+
 import wordList from './word-list';
 import wordsRepetition from './wordsRepetitionReducer';
 import user from './user';
@@ -11,12 +13,15 @@ const appReducer = combineReducers({
   user
 });
 
-const rootReducer = (state, action) => {
+const rootReducer = (state: any, action: any) => {
   if (action.type === LOGOUT) {
     state = undefined;
   }
 
   return appReducer(state, action);
 };
+
+export type RootState = ReturnType<typeof rootReducer>;
+export type ThunkType = ThunkAction<void, RootState, unknown, Action<string>>;
 
 export default rootReducer;

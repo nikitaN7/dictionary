@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { authHeader } from '../utils/helpers';
 
+import { Word } from '../types/wordsList';
+
 export default class WordsApi {
   _baseUrl = `/api/words`;
 
@@ -14,7 +16,7 @@ export default class WordsApi {
     return res;
   };
 
-  getOneWord = async id => {
+  getOneWord = async (id: number) => {
     const res = await axios({
       url: `${this._baseUrl}/${id}`,
       headers: authHeader(),
@@ -24,7 +26,7 @@ export default class WordsApi {
     return res;
   };
 
-  addWord = async data => {
+  addWord = async (data: Word) => {
     const res = await axios({
       url: `${this._baseUrl}`,
       headers: authHeader(),
@@ -35,7 +37,7 @@ export default class WordsApi {
     return res;
   };
 
-  addWords = async data => {
+  addWords = async (data: Word) => {
     const res = await axios({
       url: `${this._baseUrl}`,
       headers: authHeader(),
@@ -46,7 +48,7 @@ export default class WordsApi {
     return res;
   };
 
-  updateWord = async (id, data) => {
+  updateWord = async (id: number, data: { data: Word }) => {
     const res = await axios({
       url: `${this._baseUrl}/${id}`,
       headers: authHeader(),
@@ -57,7 +59,7 @@ export default class WordsApi {
     return res;
   };
 
-  deleteOneWord = async id => {
+  deleteOneWord = async (id: number) => {
     const res = await axios({
       url: `${this._baseUrl}/${id}`,
       headers: authHeader(),

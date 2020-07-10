@@ -1,6 +1,18 @@
 import * as actions from '../actions/actions';
 
-const updateWordItem = (words, wordIdx, { wordData }) => {
+import {
+  Word,
+  WordsListState,
+  RepetitionActionTypes
+} from '../types/wordsList';
+
+type GetWordsListType = (words: Word[], wordIdx: number, action: any) => Word[];
+
+const updateWordItem = (
+  words: Word[],
+  wordIdx: number,
+  { wordData }: any
+): Word[] => {
   const oldWord = words[wordIdx];
 
   const newWord = {
@@ -15,21 +27,26 @@ const updateWordItem = (words, wordIdx, { wordData }) => {
   ];
 };
 
-const removeWordItem = (words, wordIdx) => {
+const removeWordItem = (words: Word[], wordIdx: number): Word[] => {
   return [
     ...words.slice(0, wordIdx), //
     ...words.slice(wordIdx + 1)
   ];
 };
 
-const addWordItem = (words, wordIdx, { wordData }) => {
-  return [
-    ...words,
-    wordData
-  ];
+const addWordItem = (
+  words: Word[],
+  wordIdx: number,
+  { wordData }: any
+): Word[] => {
+  return [...words, wordData];
 };
 
-const updateList = (state, action, getWordsList) => {
+const updateList = (
+  state: WordsListState,
+  action: any,
+  getWordsList: GetWordsListType
+) => {
   const { words } = state;
   const wordIdx = words.findIndex(({ id }) => id === action.wordId);
 
@@ -41,17 +58,20 @@ const updateList = (state, action, getWordsList) => {
   };
 };
 
-const initialState = {
+const initialState: WordsListState = {
   pending: false,
   error: null,
   words: []
 };
 
-const updateWordList = (state = initialState, action) => {
+const updateWordList = (
+  state = initialState,
+  action: RepetitionActionTypes
+): WordsListState => {
   switch (action.type) {
     case actions.FETCH_WORDS_PENDING:
     case actions.UPDATE_LIST_PENDING:
-    case action.DELETE_WORDS_PENDING:
+    case actions.DELETE_WORDS_PENDING:
       return {
         ...state,
         pending: true
