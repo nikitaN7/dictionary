@@ -1,14 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { Column, Table, AutoSizer } from 'react-virtualized';
+import {
+  Column,
+  Table,
+  AutoSizer,
+  defaultTableRowRenderer
+} from 'react-virtualized';
 import ReactTooltip from 'react-tooltip';
-import { debounce } from 'lodash';
+import debounce from 'lodash.debounce';
 
 import SoundIcon from '../../assets/icons/SoundIcon';
 import Checkbox from '../ui/Checkbox';
-import { defaultTableRowRenderer } from 'react-virtualized';
 import Preloader from '../preloader';
 
-const WordsTable = ({
+import { Word } from '../../types/wordsList';
+
+type Props = {
+  hiddenWords: string;
+  words: Word[];
+  onActionClick(id: number | null, action: string): {};
+  pending: boolean;
+  tableScrollIdx: number;
+  wordSelectHandler(id: number): void;
+  selectedWords: number[];
+};
+
+const WordsTable: React.FC<Props> = ({
   hiddenWords,
   words,
   onActionClick,
@@ -17,19 +33,19 @@ const WordsTable = ({
   wordSelectHandler,
   selectedWords = []
 }) => {
-  const [visibleWords, setVisibleWords] = useState([]);
+  const [visibleWords, setVisibleWords] = useState<number[]>([]);
 
   useEffect(() => {
     setVisibleWords([]);
   }, [hiddenWords]);
 
-  const onWordClick = (id, className) => {
+  const onWordClick = (id: number, className: string) => {
     if (!visibleWords.includes(id) && className === 'hide') {
       setVisibleWords(prevState => [...prevState, id]);
     }
   };
 
-  const setClassName = (id, option) => {
+  const setClassName = (id: number, option: string): string => {
     if (!visibleWords.includes(id) && hiddenWords === option) {
       return 'hide';
     }
@@ -37,12 +53,8 @@ const WordsTable = ({
     return '';
   };
 
-  const renderWord = (key, word, hasSound) => {
+  const renderWord = (key: string, word: any, hasSound: boolean) => {
     const { id } = word;
-
-    const isTenCell = id % 10 === 0 || id === 0;
-    const cellId = id / 10 + 1;
-
     const className = setClassName(id, key);
 
     return (
@@ -66,7 +78,7 @@ const WordsTable = ({
     );
   };
 
-  const renderActions = id => {
+  const renderActions = (id: number) => {
     return (
       <div className="Words__Table__cellContent">
         <button
@@ -91,7 +103,7 @@ const WordsTable = ({
     );
   };
 
-  const renderRow = (...props) => {
+  const renderRow = (...props: any) => {
     const item = props[0];
     const { bookmarks } = item.rowData;
 
@@ -125,7 +137,7 @@ const WordsTable = ({
               height={height}
               headerHeight={45}
               rowHeight={60}
-              scrollToIndex={(tableScrollIdx * 10).toFixed()}
+              scrollToIndex={Number((tableScrollIdx * 10).toFixed())}
               rowCount={hasData ? words.length : 0}
               rowGetter={({ index }) => words[index]}
               className="Words__Table"

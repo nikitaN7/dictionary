@@ -2,7 +2,13 @@ import React from 'react';
 import classNames from 'classnames/bind';
 import css from './scss/checkbox.module.scss';
 
-const Checkbox = ({
+type Props = {
+  checked: boolean;
+  onChange(): void;
+  type?: string;
+};
+
+const Checkbox: React.FC<Props> = ({
   checked = false,
   onChange = () => {},
   type = 'bounce'
