@@ -3,7 +3,7 @@ import ArrowDownIcon from '../../assets/icons/ArrowDownIcon';
 
 type Props = {
   handleTableScroll(value: string): void;
-  tableScrollIdx: number;
+  tableScrollIdx: number | null;
 };
 
 const ScrollField: React.FC<Props> = ({
@@ -18,7 +18,7 @@ const ScrollField: React.FC<Props> = ({
           type="text"
           placeholder="Scroll to"
           onChange={e => handleTableScroll(e.target.value)}
-          value={tableScrollIdx}
+          value={tableScrollIdx || ''}
         />
         <button className="search__btn">
           <ArrowDownIcon />

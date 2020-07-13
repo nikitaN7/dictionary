@@ -17,9 +17,9 @@ import { Word } from '../../types/wordsList';
 type Props = {
   hiddenWords: string;
   words: Word[];
-  onActionClick(id: number | null, action: string): {};
+  onActionClick(id: number | null, action: string): void;
   pending: boolean;
-  tableScrollIdx: number;
+  tableScrollIdx: number | null;
   wordSelectHandler(id: number): void;
   selectedWords: number[];
 };
@@ -137,7 +137,9 @@ const WordsTable: React.FC<Props> = ({
               height={height}
               headerHeight={45}
               rowHeight={60}
-              scrollToIndex={Number((tableScrollIdx * 10).toFixed())}
+              scrollToIndex={
+                tableScrollIdx ? Number((tableScrollIdx * 10).toFixed()) : 0
+              }
               rowCount={hasData ? words.length : 0}
               rowGetter={({ index }) => words[index]}
               className="Words__Table"

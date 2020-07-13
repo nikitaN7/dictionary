@@ -12,7 +12,7 @@ const buttonStyles = {
 
 type Props = {
   selectedWords: number[];
-  allWordsQuantity: number;
+  allWordsQuantity?: number;
   clearSelectedWords(): void;
   exerciseSelectedWords(): void;
 };

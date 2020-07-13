@@ -3,7 +3,7 @@ import WordsHide from './words-hide';
 
 type Props = {
   onActionClick(id: number | null, action: string): void;
-  setHiddenWords(): void;
+  setHiddenWords: React.Dispatch<React.SetStateAction<string>>;
   hiddenWords: string;
 };
 

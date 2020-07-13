@@ -15,17 +15,41 @@ import { fetchWords } from '../../actions/word-list-fetch';
 import { setRepetitionData } from '../../actions/wordsRepetitionActions';
 import { getSortedWords } from '../../selectors';
 
-const Dictionary = ({ fetchWords, words, pending, setRepetitionData }) => {
-  const [hiddenWords, setHiddenWords] = useState('');
-  const [filteredWords, setFilteredWords] = useState({});
-  const [modalShow, setModalShow] = useState(false);
-  const [tableScrollIdx, setTableScrollIdx] = useState(null);
-  const [selectedWords, setSelectedWords] = useState([]);
-  const [filterOptions, setFilterOptions] = useState({
+import { Word } from '../../types/wordsList';
+import { RootState } from '../../reducers/index';
+
+type Props = {
+  fetchWords(): void;
+  pending: boolean;
+  words: Word[];
+  setRepetitionData(data: number[]): void;
+};
+
+type FilterOptionsType = {
+  filterSearch: string;
+  filterType: string;
+};
+
+const Dictionary: React.FC<Props> = ({
+  fetchWords,
+  words,
+  pending,
+  setRepetitionData
+}) => {
+  const [hiddenWords, setHiddenWords] = useState<string>('');
+  const [filteredWords, setFilteredWords] = useState<Word[]>([]);
+  const [modalShow, setModalShow] = useState<boolean>(false);
+  const [tableScrollIdx, setTableScrollIdx] = useState<null | number>(null);
+  const [selectedWords, setSelectedWords] = useState<number[]>([]);
+  const [filterOptions, setFilterOptions] = useState<FilterOptionsType>({
     filterSearch: '',
     filterType: 'all-words'
   });
-  const [word, setWord] = useState({
+
+  const [word, setWord] = useState<{
+    id: null | number;
+    action: string;
+  }>({
     id: null,
     action: ''
   });
@@ -42,14 +66,14 @@ const Dictionary = ({ fetchWords, words, pending, setRepetitionData }) => {
     setFilteredWords(newWords);
   }, [words, filterOptions]);
 
-  const handleChange = (name, value) => {
+  const handleChange = (name: string, value: string) => {
     setFilterOptions(filterOptions => ({
       ...filterOptions,
       [name]: value
     }));
   };
 
-  const wordSelectHandler = id => {
+  const wordSelectHandler = (id: number) => {
     const isAlreadyAdded = selectedWords.includes(id);
 
     if (isAlreadyAdded) {
@@ -79,16 +103,16 @@ const Dictionary = ({ fetchWords, words, pending, setRepetitionData }) => {
     setModalShow(false);
   };
 
-  const onActionClick = (id, action) => {
+  const onActionClick = (id: number | null, action: string) => {
     setModalShow(true);
     setWord({ id, action });
   };
 
-  const handleTableScroll = value => {
+  const handleTableScroll = (value: string) => {
     const re = /^[0-9\b]+$/;
 
     if (value === '' || re.test(value)) {
-      setTableScrollIdx(value);
+      setTableScrollIdx(Number(value));
     }
   };
 
@@ -146,7 +170,7 @@ const Dictionary = ({ fetchWords, words, pending, setRepetitionData }) => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: RootState) => {
   return {
     words: getSortedWords(state),
     pending: state.wordList.pending
