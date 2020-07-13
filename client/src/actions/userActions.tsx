@@ -3,6 +3,7 @@ import AuthApi from '../api/authApi';
 import { Dispatch } from 'redux';
 
 import { Token, UserActionTypes } from '../types/user';
+import { ThunkType } from '../reducers/index';
 
 const authApi = new AuthApi();
 
@@ -41,9 +42,10 @@ export const signin = (email: string, password: string) => async (
   }
 };
 
-export const signup = (email: 'string', password: 'string') => async (
-  dispatch: Dispatch
-) => {
+export const signup = (
+  email: string,
+  password: string
+): ThunkType => async dispatch => {
   try {
     const res = await authApi.signUp(email, password);
 

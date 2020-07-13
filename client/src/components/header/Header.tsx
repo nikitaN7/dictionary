@@ -4,7 +4,12 @@ import { useHistory } from 'react-router-dom';
 
 import { logout } from '../../actions/userActions';
 
-const Header = ({ navShow, navToggle }) => {
+type Props = {
+  navShow: boolean;
+  navToggle(): void;
+};
+
+const Header: React.FC<Props> = ({ navShow, navToggle }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 

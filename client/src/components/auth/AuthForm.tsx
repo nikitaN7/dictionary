@@ -2,12 +2,23 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import css from './scss/authPage.module.scss';
 
-const AuthForm = ({
+type FormValues = {
+  email: string;
+  password: string;
+};
+
+type Props = {
+  onSubmit(values: FormValues): Promise<void>;
+  submitBtnText: string;
+  validatePassword?: boolean;
+};
+
+const AuthForm: React.FC<Props> = ({
   onSubmit = () => {},
   submitBtnText = '',
   validatePassword = true
 }) => {
-  const { register, errors, handleSubmit } = useForm();
+  const { register, errors, handleSubmit } = useForm<FormValues>();
 
   return (
     <form action="#" className={css.authForm} onSubmit={handleSubmit(onSubmit)}>

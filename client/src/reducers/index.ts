@@ -22,6 +22,11 @@ const rootReducer = (state: any, action: any) => {
 };
 
 export type RootState = ReturnType<typeof rootReducer>;
-export type ThunkType = ThunkAction<void, RootState, unknown, Action<string>>;
+export type ThunkType<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  Action<string>
+>;
 
 export default rootReducer;

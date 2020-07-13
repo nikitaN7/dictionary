@@ -2,7 +2,15 @@ import React from 'react';
 import classNames from 'classnames/bind';
 import css from './scss/button.module.scss';
 
-const Button = ({
+type Props = {
+  isPrimary?: boolean;
+  onClick(): void;
+  styles: {
+    [className: string]: string;
+  };
+};
+
+const Button: React.FC<Props> = ({
   styles = {},
   children,
   isPrimary = true,

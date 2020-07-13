@@ -2,9 +2,21 @@ import React, { useEffect } from 'react';
 import ModalForm from './modal-form';
 import ModalError from './modal-error';
 import ModalBtn from './modal-btn';
-import Preloader from '../preloader/Preloader.tsx';
+import Preloader from '../preloader/Preloader';
 
-const ModalInner = ({
+import { NewWord } from '../../types/wordsList';
+
+type Props = {
+  wordAction: string;
+  newWord: NewWord;
+  handleChange(e: React.ChangeEvent<HTMLInputElement>): void;
+  modalClose(): void;
+  onSubmit(wordAction: string): void;
+  error: string;
+  pending: boolean;
+};
+
+const ModalInner: React.FC<Props> = ({
   wordAction,
   newWord,
   handleChange,
@@ -14,7 +26,7 @@ const ModalInner = ({
   pending
 }) => {
   useEffect(() => {
-    const onKeyPress = e => {
+    const onKeyPress = (e: KeyboardEvent) => {
       const ESC_KEY = 27;
       const ENTER_KEY = 13;
 

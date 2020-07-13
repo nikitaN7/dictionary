@@ -9,7 +9,7 @@ import WordsApi from '../api/wordsApi';
 
 import { ThunkType } from '../reducers/index';
 
-import { Word, RepetitionActionTypes } from '../types/wordsList';
+import { Word, NewWord, RepetitionActionTypes } from '../types/wordsList';
 
 const wordsApi = new WordsApi();
 
@@ -67,10 +67,10 @@ const wordDeleteSuccess = (wordId: number) => {
 };
 
 const wordAdd = (
-  wordData: Word,
-  modalClose: () => {},
-  modalReset: () => {},
-  scrollToBottom: (idx: number) => {}
+  wordData: NewWord,
+  modalClose: () => void,
+  modalReset: () => void,
+  scrollToBottom: (idx: number) => void
 ): ThunkType => async (dispatch, getState) => {
   const { words } = getState().wordList;
 
@@ -94,8 +94,8 @@ const wordAdd = (
 
 const wordUpdate = (
   word: Word,
-  wordData: Word,
-  modalClose: () => {}
+  wordData: NewWord,
+  modalClose: () => void
 ): ThunkType => async dispatch => {
   dispatch(updateListPending());
 
@@ -113,7 +113,7 @@ const wordUpdate = (
 
 const wordDelete = (
   word: Word,
-  modalClose: () => {}
+  modalClose: () => void
 ): ThunkType => async dispatch => {
   dispatch(updateListPending());
 

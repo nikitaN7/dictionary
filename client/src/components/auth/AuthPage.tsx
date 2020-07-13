@@ -7,7 +7,7 @@ import AuthSignUpForm from './AuthSignUpForm';
 
 import wavesImg from '../../assets/svg/waves.svg';
 
-const AuthPage = () => {
+const AuthPage: React.FC = () => {
   const { pathname } = useLocation();
 
   const chooseFormByPath = () => {

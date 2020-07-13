@@ -1,7 +1,11 @@
 import React from 'react';
 
-const ModalBtn = props => {
-  const { action, onSubmit } = props;
+type Props = {
+  action: string;
+  onSubmit(action: string): void;
+};
+
+const ModalBtn: React.FC<Props> = ({ action, onSubmit }) => {
   return (
     <button
       type="button"

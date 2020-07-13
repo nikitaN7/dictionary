@@ -14,6 +14,16 @@ export type Word = {
   repetition: number;
 };
 
+export interface NewWord {
+  ruExample: string;
+  enExample: string;
+  association: string | null;
+  transcription: string | null;
+  bookmarks: boolean;
+  en: string;
+  ru: string;
+}
+
 export interface WordsListState {
   pending: boolean;
   error: any;

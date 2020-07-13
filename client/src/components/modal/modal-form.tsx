@@ -1,8 +1,12 @@
 import React from 'react';
+import { NewWord } from '../../types/wordsList';
 
-const ModalForm = props => {
-  const { newWord } = props;
+type Props = {
+  handleChange(e: React.ChangeEvent<HTMLInputElement>): void;
+  newWord: NewWord;
+};
 
+const ModalForm: React.FC<Props> = ({ newWord, handleChange }) => {
   return (
     <form action="" className="modal__form">
       <div className="form__group form__group--field">
@@ -14,7 +18,7 @@ const ModalForm = props => {
           id="en-word"
           name="en"
           placeholder="Enter en word"
-          onChange={props.handleChange}
+          onChange={handleChange}
           value={newWord.en}
         />
       </div>
@@ -28,7 +32,7 @@ const ModalForm = props => {
           id="ruword"
           name="ru"
           placeholder="Enter ru word"
-          onChange={props.handleChange}
+          onChange={handleChange}
           value={newWord.ru}
         />
       </div>
@@ -42,8 +46,8 @@ const ModalForm = props => {
           id="transcription"
           name="transcription"
           placeholder="Enter en word"
-          onChange={props.handleChange}
-          value={newWord.transcription}
+          onChange={handleChange}
+          value={newWord.transcription || ''}
         />
       </div>
 
@@ -56,8 +60,8 @@ const ModalForm = props => {
           id="association"
           name="association"
           placeholder="Enter association"
-          onChange={props.handleChange}
-          value={newWord.association}
+          onChange={handleChange}
+          value={newWord.association || ''}
         />
       </div>
 
@@ -68,7 +72,7 @@ const ModalForm = props => {
           id="enExample"
           name="enExample"
           placeholder="Enter en example"
-          onChange={props.handleChange}
+          onChange={handleChange}
           value={newWord.enExample}
         />
       </div>
@@ -79,7 +83,7 @@ const ModalForm = props => {
           id="ruExample"
           name="ruExample"
           placeholder="Enter ru example"
-          onChange={props.handleChange}
+          onChange={handleChange}
           value={newWord.ruExample}
         />
       </div>
@@ -90,7 +94,7 @@ const ModalForm = props => {
           id="bookmarks"
           name="bookmarks"
           type="checkbox"
-          onChange={props.handleChange}
+          onChange={handleChange}
           checked={newWord.bookmarks}
         />
         <label htmlFor="bookmarks">

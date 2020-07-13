@@ -8,19 +8,26 @@ import AuthForm from './AuthForm';
 
 import { signin } from '../../actions/userActions';
 
-const AuthSignInForm = () => {
+type Props = {};
+
+type FormValues = {
+  email: string;
+  password: string;
+};
+
+const AuthSignInForm: React.FC<Props> = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const handleSubmit = async values => {
+  const handleSubmit = async (values: FormValues) => {
     const { email, password } = values;
 
     setLoading(true);
 
-    const res = await dispatch(signin(email, password));
+    const res = (await dispatch(signin(email, password))) as any;
     setLoading(false);
 
     if (!res.success) {

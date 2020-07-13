@@ -1,7 +1,12 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const Nav = ({ isActive, allWordsDelete }) => {
+type Props = {
+  isActive: boolean;
+  allWordsDelete(): void;
+};
+
+const Nav: React.FC<Props> = ({ isActive, allWordsDelete }) => {
   return (
     <nav className={`nav ${isActive ? '' : 'disabled'}`}>
       <div className="nav__title">

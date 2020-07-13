@@ -6,7 +6,11 @@ import { preloadImages } from '../../data/preload-images';
 import { allWordsDelete } from '../../actions/word-list-remove';
 import '../../scss/app.scss';
 
-const Layout = ({ allWordsDelete, children }) => {
+type Props = {
+  allWordsDelete(): void;
+};
+
+const Layout: React.FC<Props> = ({ allWordsDelete, children }) => {
   const [navShow, setNavShow] = useState(false);
 
   useEffect(() => {
