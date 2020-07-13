@@ -8,7 +8,7 @@ import WordsSearch from './words-search';
 import WordsTable from './words-table';
 import DictionaryHeader from './DictionaryHeader';
 import DictionaryMenu from './DictionaryMenu';
-import Modal from '../modal';
+import Modal from '../modal/Modal';
 
 import { filterWords } from '../../utils/filterWords';
 import { fetchWords } from '../../actions/word-list-fetch';

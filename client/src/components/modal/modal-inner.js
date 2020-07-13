@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import ModalForm from './modal-form';
 import ModalError from './modal-error';
 import ModalBtn from './modal-btn';
-import Preloader from '../preloader';
+import Preloader from '../preloader/Preloader.tsx';
 
 const ModalInner = ({
   wordAction,

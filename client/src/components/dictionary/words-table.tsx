@@ -10,7 +10,7 @@ import debounce from 'lodash.debounce';
 
 import SoundIcon from '../../assets/icons/SoundIcon';
 import Checkbox from '../ui/Checkbox';
-import Preloader from '../preloader';
+import Preloader from '../preloader/Preloader';
 
 import { Word } from '../../types/wordsList';
 

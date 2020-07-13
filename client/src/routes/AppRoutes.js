@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import Dictionary from '../components/dictionary';
+import Dictionary from '../components/dictionary/Dictionary.tsx';
 import WordsUploadBox from '../components/dictionary/words-upload-box';
 import WordsTrainer from '../components/words-trainer/WordsTrainer';
 import Layout from '../components/layout/Layout';

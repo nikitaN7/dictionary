@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import Nav from '../nav';
-import Main from '../main';
+import Nav from '../nav/Nav';
+import Main from '../main/Main';
 import { preloadImages } from '../../data/preload-images';
 import { allWordsDelete } from '../../actions/word-list-remove';
 import '../../scss/app.scss';
