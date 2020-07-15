@@ -1,10 +1,11 @@
 .nav {
-  background-color: darkgray;
+  background-color: #EAECF0;
   width: 320px;
   flex-shrink: 0;
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
+  border-right: 1px solid #328BF3;
 
   @media screen and (max-width: 767px) {
     width: 100%;
@@ -13,23 +14,29 @@
     z-index: 9;
   }
 
+  &--top {
+    margin-top: 15px;
+  }
+
   &.disabled {
     display: none;
   }
 
-  svg {
-    max-width: 30px;
+  &--logo {
+    width: 78px;
     height: auto;
-    padding-right: 5px;
+    display: block;
+    margin: 0 auto;
+    padding-top: 10px;
+    fill: #328BF3;
   }
 
   &__link {
-    color: white;
+    color: #77818b;
     font-size: 14px;
     text-decoration: none;
     display: block;
     padding: 15px 0 15px 20px;
-    border-bottom: 2px solid black;
     display: flex;
     align-items: center;
     width: 100%;
@@ -55,24 +62,34 @@
 
     &.active {
       background: darkgrey;
+
     }
   }
 
   &--menu {
     margin-top: 8px;
     a {
-      color: white;
+      color: #77818b;
       font-size: 14px;
       text-decoration: none;
       display: block;
       padding: 15px 0 15px 20px;
-      border-bottom: 2px solid black;
       display: flex;
       align-items: center;
       width: 100%;
+      font-weight: 700;
+      border-left: 4px solid white;
+
+      svg {
+        margin-right: 15px;
+        height: auto;
+        width: 20px;
+      }
 
       &.active {
-        background: cadetblue;
+        background: white;
+        border-color: #328BF3;
+        color: #328BF3;
       }
     }
   }
@@ -100,7 +117,7 @@
     }
 
     &__icon {
-      max-width: 60px;
+      max-width: 80px;
       padding-right: 20px;
 
       @media screen and (max-width: 767px) {
