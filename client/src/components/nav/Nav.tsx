@@ -26,9 +26,6 @@ const Nav: React.FC<Props> = ({ isActive, allWordsDelete }) => {
           <NavLink to="/trainer" activeClassName="active">
             Words Trainer
           </NavLink>
-          <NavLink to="/import" activeClassName="active">
-            Words Import
-          </NavLink>
         </div>
       </div>
 
