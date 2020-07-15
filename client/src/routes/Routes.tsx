@@ -5,12 +5,12 @@ import AppRoutes from './AppRoutes';
 import PrivateRoute from './PrivateRoute';
 import AuthPage from '../components/auth/AuthPage';
 
-const Routes = () => {
+const Routes: React.FC = () => {
   return (
     <Switch>
       <Route path="/signin" component={AuthPage} />
       <Route path="/signup" component={AuthPage} />
-      <PrivateRoute path="/" component={AppRoutes} />
+      <PrivateRoute component={AppRoutes} />
     </Switch>
   );
 };
