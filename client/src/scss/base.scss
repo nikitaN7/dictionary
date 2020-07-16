@@ -1,3 +1,8 @@
+:root {
+  --main-blue-color: #328BF3;
+  --darken-main-blue-color: #2074d6;
+}
+
 body {
   margin: 0;
   font-family: Montserrat, sans-serif;
@@ -44,7 +49,7 @@ h1, ul, li {
   display: flex;
   flex-direction: column;
   width: 100%;
-  background-color: #F5F7FB;
+  background-color: white;
 }
 
 .text-center {

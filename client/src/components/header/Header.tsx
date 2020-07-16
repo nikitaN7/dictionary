@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { FaSignOutAlt } from 'react-icons/fa';
 
 import { logout } from '../../actions/userActions';
 
@@ -29,7 +30,9 @@ const Header: React.FC<Props> = ({ navShow, navToggle }) => {
         <span />
       </button>
 
-      <button onClick={handleLogoutClick}>Logout</button>
+      <button className="header__user" onClick={handleLogoutClick}>
+        <FaSignOutAlt className="header__user__icon" />
+      </button>
     </div>
   );
 };

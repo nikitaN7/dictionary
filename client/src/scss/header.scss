@@ -1,5 +1,5 @@
 .header {
-  background-color: skyblue;
+  background-color: var(--main-blue-color);
   height: 50px;
   display: flex;
   justify-content: space-between;
@@ -35,7 +35,7 @@
     }
 
     &.is-open {
-      background-color: darken(skyblue, 20%);
+      background-color: var(--darken-main-blue-color);
 
       &:after {
         opacity: 1;
@@ -53,6 +53,18 @@
       background-color: white;
       display: block;
       margin: 3px 0;
+    }
+  }
+
+  &__user {
+    display: flex;
+    margin-right: 10px;
+    cursor: pointer;
+
+    &__icon {
+      width: 25px;
+      height: auto;
+      fill: white;
     }
   }
 }
