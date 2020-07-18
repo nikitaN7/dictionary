@@ -1,6 +1,7 @@
 :root {
   --main-blue-color: #328BF3;
   --darken-main-blue-color: #2074d6;
+  --main-grey-color: #77818b;
 }
 
 body {
@@ -49,7 +50,8 @@ h1, ul, li {
   display: flex;
   flex-direction: column;
   width: 100%;
-  background-color: white;
+  background-color: #F8F9FA;
+  background-color: #EAECF0
 }
 
 .text-center {

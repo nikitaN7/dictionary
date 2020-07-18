@@ -14,8 +14,6 @@ const DictionaryHeader: React.FC<Props> = ({
 }) => {
   return (
     <div className="dictionary__header">
-      <span className="dictionary__title">Words dictionary</span>
-
       <WordsHide setHiddenWords={setHiddenWords} hiddenWords={hiddenWords} />
       <button
         type="button"

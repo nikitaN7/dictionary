@@ -7,6 +7,7 @@ import {
 } from 'react-virtualized';
 import ReactTooltip from 'react-tooltip';
 import debounce from 'lodash.debounce';
+import { FaEdit, FaTrash, FaVolumeUp } from 'react-icons/fa';
 
 import SoundIcon from '../../assets/icons/SoundIcon';
 import Checkbox from '../ui/Checkbox';
@@ -22,6 +23,7 @@ type Props = {
   tableScrollIdx: number | null;
   wordSelectHandler(id: number): void;
   selectedWords: number[];
+  allWordsSelectHandler(type: 'selectAll' | 'cancelAll'): void;
 };
 
 const WordsTable: React.FC<Props> = ({
@@ -31,7 +33,8 @@ const WordsTable: React.FC<Props> = ({
   pending,
   tableScrollIdx,
   wordSelectHandler,
-  selectedWords = []
+  selectedWords = [],
+  allWordsSelectHandler = () => {}
 }) => {
   const [visibleWords, setVisibleWords] = useState<number[]>([]);
 
@@ -68,7 +71,7 @@ const WordsTable: React.FC<Props> = ({
             className={`Words__Table__soundBtn ${className}`}
             onClick={() => window.responsiveVoice.speak(word[key])}
           >
-            <SoundIcon />
+            <FaVolumeUp className="Words__Table__soundBtn__icon" />
           </button>
         )}
         <span className={`Words__Table__wordBtn ${className}`}>
@@ -81,24 +84,21 @@ const WordsTable: React.FC<Props> = ({
   const renderActions = (id: number) => {
     return (
       <div className="Words__Table__cellContent">
-        <button
-          className="Words__Table__wordAction"
-          onClick={() => onActionClick(id, 'update')}
-        >
-          <img src="../../img/notepad-update.svg" alt="" />
-        </button>
+        <div className="Words__Table__actions">
+          <button
+            className="Words__Table__actions__btn Words__Table__actions__btn--edit"
+            onClick={() => onActionClick(id, 'update')}
+          >
+            <FaEdit />
+          </button>
 
-        <button
-          className="Words__Table__wordAction"
-          onClick={() => onActionClick(id, 'delete')}
-        >
-          <img src="../../img/notepad-minus.svg" alt="" />
-        </button>
-
-        <Checkbox
-          onChange={() => wordSelectHandler(id)}
-          checked={selectedWords.includes(id)}
-        />
+          <button
+            className="Words__Table__actions__btn Words__Table__actions__btn--delete"
+            onClick={() => onActionClick(id, 'delete')}
+          >
+            <FaTrash />
+          </button>
+        </div>
       </div>
     );
   };
@@ -150,24 +150,50 @@ const WordsTable: React.FC<Props> = ({
               rowRenderer={renderRow}
             >
               <Column
-                label="Id"
+                label={
+                  <Checkbox
+                    showMinus={selectedWords.length > 0}
+                    onChange={() => {
+                      if (selectedWords.length > 0) {
+                        allWordsSelectHandler('cancelAll');
+                      } else {
+                        allWordsSelectHandler('selectAll');
+                      }
+                    }}
+                  />
+                }
                 dataKey=""
-                width={(width / 100) * 5}
+                width={50}
                 className="Words__Table__Grid__rowColumn"
-                cellRenderer={({ rowIndex }) => {
+                cellRenderer={({ rowData }) => {
                   return (
-                    <div className="Words__Table__cellContent center">
-                      {rowIndex}
+                    <div className="Words__Table__cellContent">
+                      <Checkbox
+                        onChange={() => wordSelectHandler(rowData.id)}
+                        checked={selectedWords.includes(rowData.id)}
+                      />
                     </div>
                   );
                 }}
-                flexGrow={1}
+              />
+              <Column
+                label="№"
+                dataKey=""
+                width={50}
+                className="Words__Table__Grid__rowColumn"
+                cellRenderer={({ rowIndex }) => {
+                  return (
+                    <div className="Words__Table__cellContent">
+                      {rowIndex + 1}
+                    </div>
+                  );
+                }}
               />
 
               <Column
                 label="En"
                 dataKey="en"
-                width={(width / 100) * 35}
+                width={1}
                 className="Words__Table__Grid__rowColumn"
                 cellRenderer={({ rowData, dataKey }) => {
                   return renderWord(dataKey, rowData, true);
@@ -175,7 +201,7 @@ const WordsTable: React.FC<Props> = ({
                 flexGrow={1}
               />
               <Column
-                width={(width / 100) * 35}
+                width={1}
                 label="Ru"
                 dataKey="ru"
                 className="Words__Table__Grid__rowColumn"
@@ -186,10 +212,9 @@ const WordsTable: React.FC<Props> = ({
               />
 
               <Column
-                width={(width / 100) * 25}
-                label="Actions"
+                width={80}
+                label=""
                 className="Words__Table__Grid__rowColumn"
-                flexGrow={1}
                 dataKey="actions"
                 cellRenderer={({ rowData }) => {
                   return renderActions(rowData.id);

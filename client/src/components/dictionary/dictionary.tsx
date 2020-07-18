@@ -90,6 +90,16 @@ const Dictionary: React.FC<Props> = ({
     setSelectedWords(state => [...state, id]);
   };
 
+  const allWordsSelectHandler = (type: 'selectAll' | 'cancelAll') => {
+    if (type === 'selectAll') {
+      setSelectedWords(words.map(({ id }) => id));
+    }
+
+    if (type === 'cancelAll') {
+      setSelectedWords([]);
+    }
+  };
+
   const clearSelectedWords = () => {
     setSelectedWords([]);
   };
@@ -155,6 +165,7 @@ const Dictionary: React.FC<Props> = ({
           hiddenWords={hiddenWords}
           tableScrollIdx={tableScrollIdx}
           wordSelectHandler={wordSelectHandler}
+          allWordsSelectHandler={allWordsSelectHandler}
           selectedWords={selectedWords}
         />
       </div>

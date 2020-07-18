@@ -2,15 +2,32 @@
   --background: #fff;
   --border: #d1d6ee;
   --border-hover: #bbc1e1;
-  --border-active: #1e2235;
+  --border-active: var(--main-blue-color);
   --tick: #fff;
   position: relative;
 
   input,
   svg {
-    width: 21px;
-    height: 21px;
+    width: 18px;
+    height: 18px;
     display: block;
+  }
+
+  &Minus {
+    position: absolute;
+    background: var(--main-blue-color);
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: 400;
+    top: 0;
+    left: 0;
+    width: 18px;
+    height: 18px;
+    transform: scale(var(--scale, 1)) translateZ(0);
+    color: white;
+    font-size: 36px;
+    line-height: 0;
+    padding: 6px 2px;
   }
 
   input {
@@ -45,8 +62,8 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 21px;
-    height: 21px;
+    width: 18px;
+    height: 18px;
     transform: scale(var(--scale, 1)) translateZ(0);
   }
 
