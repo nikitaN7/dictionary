@@ -7,7 +7,7 @@ import {
 } from 'react-virtualized';
 import ReactTooltip from 'react-tooltip';
 import debounce from 'lodash.debounce';
-import { FaEdit, FaTrash, FaVolumeUp } from 'react-icons/fa';
+import { FaEdit, FaTrash, FaVolumeUp, FaEye, FaEyeSlash } from 'react-icons/fa';
 
 import SoundIcon from '../../assets/icons/SoundIcon';
 import Checkbox from '../ui/Checkbox';
@@ -24,6 +24,7 @@ type Props = {
   wordSelectHandler(id: number): void;
   selectedWords: number[];
   allWordsSelectHandler(type: 'selectAll' | 'cancelAll'): void;
+  setHiddenWords(value: string): void;
 };
 
 const WordsTable: React.FC<Props> = ({
@@ -34,7 +35,8 @@ const WordsTable: React.FC<Props> = ({
   tableScrollIdx,
   wordSelectHandler,
   selectedWords = [],
-  allWordsSelectHandler = () => {}
+  allWordsSelectHandler = () => {},
+  setHiddenWords = () => {}
 }) => {
   const [visibleWords, setVisibleWords] = useState<number[]>([]);
 
@@ -191,7 +193,18 @@ const WordsTable: React.FC<Props> = ({
               />
 
               <Column
-                label="En"
+                label={
+                  <div className="Words__Table__wordRow">
+                    En{' '}
+                    <button
+                      onClick={() => {
+                        setHiddenWords(hiddenWords === 'en' ? '' : 'en');
+                      }}
+                    >
+                      {hiddenWords === 'en' ? <FaEyeSlash /> : <FaEye />}
+                    </button>
+                  </div>
+                }
                 dataKey="en"
                 width={1}
                 className="Words__Table__Grid__rowColumn"
@@ -202,7 +215,18 @@ const WordsTable: React.FC<Props> = ({
               />
               <Column
                 width={1}
-                label="Ru"
+                label={
+                  <div className="Words__Table__wordRow">
+                    Ru{' '}
+                    <button
+                      onClick={() => {
+                        setHiddenWords(hiddenWords === 'ru' ? '' : 'ru');
+                      }}
+                    >
+                      {hiddenWords === 'ru' ? <FaEyeSlash /> : <FaEye />}
+                    </button>
+                  </div>
+                }
                 dataKey="ru"
                 className="Words__Table__Grid__rowColumn"
                 cellRenderer={({ rowData, dataKey }) => {

@@ -79,6 +79,23 @@
     }
   }
 
+  &__wordRow {
+    display: flex;
+    align-items: center;
+
+    button {
+      display: flex;
+      cursor: pointer;
+    }
+
+    svg {
+      margin-left: 5px;
+      height: auto;
+      width: 16px;
+      color: var(--darken-main-blue-color);
+    }
+  }
+
   &__headerColumn {
     height: 100%;
 
