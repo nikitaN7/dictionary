@@ -28,34 +28,37 @@
     position: absolute;
     width: 20px;
     height: 20px;
-    right: 14px;
+    right: 10px;
     top: 50%;
     padding: 0;
     cursor: pointer;
     transform: translateY(-50%);
     svg {
       fill: darkgray;
-      width: 100%;
+      display: flex;
+      height: auto;
+      width: 17px;
       transition: all .3s;
     }
 
     &:hover {
       svg {
-        fill: black;
+        fill: var(--main-blue-color);
       }
     }
   }
 
   input {
     width: 100%;
-    border-radius: 24px;
-    padding: 0.8em 1.5em;
-    height: 43px;
-    border: 1px solid #E7E9ED;
-    color: skyblue;
+    border-radius: 5px;
+    padding: 10px 12px;
+    border: 2px solid #d8dce4;
+    color: var(--main-grey-color);
     font-weight: 600;
     font-size: 14px;
     outline: none;
+    opacity: 0.8;
+    max-height: 40px;
 
     @media screen and (max-width: 767px) {
       width: 103px;
@@ -63,8 +66,8 @@
     }
   }
 
-  ::-webkit-input-placeholder {color: skyblue;}
-  :-moz-placeholder           {color: skyblue;}
-  ::-moz-placeholder          {color: skyblue;}
-  :-ms-input-placeholder      {color: skyblue;}
+  ::-webkit-input-placeholder {color: var(--main-grey-color);}
+  :-moz-placeholder           {color: var(--main-grey-color);}
+  ::-moz-placeholder          {color: var(--main-grey-color);}
+  :-ms-input-placeholder      {color: var(--main-grey-color);}
 }

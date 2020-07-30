@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import FilterIcon from '../../assets/icons/FilterIcon';
+import { FaFilter } from 'react-icons/fa';
 
 const filterTypes = [
-  { type: 'all-words', text: 'All words' },
-  { type: 'hard-words', text: 'Hard words' }
+  { type: 'all-words', text: 'All' },
+  { type: 'hard-words', text: 'Bookmarks' }
 ];
 
 type Props = {
@@ -21,7 +21,7 @@ const WordsFilter: React.FC<Props> = ({ filterType, handleChange }) => {
         className="filter__btn"
         onClick={() => setFilterShow(filterShow => !filterShow)}
       >
-        <FilterIcon />
+        <FaFilter />
       </button>
 
       {filterShow ? (

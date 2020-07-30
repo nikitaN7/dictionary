@@ -1,5 +1,5 @@
 import React from 'react';
-import ArrowDownIcon from '../../assets/icons/ArrowDownIcon';
+import { FaAngleDoubleDown } from 'react-icons/fa';
 
 type Props = {
   handleTableScroll(value: string): void;
@@ -21,7 +21,7 @@ const ScrollField: React.FC<Props> = ({
           value={tableScrollIdx || ''}
         />
         <button className="search__btn">
-          <ArrowDownIcon />
+          <FaAngleDoubleDown />
         </button>
       </div>
     </div>

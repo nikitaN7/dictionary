@@ -130,7 +130,7 @@ const Dictionary: React.FC<Props> = ({
     <>
       <div className="dictionary">
         <div className="dictionary__row">
-          <DictionaryHeader onActionClick={onActionClick} />
+          {/* <DictionaryHeader onActionClick={onActionClick} /> */}
 
           <WordsSearch
             searchValue={filterOptions.filterSearch}

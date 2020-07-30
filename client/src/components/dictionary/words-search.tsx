@@ -1,5 +1,5 @@
 import React from 'react';
-import SearchIcon from '../../assets/icons/SearchIcon';
+import { FaSearch } from 'react-icons/fa';
 
 type Props = {
   searchValue: string;
@@ -8,7 +8,7 @@ type Props = {
 
 const WordsSearch: React.FC<Props> = ({ searchValue, handleChange }) => {
   return (
-    <div className="search search--grow">
+    <div className="search">
       <div className="search__group search__group--md">
         <input
           name="filterSearch"
@@ -18,7 +18,7 @@ const WordsSearch: React.FC<Props> = ({ searchValue, handleChange }) => {
           value={searchValue}
         />
         <button className="search__btn">
-          <SearchIcon />
+          <FaSearch />
         </button>
       </div>
     </div>

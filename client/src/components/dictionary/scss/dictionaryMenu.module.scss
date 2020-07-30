@@ -1,10 +1,10 @@
 .wrapper {
-  background-color: #F5C1BC;
-  padding: 0.6rem 1rem;
-  border-radius: 5px;
+  padding: 10px 5px;
   color: white;
   margin-top: 1rem;
   display: flex;
+  margin: 10px 30px 0;
+  border-bottom: 1px solid #d8dce4;
 }
 
 .row {
@@ -14,7 +14,58 @@
 }
 
 .text {
-  font-weight: 600;
-  padding-left: 1.2rem;
+  color: var(--main-grey-color);
   letter-spacing: 0.2px;
+  font-size: 14px;
+
+  strong {
+    font-weight: 700;
+    padding-right: 5px;
+    font-size: 16px;
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  border-left: 1px solid var(--main-grey-color);
+  padding-left: 10px;
+
+  button {
+    display: flex;
+    cursor: pointer;
+
+    &:disabled svg {
+      opacity: 0.3;
+      fill: var(--main-grey-color);
+    }
+  }
+
+  svg {
+    width: 19px;
+    fill: var(--main-blue-color);
+    margin-right: 8px;
+  }
+}
+
+.add {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  &Btn {
+    display: flex;
+    background: var(--main-blue-color);
+    border-radius: 50%;
+    padding: 7px 7px;
+    cursor: pointer;
+
+    svg {
+      fill: white;
+      width: 17px;
+      height: 17px;
+    }
+  }
 }

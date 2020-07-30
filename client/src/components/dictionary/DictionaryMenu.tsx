@@ -1,7 +1,6 @@
 import React from 'react';
 import css from './scss/dictionaryMenu.module.scss';
-
-import Button from '../ui/Button';
+import { FaTrash, FaDumbbell, FaPlus } from 'react-icons/fa';
 
 const buttonStyles = {
   padding: '0.5em 1em',
@@ -28,17 +27,26 @@ const DictionaryMenu: React.FC<Props> = ({
   return (
     <div className={css.wrapper}>
       <div className={css.row}>
-        <Button styles={buttonStyles} onClick={clearSelectedWords}>
-          Clear selection
-        </Button>
-        <div
-          className={css.text}
-        >{`${selectedWordQuantity} of ${allWordsQuantity} selected`}</div>
-      </div>
+        <div className={css.text}>
+          <strong>{selectedWordQuantity}</strong> Selected item
+          {`${selectedWordQuantity > 1 ? 's' : ''}`}
+        </div>
 
-      <Button styles={buttonStyles} onClick={exerciseSelectedWords}>
-        Exercise selected words
-      </Button>
+        <div className={css.actions}>
+          <button disabled={!selectedWordQuantity}>
+            <FaDumbbell />
+          </button>
+          <button disabled={!selectedWordQuantity}>
+            <FaTrash />
+          </button>
+        </div>
+
+        <div className={css.add}>
+          <button className={css.addBtn}>
+            <FaPlus />
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
