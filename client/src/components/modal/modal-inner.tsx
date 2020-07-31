@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
+import { FaTimes } from 'react-icons/fa';
+
 import ModalForm from './modal-form';
 import ModalError from './modal-error';
 import ModalBtn from './modal-btn';
 import Preloader from '../preloader/Preloader';
-
 import { NewWord } from '../../types/wordsList';
 
 type Props = {
@@ -49,22 +50,19 @@ const ModalInner: React.FC<Props> = ({
     <div className="modal">
       <div className="modal__inner">
         <div className="modal__header">
-          <span className="modal__header__title">
-            {`${wordAction} Word : `}
-            <strong>{`${newWord.en} = ${newWord.ru}`}</strong>
-          </span>
+          <span className="modal__header__title">{`${wordAction}`}</span>
           <button
             type="button"
             className="modal__header__close"
             onClick={modalClose}
           >
-            X
+            <FaTimes />
           </button>
         </div>
 
         <div className="modal__body">
           {wordAction === 'delete' ? (
-            'Click on this button below to remove this word.'
+            <p>Click on this button below to remove this word.'</p>
           ) : (
             <ModalForm handleChange={handleChange} newWord={newWord} />
           )}

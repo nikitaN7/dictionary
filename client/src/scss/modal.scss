@@ -11,17 +11,28 @@
   opacity: 0;
   animation: fadeIn .3s ease forwards;
 
+  &__btn {
+    background-color: var(--main-blue-color);
+    color: white;
+    position: relative;
+    font-size: 14px;
+    border-radius: 2px;
+    padding: 0.8em 2.8em;
+    font-weight: 500;
+    cursor: pointer;
+    min-width: 150px;
+    text-transform: capitalize;
+  }
+
   &__inner {
-    background-color: #EEEEEE;
+    background-color: white;
     max-width: 600px;
     width: 100%;
     margin: 0 auto;
     position: relative;
     margin-top: 48px;
-    border: 1px solid rgba(0,0,0,0.2);
     border-radius: 6px;
     outline: 0;
-    box-shadow: 0 3px 9px rgba(0,0,0,0.5);
     background-clip: padding-box;
     animation: slideDown .3s ease forwards;
   }
@@ -37,6 +48,8 @@
       font-size: 1.125em;
       line-height: 1.2;
       text-transform: capitalize;
+      font-weight: 600;
+      color: var(--main-grey-color);
 
       strong {
         font-weight: 700;
@@ -44,23 +57,31 @@
     }
 
     &__close {
-      color: grey;
+      display: flex;
+      color: var(--main-grey-color);;
       font-size: 1.25em;
       cursor: pointer;
       transition: all .3s ease;
 
       &:hover {
-        transform: scale(1.2);
+        color: var(--main-blue-color);
       }
     }
   }
 
   &__body {
     padding: 15px;
+
+    p {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--main-grey-color);
+    }
   }
 
   &__footer {
-    padding: 20px 15px;
+    padding: 15px 15px;
     text-align: right;
     border-top: 1px solid #e5e5e5;
     position: relative;

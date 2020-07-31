@@ -1,5 +1,6 @@
 import React from 'react';
 import { NewWord } from '../../types/wordsList';
+import Checkbox from '../ui/Checkbox';
 
 type Props = {
   handleChange(e: React.ChangeEvent<HTMLInputElement>): void;
@@ -89,18 +90,21 @@ const ModalForm: React.FC<Props> = ({ newWord, handleChange }) => {
       </div>
 
       <div className="form__group form__group--checkbox">
-        <span className="form__group__label">In bookmarks</span>
-        <input
-          id="bookmarks"
-          name="bookmarks"
-          type="checkbox"
+        <Checkbox
+          inputName="bookmarks"
           onChange={handleChange}
           checked={newWord.bookmarks}
         />
+        <span className="form__group__label">In bookmarks</span>
+      </div>
+
+      {/* <div className="form__group form__group--checkbox">
+        <span className="form__group__label">In bookmarks</span>
+        <input id="bookmarks" name="bookmarks" type="checkbox" />
         <label htmlFor="bookmarks">
           <div></div>
         </label>
-      </div>
+      </div> */}
     </form>
   );
 };

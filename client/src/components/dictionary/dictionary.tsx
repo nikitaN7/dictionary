@@ -130,8 +130,6 @@ const Dictionary: React.FC<Props> = ({
     <>
       <div className="dictionary">
         <div className="dictionary__row">
-          {/* <DictionaryHeader onActionClick={onActionClick} /> */}
-
           <WordsSearch
             searchValue={filterOptions.filterSearch}
             handleChange={handleChange}
@@ -152,6 +150,7 @@ const Dictionary: React.FC<Props> = ({
           selectedWords={selectedWords}
           clearSelectedWords={clearSelectedWords}
           exerciseSelectedWords={exerciseSelectedWords}
+          onActionClick={onActionClick}
         />
 
         <WordsTable

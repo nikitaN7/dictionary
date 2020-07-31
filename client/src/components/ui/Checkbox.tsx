@@ -4,20 +4,27 @@ import css from './scss/checkbox.module.scss';
 
 type Props = {
   checked?: boolean;
-  onChange?(): void;
+  onChange?(e: React.ChangeEvent<HTMLInputElement>): void;
   type?: string;
   showMinus?: boolean;
+  inputName?: string;
 };
 
 const Checkbox: React.FC<Props> = ({
   checked = false,
   onChange = () => {},
   type = 'bounce',
-  showMinus = false
+  showMinus = false,
+  inputName
 }) => {
   return (
     <label className={classNames(css.checkbox, css[type])}>
-      <input type="checkbox" onChange={onChange} checked={checked} />
+      <input
+        name={inputName}
+        type="checkbox"
+        onChange={onChange}
+        checked={checked}
+      />
       <svg viewBox="0 0 21 21">
         <polyline points="5 10.75 8.5 14.25 16 6" />
       </svg>

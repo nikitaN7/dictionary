@@ -9,7 +9,7 @@ const ModalBtn: React.FC<Props> = ({ action, onSubmit }) => {
   return (
     <button
       type="button"
-      className={`btn btn--md btn--${action}`}
+      className="modal__btn"
       onClick={() => onSubmit(action)}
     >
       {action}

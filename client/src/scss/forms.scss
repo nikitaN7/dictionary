@@ -2,24 +2,23 @@
   &__label {
     min-width: 100px;
     display: inline-block;
-    color: slategray;
-    font-weight: 700;
+    color: var(--main-grey-color);
+    font-weight: 600;
     font-size: 14px;
-
   }
 
   &--field {
     input {
       width: 100%;
-      display: block;
-      border: none;
-      padding: 15px 12px 13px;
+      border-radius: 5px;
+      padding: 10px 12px;
+      border: 2px solid #d8dce4;
+      color: var(--main-grey-color);
+      font-weight: 600;
       font-size: 14px;
-      border-radius: 4px;
       outline: none;
-      color: slategray;
-      font-weight: 500;
-      border: 1px solid skyblue;
+      opacity: 0.8;
+      max-height: 40px;
       margin-top: 6px;
       margin-bottom: 13px;
 
@@ -32,43 +31,10 @@
   &--checkbox {
     display: flex;
     align-items: center;
-    flex-direction: row-reverse;
-    justify-content: flex-end;
-    padding-top: 10px;
-
-    label {
-      display: inline-block;
-      background: #2c3e50;
-      font-size: 1.375rem;
-      width: 2em;
-      height: 1em;
-      border-radius: 0.5em;
-      position: relative;
-      cursor: pointer;
-      margin-right: 10px;
-
-      > div {
-        position: absolute;
-        width: 0.9em;
-        height: 0.9em;
-        margin-top: 0.05em;
-        margin-left: 0.05em;
-        border-radius: 1em;
-        background: #c0392b;
-        box-shadow: 5px 0px 28px -9px rgba(0, 0, 0, 0.75);
-        transition: transform .2s ease-in;
-      }
-    }
+    margin: 5px 0;
 
     input {
-      display: none;
-
-      &:checked ~ label > div {
-        background: #1EB89F;
-        box-shadow: -5px 0px 28px -9px rgba(0, 0, 0, 0.75);
-        transform: translatex(1em);
-        transition: transform .2s ease-in;
-      }
+      margin-right: 10px;
     }
   }
 }

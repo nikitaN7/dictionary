@@ -1,6 +1,7 @@
 import React from 'react';
 import css from './scss/dictionaryMenu.module.scss';
 import { FaTrash, FaDumbbell, FaPlus } from 'react-icons/fa';
+import { wordAdd } from '../../actions/word-list-update';
 
 const buttonStyles = {
   padding: '0.5em 1em',
@@ -14,13 +15,15 @@ type Props = {
   allWordsQuantity?: number;
   clearSelectedWords(): void;
   exerciseSelectedWords(): void;
+  onActionClick(id: number | null, action: string): void;
 };
 
 const DictionaryMenu: React.FC<Props> = ({
   selectedWords = [],
   allWordsQuantity = 0,
   clearSelectedWords = () => {},
-  exerciseSelectedWords = () => {}
+  exerciseSelectedWords = () => {},
+  onActionClick = () => {}
 }) => {
   const selectedWordQuantity = selectedWords.length;
 
@@ -42,7 +45,10 @@ const DictionaryMenu: React.FC<Props> = ({
         </div>
 
         <div className={css.add}>
-          <button className={css.addBtn}>
+          <button
+            className={css.addBtn}
+            onClick={() => onActionClick(null, 'add')}
+          >
             <FaPlus />
           </button>
         </div>
