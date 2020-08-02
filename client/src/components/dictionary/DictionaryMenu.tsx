@@ -36,7 +36,10 @@ const DictionaryMenu: React.FC<Props> = ({
         </div>
 
         <div className={css.actions}>
-          <button disabled={!selectedWordQuantity}>
+          <button
+            disabled={!selectedWordQuantity}
+            onClick={exerciseSelectedWords}
+          >
             <FaDumbbell />
           </button>
           <button disabled={!selectedWordQuantity}>
