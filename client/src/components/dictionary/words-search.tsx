@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaSearch } from 'react-icons/fa';
+import { FaSearch, FaTimes } from 'react-icons/fa';
 
 type Props = {
   searchValue: string;
@@ -7,6 +7,12 @@ type Props = {
 };
 
 const WordsSearch: React.FC<Props> = ({ searchValue, handleChange }) => {
+  const handleClick = () => {
+    if (searchValue) {
+      handleChange('filterSearch', '');
+    }
+  };
+
   return (
     <div className="search">
       <div className="search__group search__group--md">
@@ -17,8 +23,8 @@ const WordsSearch: React.FC<Props> = ({ searchValue, handleChange }) => {
           onChange={({ target }) => handleChange(target.name, target.value)}
           value={searchValue}
         />
-        <button className="search__btn">
-          <FaSearch />
+        <button className="search__btn" onClick={handleClick}>
+          {!searchValue ? <FaSearch /> : <FaTimes />}
         </button>
       </div>
     </div>

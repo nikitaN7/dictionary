@@ -140,7 +140,7 @@ const WordsTable: React.FC<Props> = ({
               headerHeight={45}
               rowHeight={60}
               scrollToIndex={
-                tableScrollIdx ? Number((tableScrollIdx * 10).toFixed()) : 0
+                tableScrollIdx ? Number(tableScrollIdx.toFixed()) - 1 : 0
               }
               rowCount={hasData ? words.length : 0}
               rowGetter={({ index }) => words[index]}
