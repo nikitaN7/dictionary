@@ -64,9 +64,14 @@ router.delete("/words/:id", async (req, res) => {
 
 router.delete("/words", async (req, res) => {
   const userId = req.user._id;
+  const { ids } = req.body;
+
+  if (!ids || !ids.length) {
+    res.status(422).send({ error: "You must provide an array of ids" });
+  }
 
   try {
-    await Word.deleteMany({ userId });
+    await Word.deleteMany({ userId: userId, id: { $in: ids } });
     res.json({ success: true });
   } catch (error) {
     res.status(422).send({ error });
