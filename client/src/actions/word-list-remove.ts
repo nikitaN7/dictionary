@@ -16,9 +16,12 @@ const deleteWordsPending = (): RepetitionActionTypes => {
   };
 };
 
-const deleteWordsSuccess = (): RepetitionActionTypes => {
+const deleteWordsSuccess = (ids: number[]): RepetitionActionTypes => {
   return {
-    type: DELETE_WORDS_SUCCESS
+    type: DELETE_WORDS_SUCCESS,
+    payload: {
+      ids
+    }
   };
 };
 
@@ -29,12 +32,16 @@ const deleteWordsError = (error: any): RepetitionActionTypes => {
   };
 };
 
-export const allWordsDelete = (): ThunkType => async dispatch => {
+export const deleteWords = (ids: number[]): ThunkType => async dispatch => {
   dispatch(deleteWordsPending());
 
+  if (!ids) {
+    return;
+  }
+
   try {
-    await wordsApi.deleteAllWords();
-    dispatch(deleteWordsSuccess());
+    await wordsApi.deleteWords(ids);
+    dispatch(deleteWordsSuccess(ids));
   } catch (error) {
     dispatch(deleteWordsError(error.message));
   }

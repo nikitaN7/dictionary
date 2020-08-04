@@ -52,6 +52,9 @@ interface FetchWordsSuccessAction {
 
 interface DeleteWordsSuccessAction {
   type: typeof actions.DELETE_WORDS_SUCCESS;
+  payload: {
+    ids: number[];
+  };
 }
 
 interface WordAddSuccessAction {

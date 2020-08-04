@@ -4,10 +4,9 @@ import { FaLanguage, FaHome, FaDumbbell, FaBook } from 'react-icons/fa';
 
 type Props = {
   isActive: boolean;
-  allWordsDelete(): void;
 };
 
-const Nav: React.FC<Props> = ({ isActive, allWordsDelete }) => {
+const Nav: React.FC<Props> = ({ isActive }) => {
   return (
     <nav className={`nav ${isActive ? '' : 'disabled'}`}>
       <FaLanguage className="nav--logo" />

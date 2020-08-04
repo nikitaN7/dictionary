@@ -15,14 +15,14 @@ type Props = {
   allWordsQuantity?: number;
   clearSelectedWords(): void;
   exerciseSelectedWords(): void;
+  deleteSelectedWords(): void;
   onActionClick(id: number | null, action: string): void;
 };
 
 const DictionaryMenu: React.FC<Props> = ({
   selectedWords = [],
-  allWordsQuantity = 0,
-  clearSelectedWords = () => {},
   exerciseSelectedWords = () => {},
+  deleteSelectedWords = () => {},
   onActionClick = () => {}
 }) => {
   const selectedWordQuantity = selectedWords.length;
@@ -42,7 +42,10 @@ const DictionaryMenu: React.FC<Props> = ({
           >
             <FaDumbbell />
           </button>
-          <button disabled={!selectedWordQuantity}>
+          <button
+            disabled={!selectedWordQuantity}
+            onClick={deleteSelectedWords}
+          >
             <FaTrash />
           </button>
         </div>

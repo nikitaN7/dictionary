@@ -13,6 +13,7 @@ import Modal from '../modal/Modal';
 import { filterWords } from '../../utils/filterWords';
 import { fetchWords } from '../../actions/word-list-fetch';
 import { setRepetitionData } from '../../actions/wordsRepetitionActions';
+import { deleteWords } from '../../actions/word-list-remove';
 import { getSortedWords } from '../../selectors';
 
 import { Word } from '../../types/wordsList';
@@ -23,6 +24,7 @@ type Props = {
   pending: boolean;
   words: Word[];
   setRepetitionData(data: number[]): void;
+  deleteWords(ids: number[]): void;
 };
 
 type FilterOptionsType = {
@@ -34,7 +36,8 @@ const Dictionary: React.FC<Props> = ({
   fetchWords,
   words,
   pending,
-  setRepetitionData
+  setRepetitionData,
+  deleteWords
 }) => {
   const [hiddenWords, setHiddenWords] = useState<string>('');
   const [filteredWords, setFilteredWords] = useState<Word[]>([]);
@@ -109,6 +112,11 @@ const Dictionary: React.FC<Props> = ({
     history.push('/trainer');
   };
 
+  const deleteSelectedWords = async () => {
+    await deleteWords(selectedWords);
+    setSelectedWords([]);
+  };
+
   const modalClose = () => {
     setModalShow(false);
   };
@@ -150,6 +158,7 @@ const Dictionary: React.FC<Props> = ({
           selectedWords={selectedWords}
           clearSelectedWords={clearSelectedWords}
           exerciseSelectedWords={exerciseSelectedWords}
+          deleteSelectedWords={deleteSelectedWords}
           onActionClick={onActionClick}
         />
 
@@ -184,6 +193,8 @@ const mapStateToProps = (state: RootState) => {
   };
 };
 
-export default connect(mapStateToProps, { fetchWords, setRepetitionData })(
-  Dictionary
-);
+export default connect(mapStateToProps, {
+  fetchWords,
+  setRepetitionData,
+  deleteWords
+})(Dictionary);

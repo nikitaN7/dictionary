@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
 import Nav from '../nav/Nav';
 import Main from '../main/Main';
 import { preloadImages } from '../../data/preload-images';
-import { allWordsDelete } from '../../actions/word-list-remove';
 import '../../scss/app.scss';
 
-type Props = {
-  allWordsDelete(): void;
-};
+type Props = {};
 
-const Layout: React.FC<Props> = ({ allWordsDelete, children }) => {
+const Layout: React.FC<Props> = ({ children }) => {
   const [navShow, setNavShow] = useState(false);
 
   useEffect(() => {
@@ -25,7 +21,7 @@ const Layout: React.FC<Props> = ({ allWordsDelete, children }) => {
 
   return (
     <div className="container">
-      <Nav isActive={navShow} allWordsDelete={allWordsDelete} />
+      <Nav isActive={navShow} />
 
       <Main navToggle={navToggle} navShow={navShow}>
         {children}
@@ -34,4 +30,4 @@ const Layout: React.FC<Props> = ({ allWordsDelete, children }) => {
   );
 };
 
-export default connect(null, { allWordsDelete })(Layout);
+export default Layout;

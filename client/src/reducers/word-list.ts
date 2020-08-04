@@ -85,10 +85,16 @@ const updateWordList = (
         words: action.payload
       };
 
-    case actions.DELETE_WORDS_SUCCESS:
+    case actions.DELETE_WORDS_SUCCESS: {
+      const { ids } = action.payload;
+
       return {
-        ...initialState
+        ...state,
+        pending: false,
+        error: null,
+        words: state.words.filter(({ id }) => !ids.includes(id))
       };
+    }
 
     case actions.FETCH_WORDS_FAILURE:
     case actions.UPDATE_LIST_FAILURE:

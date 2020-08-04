@@ -69,11 +69,12 @@ export default class WordsApi {
     return res;
   };
 
-  deleteAllWords = async () => {
+  deleteWords = async (ids: number[]) => {
     const res = await axios({
       url: `${this._baseUrl}/`,
       headers: authHeader(),
-      method: 'DELETE'
+      method: 'DELETE',
+      data: { ids }
     });
 
     return res;
