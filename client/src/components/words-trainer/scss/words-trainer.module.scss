@@ -1,9 +1,11 @@
 .wrapper {
-  padding: 30px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   height: 100%;
+  background: white;
+  margin: 30px;
+  border-radius: 4px;
 }
 
 .header {
