@@ -48,7 +48,7 @@
 .play {
   margin-right: 50px;
   &Btn {
-    background: skyblue;
+    background: var(--main-blue-color);
     padding: 0.7em 1em;
     font-size: 0.8rem;
     font-weight: 500;
@@ -56,14 +56,6 @@
     letter-spacing: 1px;
     border-radius: 5px;
     cursor: pointer;
-
-    &:hover svg {
-      fill: #607D8B;
-    }
-
-    &:hover span {
-      color: #607D8B;
-    }
 
     span {
       font-size: inherit;

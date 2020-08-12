@@ -22,22 +22,20 @@
 .field {
   text-align: center;
   input {
-    width: 393px;
-    height: 70px;
-    border-radius: 3px;
-    border: solid 2px #bfbfbf;
-    box-sizing: border-box;
-    text-align: center;
-    font-weight: 500;
+
+    border-radius: 5px;
+    padding: 10px 12px;
+    border: 2px solid #d8dce4;
+    color: var(--main-grey-color);
+    font-weight: 600;
+    font-size: 22px;
     outline: none;
-    vertical-align: middle;
-    display: inline-block;
-    background-color: #f6f6f6;
-    font-size: 30px;
-    padding: 15px 30px;
-    color: slategray;
+    opacity: 0.8;
+    min-height: 64px;
+    padding-right: 35px;
     max-width: 393px;
     width: 100%;
+    text-align: center;
 
     &.success {
       border: solid 2px #66bf66!important;

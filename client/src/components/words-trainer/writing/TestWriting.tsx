@@ -120,7 +120,10 @@ const TestWriting: React.FC<Props> = ({
 
       {!isCompleted ? (
         <button
-          className={repetitionStyles.continueBtn}
+          className={classNames(
+            repetitionStyles.taskCompleteBtn,
+            repetitionStyles.taskCompleteBtnCenter
+          )}
           onClick={handleCompleteClick}
         >
           Complete

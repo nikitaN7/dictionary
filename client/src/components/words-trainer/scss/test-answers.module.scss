@@ -18,6 +18,10 @@
     .itemText {
       color: white;
     }
+
+    .itemCount {
+      color: white
+    }
   }
 
   &.success {
@@ -28,6 +32,10 @@
 
     .itemText {
       color: white;
+    }
+
+    .itemCount {
+      color: white
     }
   }
 
@@ -40,7 +48,7 @@
     padding: 10px 17px;
     text-align: center;
     cursor: pointer;
-    border: solid 2px #d9d9d9;
+    border: solid 2px var(--lighten-main-blue-color);
     border-radius: 5px;
     background-color: #fff;
     position: relative;
@@ -51,14 +59,14 @@
     top: 7px;
     left: 7px;
     font-size: 14px;
-    color: grey;
+    color: var(--main-grey-color);
     font-weight: 500;
   }
 
   &Text {
-    font-weight: 600;
+    font-weight: 500;
     font-size: 16px;
     letter-spacing: 0.5px;
-    color: slategray;
+    color: var(--main-grey-color);
   }
 }

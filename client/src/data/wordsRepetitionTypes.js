@@ -1,28 +1,28 @@
 export default [
   {
     typeId: 1,
-    title: 'Выберите правильный вариант слова',
+    title: 'Choose the right word variant',
     name: 'variants',
     lang: 'en',
     speakers: false
   },
   {
     typeId: 2,
-    title: 'Выберите правильный вариант слова',
+    title: 'Choose the right word variant',
     name: 'variants',
     lang: 'ru',
     speakers: true
   },
   {
     typeId: 3,
-    title: 'Впишите перевод слова',
+    title: 'Enter the word translation',
     name: 'jumbling',
     lang: 'en',
     speakers: false
   },
   {
     typeId: 4,
-    title: 'Напишите услышанное слово',
+    title: 'Write the heard word',
     name: 'writing',
     lang: 'en',
     speakers: true

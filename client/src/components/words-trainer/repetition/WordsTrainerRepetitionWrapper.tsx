@@ -1,8 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { IQueue, IRepetitionType } from '../interfaces';
+
+import WordsTrainerTaskComplete from '../WordsTrainerTaskComplete';
 import WordsTrainerWord from '../WordsTrainerWord';
 import ListeningVoices from '../listening/ListeningVoices';
+
 import wordsRepetitionTypes from '../../../data/wordsRepetitionTypes';
+import { IQueue, IRepetitionType } from '../interfaces';
+import { Word } from '../../../types/wordsList';
+
 import css from '../scss/repetition.module.scss';
 
 type Props = {
@@ -11,7 +16,9 @@ type Props = {
   wordId: number | null | string;
   queue: IQueue[];
   queueIdx: number;
-  wordsList: any;
+  wordsList: {
+    [key: string]: Word;
+  };
   handleNextTestClick: (completedTestInfo: TestInfo) => void;
 };
 
@@ -41,7 +48,7 @@ const WordsTrainerRepetitionWrapper: React.FC<Props> = ({
   children,
   typeId,
   wordId,
-  wordsList = [],
+  wordsList,
   handleNextTestClick = () => {}
 }) => {
   const [completedTestInfo, setCompletedTestInfo] = useState<TestInfo>(
@@ -135,12 +142,10 @@ const WordsTrainerRepetitionWrapper: React.FC<Props> = ({
       {renderRepetitionContent()}
 
       {isTestCompleted && (
-        <button
-          className={css.continueBtn}
-          onClick={() => handleNextTestClick(completedTestInfo)}
-        >
-          Continue
-        </button>
+        <WordsTrainerTaskComplete
+          onNextTestClick={() => handleNextTestClick(completedTestInfo)}
+          examples={wordId ? wordsList[wordId].examples : {}}
+        />
       )}
     </div>
   );

@@ -10,3 +10,8 @@ export interface IRepetitionType {
   lang: string;
   speakers: boolean;
 }
+
+export interface IWordExamples {
+  en?: string;
+  ru?: string;
+}
