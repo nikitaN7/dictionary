@@ -3,10 +3,21 @@ import TestAnswersList from './TestAnswersList';
 import { filterList } from '../../../utils/filterList';
 import { shuffle } from '../../../utils/helpers';
 import styles from '../scss/test-answers.module.scss';
+import { useCallback } from 'react';
 
 const getRandomItems = (list: any[], n: number) => {
   const shuffled = shuffle(list);
   return shuffled.slice(0, n);
+};
+
+const checkKeyIsNumber = (key: any) => {
+  let convertedKey = Number(key);
+
+  if (isNaN(convertedKey) || key === null || key === ' ') {
+    return false;
+  }
+
+  return true;
 };
 
 type TestInfo = {
@@ -56,6 +67,37 @@ const TestAnswers: React.FC<Props> = ({
   useEffect(() => {
     resetAnswerData();
   }, [wordId, wordsList, lang]);
+
+  const handleUserKeyPress = useCallback(
+    event => {
+      event.preventDefault();
+
+      const ALLOWED_KEY_NUMBERS = [1, 2, 3, 4];
+      const { key } = event;
+      const convertedKey = Number(key);
+
+      if (!checkKeyIsNumber(key)) {
+        return;
+      }
+
+      const isAnyKeyAllowed = ALLOWED_KEY_NUMBERS.some(
+        keyItem => keyItem === convertedKey
+      );
+
+      if (isAnyKeyAllowed) {
+        handleAnswerClick(answers[convertedKey - 1]);
+      }
+    },
+    [answers, answerData]
+  );
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleUserKeyPress);
+
+    return () => {
+      window.removeEventListener('keydown', handleUserKeyPress);
+    };
+  }, [handleUserKeyPress]);
 
   useEffect(() => {
     const RANDOM_WORDS_AMOUNT = 3;
