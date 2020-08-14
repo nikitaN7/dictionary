@@ -26,6 +26,11 @@ const TestWriting: React.FC<Props> = ({
     translate: null
   });
 
+  const trimmedInputValue = inputValue.trim().toLowerCase();
+  const trimmedAnswerValue = currentWord.answer
+    ? currentWord.answer.trim().toLowerCase()
+    : currentWord.answer;
+
   const resetState = () => {
     setIsCompleted(false);
     setInputValue('');
@@ -62,8 +67,8 @@ const TestWriting: React.FC<Props> = ({
     setIsCompleted(true);
 
     const testInfo = {
-      hasErrors: inputValue !== currentWord.answer,
-      errorNumbers: inputValue !== currentWord.answer ? 1 : 0
+      hasErrors: trimmedInputValue !== trimmedAnswerValue,
+      errorNumbers: trimmedInputValue !== trimmedAnswerValue ? 1 : 0
     };
 
     handleCompleteTest(testInfo);
@@ -101,8 +106,10 @@ const TestWriting: React.FC<Props> = ({
           onKeyDown={handleInputKeyPress}
           onChange={({ target }) => setInputValue(target.value)}
           className={classNames({
-            [styles.success]: isCompleted && inputValue === currentWord.answer,
-            [styles.error]: isCompleted && inputValue !== currentWord.answer
+            [styles.success]:
+              isCompleted && trimmedInputValue === trimmedAnswerValue,
+            [styles.error]:
+              isCompleted && trimmedInputValue !== trimmedAnswerValue
           })}
         />
       </div>
