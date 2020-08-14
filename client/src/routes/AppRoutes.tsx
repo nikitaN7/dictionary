@@ -4,7 +4,7 @@ import Dictionary from '../components/dictionary/Dictionary';
 import WordsTrainer from '../components/words-trainer/WordsTrainer';
 import Layout from '../components/layout/Layout';
 
-const NotFoundPage: React.FC = () => <div>not found</div>;
+const NotFoundPage: React.FC = () => <div>not found 404</div>;
 
 const AppRoutes: React.FC = () => {
   return (
