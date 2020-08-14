@@ -11,7 +11,7 @@ import { FaEdit, FaTrash, FaVolumeUp, FaEye, FaEyeSlash } from 'react-icons/fa';
 
 import SoundIcon from '../../assets/icons/SoundIcon';
 import Checkbox from '../ui/Checkbox';
-import Preloader from '../preloader/Preloader';
+import Preloader from '../preloader/preloader';
 
 import { Word } from '../../types/wordsList';
 

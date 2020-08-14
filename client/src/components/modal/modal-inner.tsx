@@ -4,7 +4,7 @@ import { FaTimes } from 'react-icons/fa';
 import ModalForm from './modal-form';
 import ModalError from './modal-error';
 import ModalBtn from './modal-btn';
-import Preloader from '../preloader/Preloader';
+import Preloader from '../preloader/preloader';
 import { NewWord } from '../../types/wordsList';
 
 type Props = {
