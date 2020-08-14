@@ -7,7 +7,7 @@
 
 .block {
   background-color: lightgrey;
-  padding: 35px;
+  padding: 18px;
   display: inline-flex;
 }
 
@@ -22,8 +22,8 @@
 }
 
 .lettersItem {
-  min-width: 40px;
-  min-height: 45px;
+  min-width: 32px;
+  min-height: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -31,7 +31,7 @@
   margin: 0 7px;
   color: black;
   font-weight: 700;
-  font-size: 24px;
+  font-size: 20px;
   cursor: pointer;
   margin-bottom: 10px;
 
@@ -62,7 +62,7 @@
 .spaceBlock {
   width: 25px;
   position: relative;
-  max-height: 45px;
+  max-height: 37px;
 
   &:after {
     position: absolute;
