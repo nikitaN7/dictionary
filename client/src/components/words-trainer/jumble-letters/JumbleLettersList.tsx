@@ -7,7 +7,7 @@ type Props = {
 };
 
 const JumbleLettersList: React.FC<Props> = ({
-  letters = [],
+  letters,
   onClick = () => {}
 }) => {
   return (

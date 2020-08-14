@@ -1,31 +1,22 @@
-import React, { useState, useEffect, KeyboardEvent } from 'react';
+import React, { useState, useEffect, KeyboardEvent, useRef } from 'react';
 import classNames from 'classnames/bind';
 import repetitionStyles from '../scss/repetition.module.scss';
 import styles from '../scss/test-writing.module.scss';
-import { useRef } from 'react';
 
-type TestInfo = {
-  hasErrors: boolean;
-  errorNumbers: number;
-};
+import { IWrapperChildren } from '../../../types/wordsRepetition';
 
 type CurrentWord = {
   answer: string | null;
   translate: string | null;
 };
 
-type Props = {
-  wordsList?: any;
-  wordId?: number;
-  lang?: string;
-  handleCompleteTest?(testInfo: TestInfo): void;
-};
+type Props = IWrapperChildren;
 
 const TestWriting: React.FC<Props> = ({
-  wordsList = [],
+  wordsList,
   wordId,
-  lang = 'en',
-  handleCompleteTest = (testInfo: any) => {}
+  lang,
+  handleCompleteTest = () => {}
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isCompleted, setIsCompleted] = useState(false);
@@ -85,8 +76,6 @@ const TestWriting: React.FC<Props> = ({
     const { keyCode } = event;
 
     if (keyCode === ENTER_KEY_CODE) {
-      const { target } = event;
-
       inputRef.current!.blur();
       handleCompleteClick();
     }

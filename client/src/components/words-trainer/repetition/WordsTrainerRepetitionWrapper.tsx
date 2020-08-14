@@ -5,30 +5,30 @@ import WordsTrainerWord from '../WordsTrainerWord';
 import ListeningVoices from '../listening/ListeningVoices';
 
 import wordsRepetitionTypes from '../../../data/wordsRepetitionTypes';
-import { IQueue, IRepetitionType } from '../interfaces';
-import { Word } from '../../../types/wordsList';
+import {
+  IQueue,
+  IRepetitionType,
+  IWrapperChildren,
+  IWordsList,
+  WordId,
+  TypeId,
+  ITestInfo
+} from '../../../types/wordsRepetition';
 
 import css from '../scss/repetition.module.scss';
 
 type Props = {
-  children: any;
-  typeId: number | string;
-  wordId: number | null | string;
+  children: (props: IWrapperChildren) => React.ReactNode;
+  typeId: TypeId;
+  wordId: WordId;
   queue: IQueue[];
   queueIdx: number;
-  wordsList: {
-    [key: string]: Word;
-  };
-  handleNextTestClick: (completedTestInfo: TestInfo) => void;
+  wordsList: IWordsList;
+  handleNextTestClick: (completedTestInfo: ITestInfo) => void;
 };
 
 type NewProps = {
   title: string;
-};
-
-type TestInfo = {
-  hasErrors: boolean;
-  errorNumbers: number;
 };
 
 const initialCompletedTestInfo = {
@@ -51,7 +51,7 @@ const WordsTrainerRepetitionWrapper: React.FC<Props> = ({
   wordsList,
   handleNextTestClick = () => {}
 }) => {
-  const [completedTestInfo, setCompletedTestInfo] = useState<TestInfo>(
+  const [completedTestInfo, setCompletedTestInfo] = useState<ITestInfo>(
     initialCompletedTestInfo
   );
   const [isTestCompleted, setIsTestCompleted] = useState(false);
@@ -109,7 +109,7 @@ const WordsTrainerRepetitionWrapper: React.FC<Props> = ({
     setCompletedTestInfo(initialCompletedTestInfo);
   }, [typeId, wordId]);
 
-  const handleCompleteTest = (testInfo: any) => {
+  const handleCompleteTest = (testInfo: ITestInfo) => {
     setCompletedTestInfo(testInfo);
     setIsTestCompleted(true);
   };

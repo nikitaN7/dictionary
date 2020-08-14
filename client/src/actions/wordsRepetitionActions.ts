@@ -8,7 +8,7 @@ import { RootState, ThunkType } from '../reducers/index';
 import {
   RepetitionActionTypes,
   WordsRepetitionState,
-  Queue,
+  IQueue,
   Word
 } from '../types/wordsRepetition';
 
@@ -31,7 +31,7 @@ export const setRepetitionData = (selectedWords: number[]): ThunkType => (
     [key: string]: Word;
   } = {};
 
-  const queueData: Queue[] = [];
+  const queueData: IQueue[] = [];
   const { words } = getState().wordList;
 
   const filteredWords = words.filter(({ id }: { id: Word['id'] }) => {

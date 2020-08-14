@@ -1,7 +1,7 @@
 import React from 'react';
 import css from './scss/repetition.module.scss';
 
-import { IWordExamples } from './interfaces';
+import { IWordExamples } from '../../types/wordsRepetition';
 
 type Props = {
   onNextTestClick: () => void;

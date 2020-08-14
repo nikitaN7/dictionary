@@ -2,11 +2,7 @@ import React from 'react';
 import styles from '../scss/test-answers.module.scss';
 import classNames from 'classnames/bind';
 
-type Answer = {
-  key: string;
-  correct: boolean;
-  wordId: number | string;
-};
+import { Answer } from '../../../types/wordsRepetition';
 
 type Props = {
   answer: Answer;
@@ -17,11 +13,11 @@ type Props = {
 };
 
 const TestAnswersItem: React.FC<Props> = ({
-  answer = {},
+  answer,
+  idx,
   error = false,
   success = false,
-  onClick = () => {},
-  idx = 0
+  onClick = () => {}
 }) => {
   return (
     <div

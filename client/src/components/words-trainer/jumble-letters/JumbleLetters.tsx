@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useCallback, KeyboardEvent } from 'react';
 import css from '../scss/jumble-letters.module.scss';
+
 import JumbleLettersBlock from './JumbleLettersBlock';
 import JumbleLettersList from './JumbleLettersList';
+
+import { IWrapperChildren } from '../../../types/wordsRepetition';
 
 const detectLettersByKeyEvent = (event: KeyboardEvent<HTMLDivElement>) => {
   const charCode = event.which || event.keyCode;
@@ -22,23 +25,13 @@ const shuffleLetters = (word: string) => {
   return allLetters;
 };
 
-type TestInfo = {
-  hasErrors: boolean;
-  errorNumbers: number;
-};
-
-type Props = {
-  wordsList?: any;
-  wordId?: number;
-  lang?: string;
-  handleCompleteTest?(testInfo: TestInfo): void;
-};
+type Props = IWrapperChildren;
 
 const JumbleLetters: React.FC<Props> = ({
   handleCompleteTest = () => {},
-  wordsList = [],
+  wordsList,
   wordId,
-  lang = 'en'
+  lang
 }) => {
   const [enteredLetters, setEnteredLetters] = useState<string[]>([]);
   const [remainingLetters, setRemainingLetters] = useState<string[]>([]);

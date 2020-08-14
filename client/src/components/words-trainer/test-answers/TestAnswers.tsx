@@ -1,49 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import TestAnswersList from './TestAnswersList';
-import { filterList } from '../../../utils/filterList';
-import { shuffle } from '../../../utils/helpers';
-import styles from '../scss/test-answers.module.scss';
 import { useCallback } from 'react';
+import styles from '../scss/test-answers.module.scss';
 
-const getRandomItems = (list: any[], n: number) => {
-  const shuffled = shuffle(list);
-  return shuffled.slice(0, n);
-};
+import TestAnswersList from './TestAnswersList';
 
-const checkKeyIsNumber = (key: any) => {
-  let convertedKey = Number(key);
+import { filterList } from '../../../utils/filterList';
+import {
+  shuffle,
+  getRandomItems,
+  checkKeyIsNumber
+} from '../../../utils/helpers';
 
-  if (isNaN(convertedKey) || key === null || key === ' ') {
-    return false;
-  }
+import {
+  IWrapperChildren,
+  AnswerData,
+  Answer,
+  AnswerId
+} from '../../../types/wordsRepetition';
 
-  return true;
-};
+type Props = IWrapperChildren;
 
-type TestInfo = {
-  hasErrors: boolean;
-  errorNumbers: number;
-};
-
-type Props = {
-  wordsList?: any;
-  wordId?: number;
-  lang?: string;
-  handleCompleteTest?(testInfo: TestInfo): void;
-};
-
-type AnswerData = {
-  selected?: boolean;
-  successAnswerId?: null | number | string;
-  errorAnswerId?: null | number | string;
-};
-
-type Answer = {
-  key: string;
-  correct: boolean;
-  wordId: number | string;
-};
-
+const DEFAULT_LANG = 'en';
 const initialAnswerData = {
   selected: false,
   successAnswerId: null,
@@ -51,13 +28,13 @@ const initialAnswerData = {
 };
 
 const TestAnswers: React.FC<Props> = ({
-  wordsList = [],
+  wordsList,
   wordId,
-  lang = 'en',
-  handleCompleteTest = (testInfo: any) => {}
+  lang = DEFAULT_LANG,
+  handleCompleteTest = () => {}
 }) => {
   const [answers, setAnswers] = useState<Answer[]>([]);
-  const [correctAnswerId, setCorrectAnswerId] = useState();
+  const [correctAnswerId, setCorrectAnswerId] = useState<AnswerId>(null);
   const [answerData, setAnswerData] = useState<AnswerData>(initialAnswerData);
 
   const resetAnswerData = () => {

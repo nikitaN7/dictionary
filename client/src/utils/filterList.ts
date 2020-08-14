@@ -2,7 +2,7 @@ type FilterItem = { [key: string]: any };
 type FilterFunctions = Array<(value: FilterItem) => boolean>;
 
 export const filterList = (
-  list: FilterItem[],
+  list: FilterItem,
   ...filters: FilterFunctions
 ): FilterItem[] => {
   const filteredKeys = Object.keys(list).filter((key: string) => {

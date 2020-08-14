@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { IQueue } from '../interfaces';
+
+import {
+  IQueue,
+  IWrapperChildren,
+  IWordsList
+} from '../../../types/wordsRepetition';
+
 import WordsTrainerRepetitionWrapper from './WordsTrainerRepetitionWrapper';
 import WordsTrainerRepetitionChooser from './WordsTrainerRepetitionChooser';
 
 type Props = {
   wordsData: {
     queue: IQueue[];
-    words: any;
+    words: IWordsList;
   };
 };
 
@@ -28,7 +34,7 @@ const WordsTrainerRepetition: React.FC<Props> = ({ wordsData }) => {
   const [queue, setQueue] = useState<IQueue[]>([]);
   const [typeId, setTypeId] = useState<number | string>(1);
   const [queueIdx, setQueueIdx] = useState<number>(0);
-  const [wordsList, setWordsList] = useState<any>({});
+  const [wordsList, setWordsList] = useState<IWordsList>({});
   const [wordId, setWordId] = useState<number | null | string>(null);
 
   const [queueErrorsIdx, setQueueErrorsIdx] = useState<number[]>([]);
@@ -162,7 +168,9 @@ const WordsTrainerRepetition: React.FC<Props> = ({ wordsData }) => {
       wordsList={wordsList}
       handleNextTestClick={handleNextTestClick}
     >
-      {(props: any) => <WordsTrainerRepetitionChooser {...props} />}
+      {(props: IWrapperChildren) => (
+        <WordsTrainerRepetitionChooser {...props} />
+      )}
     </WordsTrainerRepetitionWrapper>
   );
 };

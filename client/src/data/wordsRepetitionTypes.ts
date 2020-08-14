@@ -1,4 +1,10 @@
-export default [
+const wordsRepetitionTypes: {
+  typeId: number;
+  title: string;
+  name: string;
+  lang: 'en' | 'ru';
+  speakers: boolean;
+}[] = [
   {
     typeId: 1,
     title: 'Choose the right word variant',
@@ -28,3 +34,5 @@ export default [
     speakers: true
   }
 ];
+
+export default wordsRepetitionTypes;

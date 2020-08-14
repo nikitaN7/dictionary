@@ -2,27 +2,17 @@ import React from 'react';
 import TestAnswersItem from './TestAnswersItem';
 import styles from '../scss/test-answers.module.scss';
 
-type AnswerData = {
-  selected?: boolean;
-  successAnswerId?: null | number | string;
-  errorAnswerId?: null | number | string;
-};
-
-type Answer = {
-  key: string;
-  correct: boolean;
-  wordId: number | string;
-};
+import { AnswerData, Answer } from '../../../types/wordsRepetition';
 
 type Props = {
   list: Answer[];
-  answerData?: AnswerData;
+  answerData: AnswerData;
   handleAnswerClick(answer: Answer): void;
 };
 
 const TestAnswersList: React.FC<Props> = ({
-  list = [],
-  answerData = {},
+  list,
+  answerData,
   handleAnswerClick = () => {}
 }) => {
   return (

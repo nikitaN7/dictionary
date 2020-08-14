@@ -3,9 +3,9 @@ import TestAnswers from '../test-answers/TestAnswers';
 import JumbleLetters from '../jumble-letters/JumbleLetters';
 import TestWriting from '../writing/TestWriting';
 
-type Props = {
-  type: string;
-};
+import { IWrapperChildren } from '../../../types/wordsRepetition';
+
+type Props = IWrapperChildren;
 
 const VARIANTS_REPETITION = 'variants';
 const JUMBLING_REPETITION = 'jumbling';

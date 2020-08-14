@@ -1,9 +1,8 @@
 import { SET_REPETITION_DATA } from '../actions/actions';
 
-export type Queue = {
-  id: number | string;
-  type: number | string;
-};
+export type WordId = string | number | null;
+export type TypeId = number | string;
+export type AnswerId = string | number | null;
 
 export type Word = {
   examples: {
@@ -19,8 +18,55 @@ export type Word = {
   repetition: number;
 };
 
+export interface IWordsList {
+  [key: string]: Word;
+}
+
+export interface ITestInfo {
+  hasErrors: boolean;
+  errorNumbers: number;
+}
+
+export interface AnswerData {
+  selected?: boolean;
+  successAnswerId?: AnswerId;
+  errorAnswerId?: AnswerId;
+}
+
+export interface Answer {
+  key: string;
+  correct: boolean;
+  wordId: number | string;
+}
+
+export interface IQueue {
+  id: number | string;
+  type: number | string;
+}
+
+export interface IRepetitionType {
+  typeId: number | string;
+  title: string;
+  name: string;
+  lang: 'ru' | 'en';
+  speakers: boolean;
+}
+
+export interface IWordExamples {
+  en?: string;
+  ru?: string;
+}
+
+export interface IWrapperChildren {
+  type?: string;
+  lang: 'ru' | 'en';
+  wordId: WordId;
+  wordsList: IWordsList;
+  handleCompleteTest: (testInfo: ITestInfo) => void;
+}
+
 export type WordsRepetitionState = {
-  queue: Array<Queue>;
+  queue: Array<IQueue>;
   words: {
     [key: string]: Word;
   };
