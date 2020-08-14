@@ -55,7 +55,7 @@ const JumbleLetters: React.FC<Props> = ({
       }
 
       const letter = event.key;
-      onLetterClick(letter);
+      onLetterClick(letter.toLowerCase());
     },
     [currentWordText, enteredLetters, remainingLetters]
   );
@@ -76,7 +76,22 @@ const JumbleLetters: React.FC<Props> = ({
     resetState();
 
     const currentWord = wordsList[wordId];
-    setCurrentWordText(currentWord[lang].trim());
+
+    const transformWordStr = (word: string) => {
+      let transformedStr;
+
+      transformedStr = word
+        .trim()
+        .toLowerCase()
+        .replace('/r', '/')
+        .replace(/\d+/g, '')
+        .replace(', ', ' ')
+        .replace(',', '');
+
+      return transformedStr;
+    };
+
+    setCurrentWordText(transformWordStr(currentWord[lang]));
   }, [wordId, wordsList, lang]);
 
   useEffect(() => {

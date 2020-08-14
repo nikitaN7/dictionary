@@ -41,6 +41,10 @@
     font-size: 20px;
   }
 
+  &Wrapper {
+    display: flex;
+  }
+
   &.success {
     background-color: #50c350;
     color: white;
