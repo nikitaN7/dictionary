@@ -1,0 +1,41 @@
+.wrapper {
+  text-align: center;
+  padding: 30px;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--main-grey-color);
+  display: block;
+  padding-top: 24px;
+}
+
+.text {
+  font-size: 14px;
+  color: var(--main-grey-color);
+  font-weight: 500;
+  display: block;
+  margin-bottom: 30px;
+}
+
+.button {
+  background-color: var(--main-blue-color);
+  color: white;
+  position: relative;
+  font-size: 14px;
+  border-radius: 2px;
+  padding: 0.8em 2.8em;
+  font-weight: 500;
+  cursor: pointer;
+  min-width: 150px;
+  text-transform: capitalize;
+}
+
+.image {
+  svg {
+    width: 100px;
+    height: auto;
+    fill: var(--main-grey-color);
+  }
+}
