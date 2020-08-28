@@ -1,0 +1,67 @@
+.wrapper {
+  padding: 30px;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--main-grey-color);
+  display: block;
+  text-align: center;
+}
+
+.row {
+  display: flex;
+  margin: 0 -20px;
+}
+
+.column {
+  flex: 1 1;
+  padding: 20px;
+  box-shadow: 0 0 0 2px var(--lighten-main-blue-color);
+  margin: 40px 20px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.columnTitle {
+  text-align: center;
+  display: block;
+  width: 100%;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--main-grey-color);
+  margin-bottom: 20px;
+}
+
+.button {
+  background-color: var(--main-blue-color);
+  color: white;
+  position: relative;
+  font-size: 14px;
+  border-radius: 2px;
+  padding: 0.8em 2.8em;
+  font-weight: 500;
+  cursor: pointer;
+  min-width: 150px;
+}
+
+.params {}
+
+.paramsGroup {}
+
+.paramsLabel {
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+  color: var(--main-grey-color);
+  border-bottom: 2px solid var(--lighten-main-blue-color);
+  display: inline-flex;
+  margin-bottom: 6px;
+}
+
+.paramsBlock {
+  text-align: left;
+  margin-bottom: 20px;
+}
+

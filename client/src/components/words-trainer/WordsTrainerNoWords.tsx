@@ -13,7 +13,7 @@ const WordsTrainerNoWords: React.FC<Props> = () => {
       </div>
       <span className={css.title}>Not enough words!</span>
       <p className={css.text}>
-        To start repetition you should add at least 4 words.
+        To start repetition you should add to the dictionary at least 4 words.
       </p>
       <NavLink to="/dictionary" exact activeClassName="active">
         <button className={css.button}>Go to the dictionary</button>
