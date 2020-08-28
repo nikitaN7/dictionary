@@ -6,7 +6,6 @@ import ScrollField from './scroll-field';
 import WordsFilter from './words-filter';
 import WordsSearch from './words-search';
 import WordsTable from './words-table';
-import DictionaryHeader from './DictionaryHeader';
 import DictionaryMenu from './DictionaryMenu';
 import Modal from '../modal/Modal';
 
