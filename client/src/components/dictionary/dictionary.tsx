@@ -11,7 +11,6 @@ import DictionaryMenu from './DictionaryMenu';
 import Modal from '../modal/Modal';
 
 import { filterWords } from '../../utils/filterWords';
-import { fetchWords } from '../../actions/word-list-fetch';
 import { setRepetitionData } from '../../actions/wordsRepetitionActions';
 import { deleteWords } from '../../actions/word-list-remove';
 import { getSortedWords } from '../../selectors';
@@ -33,7 +32,6 @@ type FilterOptionsType = {
 };
 
 const Dictionary: React.FC<Props> = ({
-  fetchWords,
   words,
   pending,
   setRepetitionData,
@@ -58,10 +56,6 @@ const Dictionary: React.FC<Props> = ({
   });
 
   const history = useHistory();
-
-  useEffect(() => {
-    fetchWords();
-  }, [fetchWords]);
 
   useEffect(() => {
     const newWords = filterWords(words, filterOptions);
@@ -194,7 +188,6 @@ const mapStateToProps = (state: RootState) => {
 };
 
 export default connect(mapStateToProps, {
-  fetchWords,
   setRepetitionData,
   deleteWords
 })(Dictionary);
