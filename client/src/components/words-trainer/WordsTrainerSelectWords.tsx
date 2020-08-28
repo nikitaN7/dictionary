@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import css from './scss/select-words.module.scss';
 
 import { RootState } from '../../reducers/index';
+import { getRandomItems } from '../../utils/helpers';
+import { Word } from '../../types/wordsList';
+import { setRepetitionData } from '../../actions/wordsRepetitionActions';
 
 import WordsTrainerNoWords from './WordsTrainerNoWords';
 import Checkbox from '../ui/Checkbox';
@@ -24,13 +27,18 @@ enum FilterWords {
   Bookmarks = 2
 }
 
+const MIN_WORDS_REPETITION_LENGTH = 4;
+
 const WordsTrainerSelectWords = () => {
   const allWords = useSelector((state: RootState) => state.wordList.words);
+  const [startRepetitionError, setStartRepetitionError] = useState('');
   const [params, setParams] = useState<Params>({
     order: WordsOrder.CreatedDateAsc,
     filter: FilterWords.All,
-    number: 0
+    number: MIN_WORDS_REPETITION_LENGTH
   });
+
+  const dispatch = useDispatch();
 
   const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const re = /^[0-9\b]+$/;
@@ -57,6 +65,48 @@ const WordsTrainerSelectWords = () => {
       ...state,
       order: value
     }));
+  };
+
+  const getWordsByParams = (): Word[] => {
+    let words: Word[] = [];
+    let filteredWords = [...allWords];
+
+    if (params.filter === FilterWords.Bookmarks) {
+      filteredWords = filteredWords.filter(({ bookmarks }) => bookmarks);
+    }
+
+    if (params.number > filteredWords.length) {
+      return words;
+    }
+
+    if (params.order === WordsOrder.CreatedDateAsc) {
+      words = filteredWords.slice(0, params.number);
+    }
+
+    if (params.order === WordsOrder.CreatedDateDesc) {
+      words = filteredWords.slice(-params.number).reverse();
+    }
+
+    if (params.order === WordsOrder.Random) {
+      words = getRandomItems(filteredWords, params.number);
+    }
+
+    return words;
+  };
+
+  const handleStartRepetition = () => {
+    const readyToRepetitionWords = getWordsByParams();
+
+    if (readyToRepetitionWords.length < MIN_WORDS_REPETITION_LENGTH) {
+      setStartRepetitionError(
+        'Not enough words by current params (Min 4). Please update params or add new words.'
+      );
+
+      return;
+    }
+
+    const wordsIds = readyToRepetitionWords.map(({ id }) => id);
+    dispatch(setRepetitionData(wordsIds));
   };
 
   if (!allWords.length) {
@@ -152,6 +202,14 @@ const WordsTrainerSelectWords = () => {
                 </div>
               </div>
             </div>
+
+            <button className={css.button} onClick={handleStartRepetition}>
+              Start the repetition
+            </button>
+
+            {startRepetitionError && (
+              <p className={css.paramsError}>{startRepetitionError}</p>
+            )}
           </div>
         </div>
       </div>
