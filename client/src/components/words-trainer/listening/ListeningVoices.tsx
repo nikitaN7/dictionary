@@ -7,7 +7,7 @@ import { speakerList } from '../../../data/speakerList';
 const INITIAL_VOICE = 'UK English Male';
 
 type Props = {
-  word?: string;
+  word: string;
 };
 
 declare global {
@@ -20,7 +20,7 @@ const ListeningVoices: React.FC<Props> = ({ word = '' }) => {
   const [activeVoice, setActiveVoice] = useState(INITIAL_VOICE);
 
   const voicePlay = (voice: string) => {
-    window.responsiveVoice.speak(word, voice);
+    window?.responsiveVoice?.speak?.(word, voice);
   };
 
   const handleVoiceChange = (voice: string) => {

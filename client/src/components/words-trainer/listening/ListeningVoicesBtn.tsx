@@ -9,7 +9,11 @@ type Props = {
 const ListeningVoicesBtn: React.FC<Props> = ({ onClick }) => {
   return (
     <div className={styles.play}>
-      <button className={styles.playBtn} onClick={onClick}>
+      <button
+        className={styles.playBtn}
+        data-testid="playButton"
+        onClick={onClick}
+      >
         <SpeakerIcon />
         <span>Space</span>
       </button>

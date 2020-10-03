@@ -41,6 +41,7 @@ const ListeningVoicesSpeaker: React.FC<Props> = ({
         [styles.active]: activeVoice === voice
       })}
       onClick={() => handleVoiceChange(voice)}
+      data-testid={activeVoice === voice ? 'activeSpeaker' : 'unactiveSpeaker'}
     >
       <div className={styles.speakerFlag}>{getFlagIconByCountry(country)}</div>
       <div className={styles.speakerIcon}>{icon}</div>

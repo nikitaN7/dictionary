@@ -21,7 +21,7 @@ const ListeningVoicesList: React.FC<Props> = ({
   speakers
 }) => {
   return (
-    <ul className={styles.speakers}>
+    <ul className={styles.speakers} data-testid="speakerList">
       {speakers.map(speaker => {
         return (
           <ListeningVoicesSpeaker
