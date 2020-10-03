@@ -34,19 +34,21 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --env=jsdom-fourteen",
     "eject": "react-scripts eject",
     "eslint": "node_modules/.bin/eslint src/"
   },
   "proxy": "http://localhost:3001",
   "main": "index.js",
   "devDependencies": {
+    "@testing-library/react": "^11.0.2",
     "@types/classnames": "^2.2.10",
     "@types/react-redux": "^7.1.8",
     "@types/react-router-dom": "^5.1.5",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.4.0",
     "husky": "^3.0.9",
+    "jest-environment-jsdom-fifteen": "^1.0.2",
     "lint-staged": "^9.4.2",
     "prettier": "^1.18.2"
   },

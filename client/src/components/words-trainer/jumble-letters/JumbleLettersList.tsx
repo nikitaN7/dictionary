@@ -12,11 +12,12 @@ const JumbleLettersList: React.FC<Props> = ({
 }) => {
   return (
     <div className={css.list}>
-      <div className={css.letters}>
+      <div className={css.letters} data-testid="jumbling-letters-list">
         {letters.map((letter, idx) => {
           return (
             <button
               key={idx + letter}
+              data-testid="jumbling-letters-list-btn"
               className={css.lettersItem}
               onClick={() => onClick(letter)}
             >

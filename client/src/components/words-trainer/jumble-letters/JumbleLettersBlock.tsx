@@ -41,10 +41,14 @@ const JumbleLettersBlock: React.FC<Props> = ({ word, letters, hasError }) => {
 
   return (
     <div className={css.block}>
-      <div className={css.letters}>
+      <div className={css.letters} data-testid="jumbling-letters-block">
         {word.split('').map((letter, idx) => {
           return (
-            <div className={css.lettersItemWrapper} key={idx + letter}>
+            <div
+              className={css.lettersItemWrapper}
+              key={idx + letter}
+              data-testid="jumbling-letters-block-btn"
+            >
               {renderLetter(letter, idx)}
             </div>
           );

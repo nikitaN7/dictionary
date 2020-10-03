@@ -6,19 +6,12 @@ import JumbleLettersList from './JumbleLettersList';
 
 import { IWrapperChildren } from '../../../types/wordsRepetition';
 
-const detectLettersByKeyEvent = (event: KeyboardEvent<HTMLDivElement>) => {
-  const charCode = event.which || event.keyCode;
-  const charStr = String.fromCharCode(charCode);
-  const lettersRegexp = /[a-z]/i;
-
-  return lettersRegexp.test(charStr);
-};
-
-const shuffleLetters = (word: string) => {
+export const shuffleLetters = (word: string) => {
   const allLetters = word.replace(/\s/g, '').split('');
 
   for (let i = allLetters.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
+
     [allLetters[j], allLetters[i]] = [allLetters[i], allLetters[j]];
   }
 
@@ -46,6 +39,14 @@ const JumbleLetters: React.FC<Props> = ({
     setHasError(false);
   };
 
+  const detectLettersByKeyEvent = (event: KeyboardEvent<HTMLDivElement>) => {
+    const charCode = event.which || event.keyCode;
+    const charStr = String.fromCharCode(charCode);
+    const lettersRegexp = /[a-z]/i;
+
+    return lettersRegexp.test(charStr);
+  };
+
   const handleUserKeyPress = useCallback(
     event => {
       event.preventDefault();
@@ -61,10 +62,10 @@ const JumbleLetters: React.FC<Props> = ({
   );
 
   useEffect(() => {
-    window.addEventListener('keydown', handleUserKeyPress);
+    document.addEventListener('keydown', handleUserKeyPress);
 
     return () => {
-      window.removeEventListener('keydown', handleUserKeyPress);
+      document.removeEventListener('keydown', handleUserKeyPress);
     };
   }, [handleUserKeyPress]);
 
