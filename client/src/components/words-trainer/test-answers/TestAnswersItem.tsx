@@ -10,6 +10,7 @@ type Props = {
   success: boolean;
   onClick(): void;
   idx: number;
+  isCompletedTest: boolean
 };
 
 const TestAnswersItem: React.FC<Props> = ({
@@ -17,7 +18,8 @@ const TestAnswersItem: React.FC<Props> = ({
   idx,
   error = false,
   success = false,
-  onClick = () => {}
+  onClick = () => {},
+  isCompletedTest
 }) => {
   return (
     <div
@@ -27,9 +29,9 @@ const TestAnswersItem: React.FC<Props> = ({
         { [styles.error]: error }
       )}
     >
-      <button className={styles.itemBtn} onClick={onClick}>
+      <button disabled={isCompletedTest} className={styles.itemBtn} onClick={onClick}>
         <span className={styles.itemCount}>{idx + 1}</span>
-        <span className={styles.itemText}>{answer.key}</span>
+        <span className={styles.itemText} data-testid={`test-answer${success ? '-success' : error ? '-error' : ''}`}>{answer.key}</span>
       </button>
     </div>
   );

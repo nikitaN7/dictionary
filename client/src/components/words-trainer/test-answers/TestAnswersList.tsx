@@ -26,6 +26,7 @@ const TestAnswersList: React.FC<Props> = ({
             error={answer.wordId === answerData.errorAnswerId}
             success={answer.wordId === answerData.successAnswerId}
             onClick={() => handleAnswerClick(answer)}
+            isCompletedTest={!!answerData.errorAnswerId || !!answerData.successAnswerId}
           />
         );
       })}
