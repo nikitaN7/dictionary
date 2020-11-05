@@ -12,6 +12,19 @@ type CurrentWord = {
 
 type Props = IWrapperChildren;
 
+const getOppositeLang = (lang: 'ru' | 'en') => {
+  switch (lang) {
+    case 'ru':
+      return 'en';
+
+    case 'en':
+      return 'ru';
+
+    default:
+      return 'en';
+  }
+};
+
 const TestWriting: React.FC<Props> = ({
   wordsList,
   wordId,
@@ -55,7 +68,7 @@ const TestWriting: React.FC<Props> = ({
 
     setCurrentWord({
       answer: currentWord[lang],
-      translate: currentWord['ru']
+      translate: currentWord[getOppositeLang(lang)]
     });
   }, [wordId, wordsList, lang]);
 
@@ -88,7 +101,7 @@ const TestWriting: React.FC<Props> = ({
 
   const renderAnswer = () => {
     return (
-      <div className={styles.answer}>
+      <div className={styles.answer} data-testid="answer">
         <span className={styles.answerTitle}>{currentWord.answer}</span>
         <span className={styles.answerTranslate}>{currentWord.translate}</span>
       </div>
@@ -101,7 +114,10 @@ const TestWriting: React.FC<Props> = ({
       <div className={styles.field}>
         <input
           ref={inputRef}
+          data-testid="input"
+          disabled={isCompleted}
           type="text"
+          name="writing-input"
           value={inputValue}
           onKeyDown={handleInputKeyPress}
           onChange={({ target }) => setInputValue(target.value)}
@@ -116,6 +132,7 @@ const TestWriting: React.FC<Props> = ({
 
       {!isCompleted ? (
         <button
+          data-testid="complete-button"
           className={classNames(
             repetitionStyles.taskCompleteBtn,
             repetitionStyles.taskCompleteBtnCenter
