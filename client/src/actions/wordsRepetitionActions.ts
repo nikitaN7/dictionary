@@ -12,6 +12,8 @@ import {
   Word
 } from '../types/wordsRepetition';
 
+import { v4 as uuidv4 } from 'uuid';
+
 const setRepetitionDataAction = (
   data: WordsRepetitionState
 ): RepetitionActionTypes => {
@@ -42,7 +44,8 @@ export const setRepetitionData = (selectedWords: number[]): ThunkType => (
     const wordData = { ...word };
     const queue = {
       id: word.id,
-      type: 1
+      type: 1,
+      uniqId: uuidv4()
     };
 
     wordData.repetition = 3;

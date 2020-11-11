@@ -9,6 +9,8 @@ import {
 import WordsTrainerRepetitionWrapper from './WordsTrainerRepetitionWrapper';
 import WordsTrainerRepetitionChooser from './WordsTrainerRepetitionChooser';
 
+import { v4 as uuidv4 } from 'uuid';
+
 type Props = {
   wordsData: {
     queue: IQueue[];
@@ -36,6 +38,7 @@ const WordsTrainerRepetition: React.FC<Props> = ({ wordsData }) => {
   const [queueIdx, setQueueIdx] = useState<number>(0);
   const [wordsList, setWordsList] = useState<IWordsList>({});
   const [wordId, setWordId] = useState<number | null | string>(null);
+  const [isRepetitionCompleted, setIsRepetitionCompleted] = useState(false);
 
   const [queueErrorsIdx, setQueueErrorsIdx] = useState<number[]>([]);
   const [wordsErrors, setWordsErrors] = useState<WordsErrors>({});
@@ -75,7 +78,8 @@ const WordsTrainerRepetition: React.FC<Props> = ({ wordsData }) => {
       if (!queueErrors.includes(idx) && parseType < 4) {
         updatedQueue.push({
           id,
-          type: parseType + 1
+          type: parseType + 1,
+          uniqId: uuidv4()
         });
         return;
       }
@@ -125,11 +129,16 @@ const WordsTrainerRepetition: React.FC<Props> = ({ wordsData }) => {
         if (nextType < 5) {
           updatedQueue.push({
             id,
-            type: nextType
+            type: nextType,
+            uniqId: uuidv4()
           });
         }
       }
     });
+
+    if (!updatedQueue.length) {
+      setIsRepetitionCompleted(true);
+    }
 
     setQueue(updatedQueue);
     setWordsErrors(updatedWordsErrors);
@@ -159,6 +168,10 @@ const WordsTrainerRepetition: React.FC<Props> = ({ wordsData }) => {
     setTypeId(nextQueue.type);
   };
 
+  if (isRepetitionCompleted) {
+    return <div data-testid="repetition-completed">Well done!</div>;
+  }
+
   return (
     <WordsTrainerRepetitionWrapper
       typeId={typeId}
@@ -169,7 +182,10 @@ const WordsTrainerRepetition: React.FC<Props> = ({ wordsData }) => {
       handleNextTestClick={handleNextTestClick}
     >
       {(props: IWrapperChildren) => (
-        <WordsTrainerRepetitionChooser {...props} />
+        <WordsTrainerRepetitionChooser
+          {...props}
+          queueId={queue[queueIdx].uniqId}
+        />
       )}
     </WordsTrainerRepetitionWrapper>
   );

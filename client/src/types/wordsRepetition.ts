@@ -42,6 +42,7 @@ export interface Answer {
 export interface IQueue {
   id: number | string;
   type: number | string;
+  uniqId: string;
 }
 
 export interface IRepetitionType {

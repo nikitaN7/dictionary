@@ -19,7 +19,11 @@ const WordsTrainerTaskComplete: React.FC<Props> = ({
         <p className={css.examplesText}>{examples.en}</p>
         <p className={css.examplesText}>{examples.ru}</p>
       </div>
-      <button className={css.taskCompleteBtn} onClick={onNextTestClick}>
+      <button
+        className={css.taskCompleteBtn}
+        data-testid="next-test-button"
+        onClick={onNextTestClick}
+      >
         Continue
       </button>
     </div>

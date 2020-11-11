@@ -102,6 +102,17 @@ const JumbleLetters: React.FC<Props> = ({
     }
   }, [currentWordText]);
 
+  useEffect(() => {
+    if (remainingLetters.length === 0 && enteredLetters.length) {
+      const testInfo = {
+        hasErrors: errorsNumbers > 0,
+        errorNumbers: errorsNumbers
+      };
+
+      handleCompleteTest(testInfo);
+    }
+  }, [remainingLetters, errorsNumbers]);
+
   const getNextLetter = () => {
     const wordWithoutSpaces = currentWordText.replace(/\s/g, '').split('');
     const nextLetter = wordWithoutSpaces[enteredLetters.length];
@@ -134,15 +145,6 @@ const JumbleLetters: React.FC<Props> = ({
         ...state.slice(0, letterIdx),
         ...state.slice(letterIdx + 1)
       ];
-
-      if (remainingLetters.length === 0) {
-        const testInfo = {
-          hasErrors: errorsNumbers > 0,
-          errorNumbers: errorsNumbers
-        };
-
-        handleCompleteTest(testInfo);
-      }
 
       return remainingLetters;
     });

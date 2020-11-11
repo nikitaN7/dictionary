@@ -49,7 +49,9 @@ const WordsTrainerRepetitionWrapper: React.FC<Props> = ({
   typeId,
   wordId,
   wordsList,
-  handleNextTestClick = () => {}
+  handleNextTestClick = () => {},
+  queue,
+  queueIdx
 }) => {
   const [completedTestInfo, setCompletedTestInfo] = useState<ITestInfo>(
     initialCompletedTestInfo
@@ -107,7 +109,7 @@ const WordsTrainerRepetitionWrapper: React.FC<Props> = ({
   useEffect(() => {
     setIsTestCompleted(false);
     setCompletedTestInfo(initialCompletedTestInfo);
-  }, [typeId, wordId]);
+  }, [typeId, wordId, queue]);
 
   const handleCompleteTest = (testInfo: ITestInfo) => {
     setCompletedTestInfo(testInfo);
@@ -143,7 +145,9 @@ const WordsTrainerRepetitionWrapper: React.FC<Props> = ({
 
       {isTestCompleted && (
         <WordsTrainerTaskComplete
-          onNextTestClick={() => handleNextTestClick(completedTestInfo)}
+          onNextTestClick={() => {
+            handleNextTestClick(completedTestInfo);
+          }}
           examples={wordId ? wordsList[wordId].examples : {}}
         />
       )}
