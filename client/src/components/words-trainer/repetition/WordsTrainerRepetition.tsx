@@ -141,6 +141,7 @@ const WordsTrainerRepetition: React.FC<Props> = ({ wordsData }) => {
     }
 
     setQueue(updatedQueue);
+    setQueueIdx(0);
     setWordsErrors(updatedWordsErrors);
   };
 

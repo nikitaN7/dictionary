@@ -9,7 +9,7 @@ const createInitialWord = (id: number, ru: string, en:string) => ({
   en,
   ru,
   id,
-  repetition: 3
+  repetition: 2
 });
 
 export const wordsList = {
