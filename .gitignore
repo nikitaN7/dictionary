@@ -19,3 +19,5 @@ public/robots.txt
 *.sublime-workspace
 
 *.env
+
+!example.env
